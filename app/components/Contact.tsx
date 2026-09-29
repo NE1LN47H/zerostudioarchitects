@@ -4,7 +4,7 @@ import { useState } from 'react';
 export default function Contact() {
   const [status, setStatus] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value.trim();
@@ -45,7 +45,7 @@ export default function Contact() {
               </div>
               <div>
                 <dt>Address</dt>
-                <dd>#1/3793, East hill Road, Chakkorathukulam,<br/>Eranhippalam P.O, Nadakkave,<br/>Kozhikode, Kerala 673006</dd>
+                <dd>#1/3793, East hill Road, Chakkorathukulam,<br />Eranhippalam P.O, Nadakkave,<br />Kozhikode, Kerala 673006</dd>
                 <dd style={{ marginTop: '8px' }}>
                   <a href="https://maps.app.goo.gl/poxkV6PNkGL9cJsSA" target="_blank" rel="noopener noreferrer">
                     View Location on Map
