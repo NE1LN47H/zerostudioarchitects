@@ -37,6 +37,11 @@
     scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 80px);
   }
 
+  html.lenis,
+  html.lenis body {
+    scroll-behavior: auto !important;
+  }
+
   *,
   *::before,
   *::after {

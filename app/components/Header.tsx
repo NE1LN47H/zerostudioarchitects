@@ -40,7 +40,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.bar}>
         <Link
-          href="/#top"
+          href="/"
           className={styles.logo}
           aria-label="Zero Studio Architectures, home"
         >

@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SmoothScroll from "./components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
       className={`${inter.variable} ${instrumentSerif.variable}`}
     >
       <body>
+        <SmoothScroll />
         <a className="skip" href="#main">Skip to content</a>
         <Header />
         {children}
