@@ -186,6 +186,9 @@ export default function PageBook() {
       <div className={styles.bookStage}>
         {sectionContent.map((content, idx) => {
           let sheetClass = styles.sheet;
+          if (idx === 0) {
+            sheetClass += ` ${styles.heroSheet}`;
+          }
 
           if (animatingState) {
             if (idx === animatingState.fromIndex) {

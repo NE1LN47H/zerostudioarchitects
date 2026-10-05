@@ -166,6 +166,15 @@
   display: none;
 }
 
+/* Hero sheet: perfectly vertically centered between top bar and bottom timeline */
+.heroSheet {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+}
+
 /* ==================================================
    3D PHYSICAL PAGE TURN ANIMATIONS (600–800ms)
    ================================================== */
