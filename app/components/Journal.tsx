@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import Image from 'next/image';
+
 export default function Journal() {
   return (
     <section className="section" id="journal" aria-labelledby="journal-title" style={{ paddingTop: 0 }}>
@@ -8,29 +11,53 @@ export default function Journal() {
         </div>
         <div className="grid">
           <article className="card">
-            <a href="#">
-              <div className="ph r-32" aria-hidden="true"></div>
-              <h3>Why we draw every plan by hand first</h3>
-              <p className="meta">Process, 12 March 2026</p>
-            </a>
+            <Link href="/journal/the-architecture-of-quiet-spaces">
+              <div className="ph r-32" aria-hidden="true" style={{ position: 'relative' }}>
+                <Image
+                  src="/projects/HAVEN/1-opt.jpg"
+                  alt="The Architecture of Quiet Spaces"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <h3>The Architecture of Quiet Spaces</h3>
+              <p className="meta">Architecture & Context, 05 October 2026</p>
+            </Link>
           </article>
           <article className="card">
-            <a href="#">
-              <div className="ph r-32" aria-hidden="true"></div>
-              <h3>Choosing timber over concrete</h3>
-              <p className="meta">Materials, 20 January 2026</p>
-            </a>
+            <Link href="/journal/tactility-of-laterite-and-exposed-concrete">
+              <div className="ph r-32" aria-hidden="true" style={{ position: 'relative' }}>
+                <Image
+                  src="/projects/RESIDENCE_AT_EDAVANNA/Q16-opt.jpg"
+                  alt="Tactility of Laterite and Exposed Concrete"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <h3>Tactility of Laterite and Exposed Concrete</h3>
+              <p className="meta">Material & Craft, 18 September 2026</p>
+            </Link>
           </article>
           <article className="card">
-            <a href="#">
-              <div className="ph r-32" aria-hidden="true"></div>
-              <h3>Notes from a site visit</h3>
-              <p className="meta">Site, 4 November 2025</p>
-            </a>
+            <Link href="/journal/breathing-walls-and-tropical-microclimates">
+              <div className="ph r-32" aria-hidden="true" style={{ position: 'relative' }}>
+                <Image
+                  src="/projects/MAUSAM_THE_HOUSE_OF_SEASONS/1_18-opt.jpg"
+                  alt="Breathing Walls and Tropical Microclimates"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <h3>Breathing Walls and Tropical Microclimates</h3>
+              <p className="meta">Climate Responsive, 28 August 2026</p>
+            </Link>
           </article>
         </div>
         <div className="section-foot">
-          <a className="btn" href="#">Read the journal</a>
+          <Link className="btn" href="/journal">Read the journal</Link>
         </div>
       </div>
     </section>
