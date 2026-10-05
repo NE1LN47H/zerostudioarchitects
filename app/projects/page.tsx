@@ -99,6 +99,17 @@ export default function ProjectsPage() {
           </p>
         </header>
 
+        <style>{`
+          .project-card-img {
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          .card a:hover .project-card-img {
+            transform: scale(1.035);
+          }
+        `}</style>
+
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '40px 32px' }}>
           {ALL_PROJECTS.map((proj, idx) => (
             <article key={idx} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
@@ -109,7 +120,7 @@ export default function ProjectsPage() {
                     alt={proj.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                    className="project-card-img"
                   />
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>

@@ -70,14 +70,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(100%);
   transform: scale(1);
-  transition: filter 0.5s ease, transform 0.5s ease;
+  transition: transform 0.5s ease;
   display: block;
 }
 
 .featuredImageWrap:hover .featuredImage {
-  filter: grayscale(0%);
   transform: scale(1.02);
 }
 
@@ -119,14 +117,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(100%);
   transform: scale(1);
-  transition: filter 0.5s ease, transform 0.5s ease;
+  transition: transform 0.5s ease;
   display: block;
 }
 
 .secondaryImageWrap:hover .secondaryImage {
-  filter: grayscale(0%);
   transform: scale(1.02);
 }
 
