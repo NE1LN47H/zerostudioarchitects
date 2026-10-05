@@ -68,6 +68,25 @@ export default function ProjectsPage() {
   return (
     <main id="main" style={{ paddingTop: '80px', minHeight: '100vh', background: 'var(--bg, #ffffff)' }}>
       <div className="wrap" style={{ maxWidth: '1440px', margin: '0 auto', padding: '48px 40px 100px' }}>
+        <Link
+          href="/"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '0.8125rem',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            color: '#767676',
+            textDecoration: 'none',
+            marginBottom: '28px',
+            transition: 'color 0.2s ease',
+          }}
+        >
+          <span>←</span>
+          <span>Back to Home</span>
+        </Link>
+
         <header style={{ marginBottom: '56px' }}>
           <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#767676', display: 'block', marginBottom: '12px' }}>
             Portfolio
