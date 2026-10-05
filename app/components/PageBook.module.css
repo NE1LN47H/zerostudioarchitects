@@ -436,11 +436,26 @@
   }
 
   .sheet {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: contain;
-    padding-bottom: 24px;
-    justify-content: flex-start;
+    display: block !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior-y: contain !important;
+    padding-bottom: 48px !important;
+    justify-content: flex-start !important;
+  }
+
+  .heroSheet,
+  .sheet[data-section-index="1"],
+  .sheet[data-section-index="3"] {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding-bottom: 0 !important;
+    overflow-y: auto !important;
+  }
+
+  .heroSheet {
+    overflow: hidden !important;
   }
 
   .topBar {
@@ -466,35 +481,34 @@
   }
 
   .timeline {
-    padding: 8px 20px 14px;
+    padding: 8px 16px 14px;
+    justify-content: center;
   }
 
   .timelineTrack {
-    left: 20px;
-    right: 20px;
+    left: 24px;
+    right: 24px;
     bottom: 18px;
   }
 
   .timelineItem {
-    gap: 6px;
+    gap: 4px;
+    padding: 4px 6px;
   }
 
   .timelineNum {
-    font-size: 0.5625rem;
+    font-size: 0.625rem;
   }
 
-  .timelineName {
-    font-size: 0.5625rem;
-    letter-spacing: 0.1em;
+  /* Compact timeline on mobile: hide inactive names so items fit gracefully without crowding */
+  .timelineItem[data-active="false"] .timelineName {
+    display: none;
   }
 
-  /* Compact timeline on extra narrow screens */
-  @media (max-width: 480px) {
-    .timelineName {
-      display: none;
-    }
-    .timelineNum {
-      font-size: 0.625rem;
-    }
+  .timelineItem[data-active="true"] .timelineName {
+    display: inline-block;
+    font-size: 0.625rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
   }
 }

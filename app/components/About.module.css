@@ -182,9 +182,19 @@
   gap: 20px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+  .aboutSection {
+    min-height: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+
   .wrap {
     padding: 0 20px;
+    margin: auto 0;
   }
 
   .content {

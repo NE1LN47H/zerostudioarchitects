@@ -1,5 +1,6 @@
 "use client";
 import { useState } from 'react';
+import styles from './Contact.module.css';
 
 export default function Contact() {
   const [status, setStatus] = useState('');
@@ -25,43 +26,14 @@ export default function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      aria-labelledby="contact-title"
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        padding: 0,
-        position: 'relative',
-        backgroundColor: 'var(--bg, #ffffff)',
-      }}
-    >
-      <div className="wrap" style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 40px', width: '100%' }}>
-        <div
-          className="contact-panel glass glass-panel"
-          style={{
-            maxWidth: '1080px',
-            margin: '0 auto',
-            padding: '32px 36px',
-          }}
-        >
+    <section id="contact" aria-labelledby="contact-title" className={styles.section}>
+      <div className={styles.wrap}>
+        <div className={styles.contactPanel}>
           <div>
-            <h2
-              id="contact-title"
-              style={{
-                fontFamily: "var(--serif, 'Instrument Serif', Georgia, serif)",
-                fontSize: 'clamp(2rem, 3.2vw, 2.75rem)',
-                fontWeight: 400,
-                margin: '0 0 6px 0',
-                lineHeight: 1,
-              }}
-            >
+            <h2 id="contact-title" className={styles.title}>
               Start a project
             </h2>
-            <p className="lead" style={{ margin: '0 0 20px 0', fontSize: '0.9375rem', color: '#666666' }}>
+            <p className={styles.lead}>
               We&apos;d love to hear about your project.
             </p>
             <dl className="details" style={{ margin: 0 }}>
@@ -105,22 +77,11 @@ export default function Contact() {
         </div>
 
         {/* Minimal Footer Credits */}
-        <div
-          style={{
-            maxWidth: '1080px',
-            margin: '16px auto 0',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: '0.6875rem',
-            color: '#8c8c8c',
-            letterSpacing: '0.04em',
-          }}
-        >
+        <div className={styles.footerCredits}>
           <span>&copy; {new Date().getFullYear()} Zero Studio Architectures</span>
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <a href="https://www.instagram.com/zerostudioofficial" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Instagram</a>
-            <a href="https://www.facebook.com/zerostudioofficial/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>Facebook</a>
+          <div className={styles.socialLinks}>
+            <a href="https://www.instagram.com/zerostudioofficial" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Instagram</a>
+            <a href="https://www.facebook.com/zerostudioofficial/" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Facebook</a>
           </div>
         </div>
       </div>
