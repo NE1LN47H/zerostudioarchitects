@@ -1,0 +1,480 @@
+/* ==================================================
+   ZERO STUDIO ARCHITECTS — 3D PAGE-TURN NAVIGATION SYSTEM
+   ================================================== */
+
+.bookWrapper {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px);
+  height: calc(100dvh - 80px);
+  height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--bg, #ffffff);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ==================================================
+   TOP BAR: THE STUDIO ───              ◯ ← ── → ◯
+   ================================================== */
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 14px 40px 10px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.labelGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.studioLabel {
+  font-size: 0.75rem; /* ~12px */
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  user-select: none;
+}
+
+.studioLine {
+  display: inline-block;
+  width: 44px;
+  height: 1px;
+  background-color: #1a1a1a;
+}
+
+/* Arrow controls matching reference */
+.arrowGroup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.arrowBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  background: #ffffff;
+  color: #1a1a1a;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+.arrowBtn:hover:not(:disabled) {
+  border-color: #000000;
+  background: #f7f7f7;
+  transform: scale(1.04);
+}
+
+.arrowBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.arrowBtn:disabled {
+  opacity: 0.2;
+  cursor: default;
+  border-color: rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.arrowDivider {
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+/* ==================================================
+   3D BOOK STAGE VIEWPORT
+   ================================================== */
+
+.bookStage {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  perspective: 2400px;
+  perspective-origin: 50% 50%;
+  overflow: hidden;
+  background-color: var(--bg, #ffffff);
+}
+
+/* Individual full-screen page sheet */
+.sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--bg, #ffffff);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, box-shadow;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+.sheet::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sheet::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sheet::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+/* Static active sheet when idle */
+.sheetActive {
+  z-index: 2;
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Inactive sheet hidden */
+.sheetHidden {
+  display: none;
+}
+
+/* ==================================================
+   3D PHYSICAL PAGE TURN ANIMATIONS (600–800ms)
+   ================================================== */
+
+/* NEXT ANIMATION: Current turns LEFT, reveals Underneath */
+.turnNextOutgoing {
+  z-index: 4;
+  transform-origin: 0% 50%;
+  animation: turnPageNext 750ms cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  pointer-events: none;
+  box-shadow: -20px 0 45px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes turnPageNext {
+  0% {
+    transform: rotateY(0deg) translateX(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  35% {
+    filter: brightness(0.96);
+  }
+  100% {
+    transform: rotateY(-82deg) translateX(-45px) scale(0.96);
+    opacity: 0;
+    filter: brightness(0.85);
+  }
+}
+
+.turnNextIncoming {
+  z-index: 2;
+  animation: revealUnderneath 750ms cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  pointer-events: auto;
+}
+
+@keyframes revealUnderneath {
+  0% {
+    transform: scale(0.985);
+    opacity: 0.88;
+    filter: brightness(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+/* PREV ANIMATION: Current turns RIGHT, reveals Previous Underneath */
+.turnPrevOutgoing {
+  z-index: 4;
+  transform-origin: 100% 50%;
+  animation: turnPagePrev 750ms cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  pointer-events: none;
+  box-shadow: 20px 0 45px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes turnPagePrev {
+  0% {
+    transform: rotateY(0deg) translateX(0) scale(1);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  35% {
+    filter: brightness(0.96);
+  }
+  100% {
+    transform: rotateY(82deg) translateX(45px) scale(0.96);
+    opacity: 0;
+    filter: brightness(0.85);
+  }
+}
+
+.turnPrevIncoming {
+  z-index: 2;
+  animation: revealUnderneath 750ms cubic-bezier(0.25, 1, 0.35, 1) forwards;
+  pointer-events: auto;
+}
+
+/* Paper Curl highlight gradient on the turning sheet */
+.turnNextOutgoing::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 140px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.45) 80%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+  animation: curlLight 750ms ease-out forwards;
+}
+
+@keyframes curlLight {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
+
+.turnPrevOutgoing::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 140px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.45) 80%, rgba(0, 0, 0, 0.25) 100%);
+  pointer-events: none;
+  animation: curlLight 750ms ease-out forwards;
+}
+
+/* ==================================================
+   BOTTOM TIMELINE PROGRESS INDICATOR
+   ================================================== */
+
+.timeline {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 12px 40px 18px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.timelineTrack {
+  position: absolute;
+  bottom: 22px;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.12);
+  z-index: 1;
+}
+
+.timelineList {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+}
+
+.timelineItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #8c8c8c;
+  transition: color 0.25s ease;
+  user-select: none;
+}
+
+.timelineItem:hover {
+  color: #1a1a1a;
+}
+
+.timelineItem[data-active="true"] {
+  color: #1a1a1a;
+}
+
+.timelineLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.timelineNum {
+  font-size: 0.625rem; /* ~10px */
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.timelineName {
+  font-size: 0.6875rem; /* ~11px */
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.timelineDotWrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 8px;
+}
+
+.timelineDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #b2b2b2;
+  background-color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+.timelineItem:hover .timelineDot {
+  border-color: #1a1a1a;
+}
+
+.timelineItem[data-active="true"] .timelineDot {
+  border-color: #1a1a1a;
+  background-color: #1a1a1a;
+  transform: scale(1.15);
+}
+
+/* Contact sheet scroll container */
+.contactSheet {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* ==================================================
+   REDUCED MOTION SUPPORT
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .turnNextOutgoing,
+  .turnPrevOutgoing {
+    animation: fadeOutSimple 300ms ease forwards !important;
+    transform: none !important;
+  }
+
+  .turnNextIncoming,
+  .turnPrevIncoming {
+    animation: fadeInSimple 300ms ease forwards !important;
+    transform: none !important;
+  }
+
+  @keyframes fadeOutSimple {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes fadeInSimple {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
+
+/* ==================================================
+   MOBILE RESPONSIVE
+   ================================================== */
+
+@media (max-width: 768px) {
+  .bookWrapper {
+    height: calc(100vh - var(--mobile-header-height, 68px));
+    height: calc(100dvh - var(--mobile-header-height, 68px));
+    height: calc(100svh - var(--mobile-header-height, 68px));
+  }
+
+  .topBar {
+    padding: 10px 20px 8px;
+  }
+
+  .studioLabel {
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+  }
+
+  .studioLine {
+    width: 28px;
+  }
+
+  .arrowBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .arrowDivider {
+    width: 16px;
+  }
+
+  .timeline {
+    padding: 8px 20px 14px;
+  }
+
+  .timelineTrack {
+    left: 20px;
+    right: 20px;
+    bottom: 18px;
+  }
+
+  .timelineItem {
+    gap: 6px;
+  }
+
+  .timelineNum {
+    font-size: 0.5625rem;
+  }
+
+  .timelineName {
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* Compact timeline on extra narrow screens */
+  @media (max-width: 480px) {
+    .timelineName {
+      display: none;
+    }
+    .timelineNum {
+      font-size: 0.625rem;
+    }
+  }
+}

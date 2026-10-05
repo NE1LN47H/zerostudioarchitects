@@ -85,6 +85,35 @@ export default function About() {
     return () => ctx.revert();
   }, []);
 
+  // When SectionContext currentIndex is 1 (About), reveal text
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Check if in section system
+    const isAboutActive = !window.location.search && (!window.location.hash || window.location.hash === "#about");
+    const words = section.querySelectorAll(".about-reveal-word");
+
+    const timer = setTimeout(() => {
+      if (headingFillRef.current) {
+        gsap.to(headingFillRef.current, {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 0.5,
+          ease: "power2.out",
+        });
+      }
+      gsap.to(words, {
+        clipPath: "inset(0 0% 0 0)",
+        duration: 0.8,
+        stagger: 0.012,
+        ease: "power2.out",
+        delay: 0.1,
+      });
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section
       ref={sectionRef}

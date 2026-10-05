@@ -1,6 +1,10 @@
+"use client";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-export default function Footer() {
+export default function Footer({ forceShow }: { forceShow?: boolean }) {
+  const pathname = usePathname();
+  if (pathname === "/" && !forceShow) return null;
   return (
     <footer className="site-footer">
       <div className="wrap">

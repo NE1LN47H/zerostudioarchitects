@@ -4,18 +4,26 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./Header.module.css";
+import { useSection, SECTIONS } from "../context/SectionContext";
 
-const LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
-  { href: "/awards", label: "Awards" },
-  { href: "/journal", label: "Journal" },
-  { href: "/#contact", label: "Contact" },
+interface NavLinkItem {
+  href: string;
+  label: string;
+  id: string;
+}
+
+const LINKS: NavLinkItem[] = [
+  { href: "/", label: "Home", id: "home" },
+  { href: "/#projects", label: "Projects", id: "projects" },
+  { href: "/#about", label: "About", id: "about" },
+  { href: "/awards", label: "Awards", id: "awards" },
+  { href: "/journal", label: "Journal", id: "journal" },
+  { href: "/#contact", label: "Contact", id: "contact" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const { currentIndex, goToSection, isHome } = useSection();
 
   // Close on Escape, and when the viewport grows past the mobile breakpoint
   useEffect(() => {
@@ -37,6 +45,24 @@ export default function Header() {
     };
   }, [open]);
 
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: NavLinkItem) => {
+    if (isHome) {
+      e.preventDefault();
+      const targetIdx = SECTIONS.findIndex((s) => s.id === link.id);
+      if (targetIdx !== -1) {
+        goToSection(targetIdx);
+      }
+      setOpen(false);
+    } else {
+      setOpen(false);
+    }
+  };
+
+  const isCurrentActive = (linkId: string) => {
+    if (!isHome) return false;
+    return SECTIONS[currentIndex]?.id === linkId;
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
@@ -44,6 +70,12 @@ export default function Header() {
           href="/"
           className={styles.logo}
           aria-label="Zero Studio Architectures, home"
+          onClick={(e) => {
+            if (isHome) {
+              e.preventDefault();
+              goToSection(0);
+            }
+          }}
         >
           {/* Set width/height to your PNG's real pixel size (only the ratio matters) */}
           <Image
@@ -63,13 +95,20 @@ export default function Header() {
           data-open={open}
         >
           <ul className={styles.list}>
-            {LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <Link href={href} onClick={() => setOpen(false)}>
-                  {label}
-                </Link>
-              </li>
-            ))}
+            {LINKS.map((link) => {
+              const active = isCurrentActive(link.id);
+              return (
+                <li key={link.id}>
+                  <Link
+                    href={link.href}
+                    className={active ? styles.activeLink : undefined}
+                    onClick={(e) => handleLinkClick(e, link)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -81,15 +120,10 @@ export default function Header() {
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.75"
-            aria-hidden="true"
-          >
-            <path d={open ? "M6 6l12 12M18 6L6 18" : "M4 8h16M4 16h16"} />
-          </svg>
+          <span className={styles.menuIcon} data-open={open} aria-hidden="true">
+            <span className={styles.menuLine} />
+            <span className={styles.menuLine} />
+          </span>
         </button>
       </div>
     </header>
