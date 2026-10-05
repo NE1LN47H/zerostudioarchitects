@@ -6,6 +6,7 @@ import Link from "next/link";
 import styles from "./Header.module.css";
 
 const LINKS = [
+  { href: "/", label: "Home" },
   { href: "/#projects", label: "Projects" },
   { href: "/#about", label: "About" },
   { href: "/awards", label: "Awards" },

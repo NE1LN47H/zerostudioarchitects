@@ -1,14 +1,28 @@
+import Image from "next/image";
+import styles from "./Hero.module.css";
+
+// 18 items matching the 6-column x 3-row layout
+const HERO_CELLS = Array.from({ length: 18 });
+
+// Single existing Zero Studio project image for layout & composition testing
+const TEST_IMAGE = "/projects/HAVEN/1-opt.jpg";
+
 export default function Hero() {
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
-      <div className="ph-fill" aria-hidden="true"></div>
-      <div className="hero-panel glass glass-panel">
-        <h1 id="hero-title">Buildings shaped by their place</h1>
-        <p>Zero Studio Architectures designs homes, cultural spaces and workplaces with clear plans and honest materials.</p>
-        <div className="btn-row">
-          <a className="btn btn-primary" href="#projects">View Projects</a>
-          <a className="btn" href="#contact">Get in Touch</a>
-        </div>
+    <section className={styles.hero} id="hero" aria-label="Architectural projects hero grid">
+      <div className={styles.grid}>
+        {HERO_CELLS.map((_, index) => (
+          <div key={index} className={styles.cell}>
+            <Image
+              src={TEST_IMAGE}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1023px) 25vw, 16.66vw"
+              priority={index < 6}
+              className={styles.image}
+            />
+          </div>
+        ))}
       </div>
     </section>
   );
