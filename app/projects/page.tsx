@@ -1,68 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { PROJECTS_DATA } from "./data";
 
 export const metadata: Metadata = {
   title: "Projects — Zero Studio Architectures",
   description: "Selected architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
 };
-
-const ALL_PROJECTS = [
-  {
-    title: "HAVEN",
-    href: "/projects/HAVEN",
-    image: "/projects/HAVEN/1-opt.jpg",
-    category: "Architecture & Interiors",
-    location: "Kannur, Kerala",
-    year: "2025",
-    area: "3263 sqft",
-  },
-  {
-    title: "Mausam - The House of Seasons",
-    href: "/projects/MAUSAM_THE_HOUSE_OF_SEASONS",
-    image: "/projects/MAUSAM_THE_HOUSE_OF_SEASONS/1_15-opt.jpg",
-    category: "Residential Architecture",
-    location: "Kozhikode, Kerala",
-    year: "2024",
-    area: "4100 sqft",
-  },
-  {
-    title: "Residence at Edavanna",
-    href: "/projects/RESIDENCE_AT_EDAVANNA",
-    image: "/projects/RESIDENCE_AT_EDAVANNA/Q14-opt.jpg",
-    category: "Residential Architecture",
-    location: "Edavanna, Kerala",
-    year: "2024",
-    area: "2850 sqft",
-  },
-  {
-    title: "Screen: The Lantern House",
-    href: "/projects/MAUSAM_THE_HOUSE_OF_SEASONS",
-    image: "/projects/HAVEN/28-opt.jpg",
-    category: "Residential · Award Winner",
-    location: "Tirur, Kerala",
-    year: "2023",
-    area: "3500 sqft",
-  },
-  {
-    title: "Kadalas - The Sea View Cafe",
-    href: "/projects/HAVEN",
-    image: "/projects/HAVEN/6-opt.jpg",
-    category: "Hospitality & Leisure Interiors",
-    location: "South Beach, Calicut",
-    year: "2019",
-    area: "1800 sqft",
-  },
-  {
-    title: "Reviving The Spirit of A Place",
-    href: "/projects/RESIDENCE_AT_EDAVANNA",
-    image: "/projects/RESIDENCE_AT_EDAVANNA/Q16-opt.jpg",
-    category: "Landscape Design · Gold Leaf Award",
-    location: "Malappuram, Kerala",
-    year: "2021",
-    area: "12 Acres",
-  },
-];
 
 export default function ProjectsPage() {
   return (
@@ -83,7 +27,7 @@ export default function ProjectsPage() {
             transition: 'color 0.2s ease',
           }}
         >
-          <span>←</span>
+          <span aria-hidden="true">←</span>
           <span>Back to Home</span>
         </Link>
 
@@ -110,16 +54,16 @@ export default function ProjectsPage() {
           }
         `}</style>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '40px 32px' }}>
-          {ALL_PROJECTS.map((proj, idx) => (
-            <article key={idx} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
-              <Link href={proj.href} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '48px 32px' }}>
+          {PROJECTS_DATA.map((proj) => (
+            <article key={proj.slug} className="card" style={{ display: 'flex', flexDirection: 'column' }}>
+              <Link href={`/projects/${proj.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}>
                 <div style={{ position: 'relative', width: '100%', aspectRatio: '16 / 11', overflow: 'hidden', backgroundColor: '#f0f0f0', marginBottom: '18px' }}>
                   <Image
-                    src={proj.image}
+                    src={proj.heroImage}
                     alt={proj.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="project-card-img"
                   />
                 </div>
