@@ -13,7 +13,6 @@
   justify-content: space-between;
   background-color: var(--bg, #ffffff);
   overflow: hidden;
-  user-select: none;
 }
 
 /* ==================================================
@@ -126,16 +125,16 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
   background-color: var(--bg, #ffffff);
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  will-change: transform, opacity, box-shadow;
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  scrollbar-color: rgba(0, 0, 0, 0.22) transparent;
+  padding-bottom: 48px;
 }
 
 .sheet::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 .sheet::-webkit-scrollbar-track {
@@ -143,16 +142,23 @@
 }
 
 .sheet::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
-/* Static active sheet when idle */
+.sheet::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+/* Static active sheet when idle — pure 2D scroll container */
 .sheetActive {
   z-index: 2;
   transform: none;
   opacity: 1;
   pointer-events: auto;
+  transform-style: flat;
+  will-change: auto;
+  backface-visibility: visible;
 }
 
 /* Inactive sheet hidden */

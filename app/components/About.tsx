@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSection } from "../context/SectionContext";
 import styles from "./About.module.css";
 
 const PARAGRAPH_1 =
@@ -38,33 +39,49 @@ export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingFillRef = useRef<HTMLSpanElement>(null);
 
+  let currentIndex = 1;
+  try {
+    const sectionCtx = useSection();
+    currentIndex = sectionCtx.currentIndex;
+  } catch {
+    // Outside provider
+    currentIndex = 1;
+  }
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const section = sectionRef.current;
     if (!section) return;
 
-    const ctx = gsap.context(() => {
-      const words = section.querySelectorAll(".about-reveal-word");
+    const words = section.querySelectorAll(".about-reveal-word");
+    const heading = headingFillRef.current;
 
+    // Only run animation when Section 02 (About) is active
+    if (currentIndex !== 1) {
+      if (heading) gsap.set(heading, { clipPath: "inset(0 100% 0 0)" });
+      gsap.set(words, { clipPath: "inset(0 100% 0 0)" });
+      return;
+    }
+
+    // Reset initial state before playing
+    if (heading) gsap.set(heading, { clipPath: "inset(0 100% 0 0)" });
+    gsap.set(words, { clipPath: "inset(0 100% 0 0)" });
+
+    const ctx = gsap.context(() => {
+      // Exact sequential horizontal reveal timeline
       const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 110px",
-          end: "bottom 35%",
-          scrub: 1.0,
-          invalidateOnRefresh: true,
-        },
+        delay: 0.28, // smooth delay after page-turn unfolds
       });
 
-      // 1. Horizontally reveal the heading title
-      if (headingFillRef.current) {
+      // 1. Horizontally reveal "The Studio" heading
+      if (heading) {
         tl.to(
-          headingFillRef.current,
+          heading,
           {
             clipPath: "inset(0 0% 0 0)",
             ease: "none",
-            duration: 0.15,
+            duration: 0.28,
           },
           0
         );
@@ -76,43 +93,15 @@ export default function About() {
         {
           clipPath: "inset(0 0% 0 0)",
           ease: "none",
-          stagger: 0.02,
+          stagger: 0.016,
+          duration: 0.08,
         },
-        0.05
+        0.12
       );
     }, section);
 
     return () => ctx.revert();
-  }, []);
-
-  // When SectionContext currentIndex is 1 (About), reveal text
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    // Check if in section system
-    const isAboutActive = !window.location.search && (!window.location.hash || window.location.hash === "#about");
-    const words = section.querySelectorAll(".about-reveal-word");
-
-    const timer = setTimeout(() => {
-      if (headingFillRef.current) {
-        gsap.to(headingFillRef.current, {
-          clipPath: "inset(0 0% 0 0)",
-          duration: 0.5,
-          ease: "power2.out",
-        });
-      }
-      gsap.to(words, {
-        clipPath: "inset(0 0% 0 0)",
-        duration: 0.8,
-        stagger: 0.012,
-        ease: "power2.out",
-        delay: 0.1,
-      });
-    }, 400);
-
-    return () => clearTimeout(timer);
-  }, []);
+  }, [currentIndex]);
 
   return (
     <section

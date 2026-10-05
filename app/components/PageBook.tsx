@@ -52,7 +52,15 @@ export default function PageBook() {
     }
   }, [currentIndex, previousIndex, direction, isAnimating, setIsAnimating]);
 
-  // Touch Swipe Handling for Mobile
+  // Reset scroll position to top when entering a section
+  useEffect(() => {
+    const activeEl = document.querySelector(`[data-section-index="${currentIndex}"]`);
+    if (activeEl) {
+      activeEl.scrollTop = 0;
+    }
+  }, [currentIndex]);
+
+  // Touch Swipe Handling for Mobile (non-blocking for vertical scroll)
   const touchCoords = useRef<{ x: number; y: number; time: number } | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -62,6 +70,16 @@ export default function PageBook() {
       y: e.touches[0].clientY,
       time: Date.now(),
     };
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchCoords.current || e.touches.length !== 1) return;
+    const deltaX = Math.abs(e.touches[0].clientX - touchCoords.current.x);
+    const deltaY = Math.abs(e.touches[0].clientY - touchCoords.current.y);
+    // If vertical movement is dominant, cancel swipe detection so vertical scrolling is 100% natural
+    if (deltaY > 10 && deltaY > deltaX) {
+      touchCoords.current = null;
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -105,6 +123,7 @@ export default function PageBook() {
     <div
       className={styles.bookWrapper}
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {/* Top Bar: Editorial Studio Label & Minimal Navigation Arrows */}
@@ -198,6 +217,8 @@ export default function PageBook() {
               key={idx}
               className={sheetClass}
               data-section-index={idx}
+              data-lenis-prevent="true"
+              tabIndex={0}
               aria-hidden={idx !== currentIndex}
             >
               {content}

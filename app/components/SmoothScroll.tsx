@@ -1,17 +1,23 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "lenis/dist/lenis.css";
 
 export default function SmoothScroll() {
+  const pathname = usePathname();
+
   useEffect(() => {
     // Register GSAP plugins
     gsap.registerPlugin(ScrollTrigger);
 
-    // Initialize Lenis smooth scroll
+    // On homepage ("/"), sections are handled as full-screen page sheets with native scrolling
+    if (pathname === "/") return;
+
+    // Initialize Lenis smooth scroll on subpages
     const lenis = new Lenis({
       duration: 1.25,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
