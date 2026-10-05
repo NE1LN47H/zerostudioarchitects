@@ -80,10 +80,14 @@
 /* ---------- Mobile ---------- */
 
 @media (max-width: 768px) {
+    :root {
+        --mobile-header-height: 68px;
+    }
+
     .bar {
         display: flex;
         justify-content: space-between;
-        min-height: 68px;
+        min-height: var(--mobile-header-height, 68px);
     }
 
     .logoImg {
