@@ -109,12 +109,7 @@ export default function PageBook() {
       <Projects key="sec-2" />,
       <Awards key="sec-3" />,
       <Journal key="sec-4" />,
-      (
-        <div key="sec-5" className={styles.contactSheet}>
-          <Contact />
-          <Footer forceShow />
-        </div>
-      ),
+      <Contact key="sec-5" />,
     ],
     []
   );

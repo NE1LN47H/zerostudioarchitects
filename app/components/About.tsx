@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useSection } from "../context/SectionContext";
 import styles from "./About.module.css";
 
@@ -38,19 +37,17 @@ function RevealParagraph({ text }: { text: string }) {
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingFillRef = useRef<HTMLSpanElement>(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   let currentIndex = 1;
   try {
     const sectionCtx = useSection();
     currentIndex = sectionCtx.currentIndex;
   } catch {
-    // Outside provider
     currentIndex = 1;
   }
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
     const section = sectionRef.current;
     if (!section) return;
 
@@ -71,7 +68,7 @@ export default function About() {
     const ctx = gsap.context(() => {
       // Exact sequential horizontal reveal timeline
       const tl = gsap.timeline({
-        delay: 0.28, // smooth delay after page-turn unfolds
+        delay: 0.28,
       });
 
       // 1. Horizontally reveal "The Studio" heading
@@ -87,7 +84,7 @@ export default function About() {
         );
       }
 
-      // 2. Horizontally reveal each word sequentially across both paragraphs
+      // 2. Horizontally reveal each word sequentially
       tl.to(
         words,
         {
@@ -106,12 +103,12 @@ export default function About() {
   return (
     <section
       ref={sectionRef}
-      className="section intro"
+      className={styles.aboutSection}
       id="about"
       aria-label="Introduction"
     >
-      <div className="wrap">
-        <div className="section-head" style={{ marginBottom: "32px" }}>
+      <div className={styles.wrap}>
+        <div style={{ marginBottom: "24px" }}>
           <h2 id="studio-title" className={styles.headingWrap}>
             <span className={styles.headingBase}>The Studio</span>
             <span
@@ -126,9 +123,57 @@ export default function About() {
 
         <div className={styles.content}>
           <RevealParagraph text={PARAGRAPH_1} />
-          <RevealParagraph text={PARAGRAPH_2} />
+        </div>
+
+        <div className={styles.readMoreRow}>
+          <button
+            type="button"
+            className={styles.readMoreBtn}
+            onClick={() => setModalOpen(true)}
+            aria-haspopup="dialog"
+          >
+            <span>READ MORE</span>
+            <span className={styles.arrowIcon} aria-hidden="true">
+              →
+            </span>
+          </button>
         </div>
       </div>
+
+      {/* Complete Studio Philosophy Modal */}
+      {modalOpen && (
+        <div
+          className={styles.modalOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-studio-title"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeader}>
+              <h2 id="modal-studio-title" className={styles.modalTitle}>
+                The Studio
+              </h2>
+              <button
+                type="button"
+                className={styles.modalCloseBtn}
+                onClick={() => setModalOpen(false)}
+                aria-label="Close studio description"
+              >
+                CLOSE ✕
+              </button>
+            </div>
+
+            <div className={styles.modalBody}>
+              <p>{PARAGRAPH_1}</p>
+              <p>{PARAGRAPH_2}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

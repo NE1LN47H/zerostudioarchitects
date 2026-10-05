@@ -1,0 +1,352 @@
+/* ==================================================
+   ZERO STUDIO ARCHITECTS — AWARDS CURATED PREVIEW
+   Editorial architectural grid fitting 100svh
+   ================================================== */
+
+.awardsSection {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--bg, #ffffff);
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.heading {
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(2.2rem, 3.2vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1;
+}
+
+.subheading {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #767676;
+  font-weight: 500;
+  margin: 0;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.12);
+  margin: 0;
+}
+
+/* 3 columns x 2 rows editorial grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  gap: 0;
+}
+
+.awardItem {
+  padding: 22px 28px 22px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.awardItem:nth-child(3n) {
+  padding-right: 0;
+}
+
+.awardItem:nth-child(n+4) {
+  border-bottom: none;
+}
+
+.itemTop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.number {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: #8c8c8c;
+  font-weight: 500;
+}
+
+.year {
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  color: #8c8c8c;
+  font-weight: 500;
+}
+
+.awardName {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+  line-height: 1.35;
+}
+
+.projectName {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.organization {
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
+  color: #767676;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.footerRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.viewAllLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.viewAllLink:hover {
+  opacity: 0.65;
+}
+
+.viewAllLink:hover .arrowIcon {
+  transform: translateX(5px);
+}
+
+.arrowIcon {
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+/* ==================================================
+   FULL AWARDS MODAL OVERLAY
+   ================================================== */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  background: #ffffff;
+  width: 100%;
+  max-width: 860px;
+  max-height: 85vh;
+  border-radius: 0;
+  overflow-y: auto;
+  padding: 44px 48px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modalTitle {
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: 2.25rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.modalCloseBtn {
+  background: transparent;
+  border: none;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #666666;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  color: #000000;
+}
+
+.modalSectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+}
+
+.modalList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 36px 0;
+}
+
+.modalItem {
+  margin-bottom: 24px;
+}
+
+.modalProjectTitle {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+  color: #1a1a1a;
+}
+
+.modalAwardSublist {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+  color: #555555;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ==================================================
+   RESPONSIVE (TABLET & MOBILE)
+   ================================================== */
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .awardItem:nth-child(3n) {
+    padding-right: 28px;
+  }
+
+  .awardItem:nth-child(2n) {
+    padding-right: 0;
+  }
+
+  .awardItem:nth-child(n+5) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .headerRow {
+    margin-bottom: 12px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .awardItem {
+    padding: 12px 14px 12px 0;
+    min-height: 90px;
+  }
+
+  .awardItem:nth-child(2n) {
+    padding-right: 0;
+  }
+
+  /* Show 4 top awards on mobile phone preview to fit 100svh cleanly */
+  .awardItem:nth-child(n+5) {
+    display: none;
+  }
+
+  .awardItem:nth-child(3),
+  .awardItem:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .awardName {
+    font-size: 0.6875rem;
+  }
+
+  .projectName {
+    font-size: 0.75rem;
+  }
+
+  .organization {
+    font-size: 0.625rem;
+  }
+
+  .footerRow {
+    padding-top: 14px;
+  }
+
+  .modalContent {
+    padding: 24px 20px;
+  }
+}
