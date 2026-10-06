@@ -46,8 +46,10 @@ export default async function DynamicProjectPage({ params }: ProjectPageProps) {
       : undefined;
 
   const nextProject =
-    currentIndex !== -1 && currentIndex < allProjects.length - 1
-      ? { slug: allProjects[currentIndex + 1].slug, title: allProjects[currentIndex + 1].title }
+    allProjects.length > 1
+      ? currentIndex !== -1 && currentIndex < allProjects.length - 1
+        ? { slug: allProjects[currentIndex + 1].slug, title: allProjects[currentIndex + 1].title }
+        : { slug: allProjects[0].slug, title: allProjects[0].title }
       : undefined;
 
   return (

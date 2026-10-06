@@ -3,12 +3,15 @@ export interface ProjectGalleryImage {
   alt: string;
   caption?: string;
   aspectRatio?: 'landscape' | 'portrait' | 'wide';
+  layout?: 'full' | 'wide' | 'half' | 'large' | 'portrait';
+  order?: number;
 }
 
 export interface ProjectDetail {
   slug: string;
   title: string;
   subtitle: string;
+  editorialIntro?: string;
   category: string;
   year: string;
   location: string;
@@ -31,6 +34,7 @@ export const PROJECTS_DATA: ProjectDetail[] = [
     slug: "HAVEN",
     title: "HAVEN",
     subtitle: "A quiet residential refuge anchored by laterite and filtered daylight.",
+    editorialIntro: "A home that embraces its landscape, working with local materials and tropical climate to create a calm, grounded living environment for a contemporary family.",
     category: "Architecture & Interiors",
     year: "2025",
     location: "Kannur, Kerala, India",
@@ -52,7 +56,12 @@ export const PROJECTS_DATA: ProjectDetail[] = [
       {
         heading: "Spatial Choreography & Light",
         paragraphs: [
-          "Inside, spaces unfold linearly—living and dining flow seamlessly into an expanded kitchen, while private bedrooms branch off to the west, buffered by a family lounge and sculptural staircase. The layout remains open yet selectively screened for privacy.",
+          "Inside, spaces unfold linearly—living and dining flow seamlessly into an expanded kitchen, while private bedrooms branch off to the west, buffered by a family lounge and sculptural staircase. The layout remains open yet selectively screened for privacy."
+        ]
+      },
+      {
+        heading: "Materiality & Climate",
+        paragraphs: [
           "Natural ventilation and filtered daylight animate the interiors through calibrated apertures and the perforated laterite envelope, allowing the home to engage its tropical setting with quiet sensitivity and climatic responsiveness."
         ]
       }

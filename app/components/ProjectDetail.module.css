@@ -1,85 +1,152 @@
+/* ==========================================================================
+   Zero Studio Architectures — Editorial Monograph Project Detail Styles
+   Minimal, Architectural, Image-Led, Monograph-Style Presentation
+   ========================================================================== */
+
+.pageMain {
+  padding-top: clamp(84px, 8vw, 110px);
+  min-height: 100vh;
+  background-color: var(--bg, #ffffff);
+  color: var(--ink, #111111);
+}
+
 .container {
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 48px 40px 120px;
+  padding: 24px clamp(20px, 5vw, 64px) 120px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   01 — Top Breadcrumb Navigation
+   -------------------------------------------------------------------------- */
+.topNav {
+  margin-bottom: 28px;
 }
 
 .backLink {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.8125rem;
-  letter-spacing: 0.12em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  font-weight: 500;
   color: #767676;
   text-decoration: none;
-  margin-bottom: 36px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
 .backLink:hover {
-  color: var(--ink, #000000);
-  transform: translateX(-4px);
+  color: #000000;
+  transform: translateX(-3px);
 }
 
-.header {
+.backArrow {
+  font-size: 0.8125rem;
+  display: inline-block;
+  transition: transform 0.25s ease;
+}
+
+.backLink:hover .backArrow {
+  transform: translateX(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   02 — Editorial Project Header
+   -------------------------------------------------------------------------- */
+.projectHeader {
   margin-bottom: 40px;
 }
 
-.categoryRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+.metaRow {
+  margin-bottom: 14px;
 }
 
-.category {
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
+.metaText {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: #767676;
+  color: #777777;
   font-weight: 500;
 }
 
-.dividerDot {
-  display: inline-block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: #bbbbbb;
-}
-
-.year {
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: #888888;
-}
-
-.title {
+.projectTitle {
   font-family: var(--serif, 'Instrument Serif', Georgia, serif);
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-size: clamp(2.8rem, 5.5vw, 4.6rem);
   font-weight: 400;
-  line-height: 1.08;
-  margin: 0 0 16px 0;
-  color: var(--ink, #1a1a1a);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: #111111;
+  margin: 0 0 20px 0;
 }
 
-.subtitle {
-  font-size: clamp(1.125rem, 1.8vw, 1.35rem);
-  line-height: 1.5;
-  color: var(--ink-2, #555555);
-  max-width: 820px;
+.introRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 40px 60px;
+  align-items: baseline;
+  max-width: 1320px;
+}
+
+.shortDescription {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.48;
+  color: #1a1a1a;
   margin: 0;
+  max-width: 580px;
+}
+
+.editorialIntro {
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+  color: #444444;
+  margin: 0;
+  max-width: 480px;
+}
+
+/* --------------------------------------------------------------------------
+   03 — Large Hero Image
+   -------------------------------------------------------------------------- */
+.heroSection {
+  width: 100%;
+  margin: 36px 0 44px;
+}
+
+.heroWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 720px;
+  overflow: hidden;
+  background-color: #f4f4f4;
+}
+
+.heroImg {
+  object-fit: cover;
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.heroWrapper:hover .heroImg {
+  transform: scale(1.015);
+}
+
+/* --------------------------------------------------------------------------
+   04 — Project Specifications Strip
+   -------------------------------------------------------------------------- */
+.specsSection {
+  margin-bottom: 56px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 24px;
 }
 
 .specsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  padding: 24px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 40px 0 56px;
+  gap: 24px 32px;
 }
 
 .specItem {
@@ -88,254 +155,599 @@
 }
 
 .specLabel {
-  font-size: 0.6875rem;
+  font-size: 0.65rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #888888;
-  margin-bottom: 4px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
 .specValue {
   font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--ink, #1a1a1a);
+  font-weight: 600;
+  color: #111111;
   line-height: 1.4;
 }
 
-.heroImageWrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background-color: #f2f2f2;
-  margin-bottom: 64px;
+/* --------------------------------------------------------------------------
+   05 — Editorial Project Statement
+   -------------------------------------------------------------------------- */
+.statementSection {
+  margin: 56px 0 68px;
+  max-width: 1000px;
 }
 
-.heroImage {
-  object-fit: cover;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.narrativeSection {
-  max-width: 840px;
-  margin: 0 auto 72px;
-}
-
-.lead {
+.statementQuote {
+  margin: 0;
+  padding-left: clamp(24px, 3.5vw, 36px);
+  border-left: 2px solid #1a1a1a;
   font-family: var(--serif, 'Instrument Serif', Georgia, serif);
-  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
-  line-height: 1.55;
-  color: var(--ink, #1a1a1a);
-  margin-bottom: 48px;
-  padding-bottom: 28px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: clamp(1.75rem, 2.7vw, 2.5rem);
+  line-height: 1.32;
+  color: #111111;
+  letter-spacing: -0.01em;
 }
 
-.storyBlock {
-  margin-bottom: 36px;
+/* --------------------------------------------------------------------------
+   06 — Design Narrative (The Approach)
+   -------------------------------------------------------------------------- */
+.narrativeSection {
+  margin: 68px 0 88px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  padding-top: 48px;
 }
 
-.storyHeading {
-  font-size: 1.25rem;
-  font-weight: 500;
-  margin: 0 0 14px 0;
-  letter-spacing: 0.01em;
-  color: var(--ink, #1a1a1a);
-}
-
-.paragraph {
-  font-size: 1.0625rem;
-  line-height: 1.85;
-  color: var(--ink-2, #444444);
-  margin: 0 0 18px 0;
-}
-
-.awardsBox {
-  max-width: 840px;
-  margin: 0 auto 72px;
-  padding: 24px 32px;
-  background-color: #f8f8f8;
-  border-left: 3px solid var(--ink, #1a1a1a);
-}
-
-.awardTitle {
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #666666;
-  margin: 0 0 10px 0;
-  font-weight: 600;
-}
-
-.awardList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.awardItem {
-  font-size: 0.9375rem;
-  color: var(--ink, #1a1a1a);
-  font-weight: 500;
-  line-height: 1.6;
-}
-
-.gallerySection {
-  margin-bottom: 88px;
-}
-
-.galleryHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 32px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.galleryTitle {
-  font-size: 0.8125rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #767676;
-  margin: 0;
-}
-
-.galleryCount {
-  font-size: 0.75rem;
-  color: #999999;
-  letter-spacing: 0.08em;
-}
-
-.galleryGrid {
+.narrativeLayout {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px 32px;
+  grid-template-columns: 180px 1fr;
+  gap: 40px 64px;
 }
 
-.galleryCard {
+.narrativeSideLabel {
+  padding-top: 4px;
+}
+
+.sideLabelText {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888888;
+  font-weight: 600;
+  position: sticky;
+  top: 100px;
+}
+
+.narrativeContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 48px 56px;
+  max-width: 1100px;
+}
+
+.narrativeBlock {
   display: flex;
   flex-direction: column;
 }
 
-.galleryCardWide {
-  grid-column: span 2;
+.narrativeHeading {
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #111111;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.01em;
 }
 
-.galleryImageWrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 11;
-  overflow: hidden;
-  background-color: #f2f2f2;
-  margin-bottom: 12px;
+.narrativeBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.galleryImageWrapperWide {
-  aspect-ratio: 21 / 10;
-}
-
-.galleryImageWrapperPortrait {
-  aspect-ratio: 4 / 5;
-}
-
-.galleryImage {
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.galleryCard:hover .galleryImage {
-  transform: scale(1.025);
-}
-
-.galleryCaption {
-  font-size: 0.8125rem;
-  color: #777777;
-  line-height: 1.5;
+.narrativeParagraph {
+  font-size: 0.9375rem;
+  line-height: 1.82;
+  color: #444444;
   margin: 0;
 }
 
-.footerNav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 48px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  max-width: 1400px;
-  margin: 0 auto;
+/* --------------------------------------------------------------------------
+   07 — Curated Image Gallery (Architectural Photo Essay)
+   -------------------------------------------------------------------------- */
+.gallerySection {
+  margin: 64px 0 80px;
 }
 
-.footerBtn {
+.galleryRhythm {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Row Type: Pair (50% / 50%) */
+.galleryRowPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+/* Row Type: Wide (100% full width) */
+.galleryRowWide {
+  display: block;
+  width: 100%;
+}
+
+/* Row Type: Split with Recognitions (62% Image / 38% Recognition) */
+.galleryRowSplit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+/* Individual Figure */
+.figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: #f2f2f2;
+}
+
+.imageWrapperHalf {
+  aspect-ratio: 16 / 11;
+}
+
+.imageWrapperWide {
+  aspect-ratio: 21 / 10;
+  max-height: 640px;
+}
+
+.imageWrapperSplit {
+  aspect-ratio: 16 / 10;
+}
+
+.imageWrapperPortrait {
+  aspect-ratio: 4 / 5;
+}
+
+.imageWrapperFull {
+  aspect-ratio: 16 / 9;
+  max-height: 680px;
+}
+
+.photo {
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.figure:hover .photo {
+  transform: scale(1.02);
+}
+
+/* Subtle Minimal Caption */
+.caption {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #666666;
+}
+
+.captionNum {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #222222;
+  flex-shrink: 0;
+}
+
+.captionText {
+  color: #555555;
+  font-weight: 400;
+}
+
+/* --------------------------------------------------------------------------
+   08 — Minimal Architectural Recognitions & Citations Block
+   -------------------------------------------------------------------------- */
+.recognitionBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 4vw, 44px) clamp(24px, 3vw, 40px);
+  background-color: #f8f8f8;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.recognitionStandalone {
+  margin: 48px 0;
+  max-width: 600px;
+}
+
+.recognitionLabel {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #888888;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.recognitionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.recognitionItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.awardTitle {
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #111111;
+  margin: 0 0 4px 0;
+}
+
+.awardCitation {
+  font-size: 0.8125rem;
+  color: #666666;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.awardDash {
+  margin-top: 12px;
+  font-size: 0.8125rem;
+  color: #999999;
+}
+
+/* --------------------------------------------------------------------------
+   09 — Final Closing Photograph
+   -------------------------------------------------------------------------- */
+.finalImageSection {
+  margin: 72px 0 88px;
+}
+
+/* --------------------------------------------------------------------------
+   10 — Project Pagination / Next Project Navigation
+   -------------------------------------------------------------------------- */
+.projectNav {
+  margin-top: 64px;
+  padding-top: 36px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.allProjectsBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border: 1px solid #d4d4d4;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #111111;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  background-color: transparent;
+}
+
+.allProjectsBtn:hover {
+  border-color: #111111;
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.nextProjectLink {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.875rem;
-  letter-spacing: 0.08em;
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 500;
-  color: var(--ink, #1a1a1a);
+  color: #111111;
   text-decoration: none;
-  padding: 10px 0;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
 }
 
-.footerBtn:hover {
+.nextProjectLink:hover {
   color: #000000;
-}
-
-.footerBtnNext:hover {
   transform: translateX(4px);
 }
 
-.footerBtnPrev:hover {
-  transform: translateX(-4px);
+.nextArrow {
+  font-size: 0.9375rem;
+  display: inline-block;
+  transition: transform 0.25s ease;
 }
 
-.centerAllBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.8125rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #767676;
-  text-decoration: none;
-  padding: 8px 16px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  transition: all 0.2s ease;
+.nextProjectLink:hover .nextArrow {
+  transform: translateX(3px);
 }
 
-.centerAllBtn:hover {
-  border-color: var(--ink, #1a1a1a);
-  color: var(--ink, #1a1a1a);
+.mobileDash {
+  display: none;
 }
 
-@media (max-width: 860px) {
-  .container {
-    padding: 32px 20px 80px;
-  }
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
 
+/* Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
   .specsGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px 28px;
+  }
+
+  .narrativeLayout {
+    grid-template-columns: 140px 1fr;
+    gap: 32px 40px;
+  }
+
+  .introRow {
+    grid-template-columns: 1fr;
     gap: 18px;
   }
 
-  .galleryGrid {
+  .galleryRowSplit {
     grid-template-columns: 1fr;
-    gap: 28px;
   }
 
-  .galleryCardWide {
-    grid-column: span 1;
+  .recognitionBox {
+    height: auto;
+  }
+}
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .pageMain {
+    padding-top: 76px;
   }
 
-  .galleryImageWrapperWide {
+  .container {
+    padding: 16px 20px 72px;
+  }
+
+  .topNav {
+    margin-bottom: 20px;
+  }
+
+  .backLink {
+    font-size: 0.65rem;
+  }
+
+  .metaRow {
+    margin-bottom: 10px;
+  }
+
+  .metaText {
+    font-size: 0.625rem;
+  }
+
+  .projectTitle {
+    font-size: clamp(2.3rem, 10vw, 3.4rem);
+    margin-bottom: 14px;
+  }
+
+  .introRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .shortDescription {
+    font-size: 1.05rem;
+    line-height: 1.45;
+  }
+
+  .editorialIntro {
+    font-size: 1.05rem;
+    line-height: 1.48;
+    color: #555555;
+  }
+
+  /* Hero on Mobile */
+  .heroSection {
+    margin: 28px 0 32px;
+  }
+
+  .heroWrapper {
     aspect-ratio: 16 / 11;
   }
 
-  .footerNav {
-    flex-direction: column;
+  /* Specifications: Vertical Stack with Thin Dividers */
+  .specsSection {
+    margin-bottom: 40px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .specsGrid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .specItem {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .specItem:first-child {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .specLabel {
+    font-size: 0.625rem;
+    margin-bottom: 4px;
+  }
+
+  .specValue {
+    font-size: 0.875rem;
+  }
+
+  /* Statement on Mobile */
+  .statementSection {
+    margin: 40px 0 48px;
+  }
+
+  .statementQuote {
+    padding-left: 18px;
+    font-size: clamp(1.35rem, 5.8vw, 1.85rem);
+    line-height: 1.38;
+  }
+
+  /* Narrative on Mobile */
+  .narrativeSection {
+    margin: 48px 0 60px;
+    padding-top: 36px;
+  }
+
+  .narrativeLayout {
+    grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .sideLabelText {
+    position: static;
+    font-size: 0.65rem;
+  }
+
+  .narrativeContent {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .narrativeHeading {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+
+  .narrativeParagraph {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+
+  /* Gallery: Pure Mobile-First 1 Image per Row */
+  .gallerySection {
+    margin: 48px 0 60px;
+  }
+
+  .galleryRhythm {
+    gap: 40px;
+  }
+
+  .galleryRowPair {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .galleryRowSplit {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .imageWrapperHalf,
+  .imageWrapperWide,
+  .imageWrapperSplit,
+  .imageWrapperPortrait,
+  .imageWrapperFull {
+    aspect-ratio: 16 / 11;
+  }
+
+  .caption {
+    font-size: 0.72rem;
+    margin-top: 8px;
+  }
+
+  .captionNum {
+    font-size: 0.68rem;
+  }
+
+  /* Mobile Recognitions */
+  .recognitionBox {
+    padding: 24px 20px;
+    background-color: #f7f7f7;
+    margin: 10px 0;
+  }
+
+  .awardTitle {
+    font-size: 1.3rem;
+  }
+
+  /* Final Image on Mobile */
+  .finalImageSection {
+    margin: 48px 0 56px;
+  }
+
+  /* Project Navigation on Mobile: Clean Stacking */
+  .projectNav {
+    margin-top: 48px;
+    padding-top: 32px;
+    flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
+  }
+
+  .allProjectsBtn {
+    width: auto;
+    padding: 10px 20px;
+  }
+
+  .nextProjectLink {
+    font-size: 0.75rem;
+  }
+
+  .mobileDash {
+    display: block;
+    color: #aaa;
+    margin-top: 4px;
+    font-size: 0.8125rem;
+  }
+}
+
+/* Very Small Mobile (max-width: 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 14px 16px 60px;
+  }
+
+  .projectTitle {
+    font-size: 2.1rem;
+  }
+
+  .shortDescription {
+    font-size: 0.98rem;
+  }
+
+  .statementQuote {
+    font-size: 1.25rem;
+    padding-left: 14px;
   }
 }

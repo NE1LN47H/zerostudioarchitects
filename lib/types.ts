@@ -27,6 +27,8 @@ export interface ProjectGalleryItem {
   alt: string;
   caption?: string;
   aspectRatio?: 'landscape' | 'portrait' | 'wide';
+  layout?: 'full' | 'wide' | 'half' | 'large' | 'portrait';
+  order?: number;
 }
 
 export interface ProjectNarrativeSection {
@@ -38,6 +40,7 @@ export interface Project {
   slug: string;
   title: string;
   subtitle: string;
+  editorialIntro?: string;
   category: string;
   year: string;
   location: string;
