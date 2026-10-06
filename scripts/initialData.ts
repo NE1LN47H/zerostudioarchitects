@@ -7,7 +7,7 @@ import {
   TeamMember,
   ContactInfo,
   SiteSettings,
-} from "../types";
+} from "../lib/types";
 
 export const INITIAL_HERO_ITEMS: HeroItem[] = [
   {

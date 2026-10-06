@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { getAdminUserByEmail } from "./db/service";
+import { getAdminByEmail } from "./db/service";
 import bcrypt from "bcryptjs";
 
 const AUTH_SECRET = process.env.AUTH_SECRET || "zerostudio_auth_secret_key_change_in_production_min_32_chars";
@@ -44,7 +44,7 @@ export async function authenticateAdmin(
   email: string,
   plainPassword: string
 ): Promise<{ success: boolean; token?: string; error?: string }> {
-  const user = await getAdminUserByEmail(email);
+  const user = await getAdminByEmail(email);
   if (!user) {
     return { success: false, error: "Invalid credentials" };
   }
