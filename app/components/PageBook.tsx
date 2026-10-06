@@ -11,7 +11,18 @@ import Footer from "./Footer";
 import { useSection, SECTIONS } from "../context/SectionContext";
 import styles from "./PageBook.module.css";
 
-export default function PageBook() {
+interface PageBookProps {
+  initialData?: {
+    heroItems?: any[];
+    about?: any;
+    projects?: any[];
+    awards?: any[];
+    journal?: any[];
+    contact?: any;
+  };
+}
+
+export default function PageBook({ initialData }: PageBookProps) {
   const {
     currentIndex,
     previousIndex,
@@ -104,14 +115,14 @@ export default function PageBook() {
   // Render components for each section
   const sectionContent = useMemo(
     () => [
-      <Hero key="sec-0" hideBar />,
-      <About key="sec-1" />,
-      <Projects key="sec-2" />,
-      <Awards key="sec-3" />,
-      <Journal key="sec-4" />,
-      <Contact key="sec-5" />,
+      <Hero key="sec-0" hideBar items={initialData?.heroItems} />,
+      <About key="sec-1" content={initialData?.about} />,
+      <Projects key="sec-2" projects={initialData?.projects} />,
+      <Awards key="sec-3" awards={initialData?.awards} />,
+      <Journal key="sec-4" articles={initialData?.journal} />,
+      <Contact key="sec-5" contact={initialData?.contact} />,
     ],
-    []
+    [initialData]
   );
 
   return (
@@ -124,7 +135,7 @@ export default function PageBook() {
       {/* Top Bar: Editorial Studio Label & Minimal Navigation Arrows */}
       <div className={styles.topBar}>
         <div className={styles.labelGroup}>
-          <span className={styles.studioLabel}>THE STUDIO</span>
+          <span className={styles.studioLabel}>ZERO STUDIO</span>
           <span className={styles.studioLine} aria-hidden="true" />
         </div>
 

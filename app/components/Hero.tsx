@@ -6,6 +6,9 @@ interface HeroProjectItem {
   image: string;
   title: string;
   meta: string;
+  category?: string;
+  year?: string;
+  projectSlug?: string;
 }
 
 // 18 curated, diverse architectural photographs matching reference composition
@@ -125,7 +128,22 @@ const HERO_PROJECTS: HeroProjectItem[] = [
   },
 ];
 
-export default function Hero({ hideBar = false }: { hideBar?: boolean }) {
+interface HeroProps {
+  hideBar?: boolean;
+  items?: {
+    id: string;
+    image: string;
+    title: string;
+    meta?: string;
+    category?: string;
+    year?: string;
+    projectSlug?: string;
+  }[];
+}
+
+export default function Hero({ hideBar = false, items }: HeroProps) {
+  const displayItems = (items && items.length > 0) ? items : HERO_PROJECTS;
+
   return (
     <section className={styles.hero} id="hero" aria-label="Zero Studio architectural projects">
       <div className={styles.container}>
@@ -140,22 +158,25 @@ export default function Hero({ hideBar = false }: { hideBar?: boolean }) {
 
         {/* Continuous 6x3 Architectural Photo Wall */}
         <div className={styles.grid}>
-          {HERO_PROJECTS.map((project, index) => (
-            <div key={project.id} className={styles.cell}>
-              <Image
-                src={project.image}
-                alt={`${project.title} - ${project.meta}`}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1023px) 25vw, 16.66vw"
-                priority={index < 6}
-                className={styles.image}
-              />
-              <div className={styles.cellInfo}>
-                <div className={styles.cellTitle}>{project.title}</div>
-                <div className={styles.cellMeta}>{project.meta}</div>
+          {displayItems.map((project, index) => {
+            const metaString = project.meta || `${project.category || "RESIDENTIAL"} · ${project.year || "2025"}`;
+            return (
+              <div key={project.id} className={styles.cell}>
+                <Image
+                  src={project.image}
+                  alt={`${project.title} - ${metaString}`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1023px) 25vw, 16.66vw"
+                  priority={index < 6}
+                  className={styles.image}
+                />
+                <div className={styles.cellInfo}>
+                  <div className={styles.cellTitle}>{project.title}</div>
+                  <div className={styles.cellMeta}>{metaString}</div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

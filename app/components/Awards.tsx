@@ -150,8 +150,36 @@ const OTHER_RECOGNITIONS = [
   "2024: IIA National award for the best Young architect from Kerala Chapter"
 ];
 
-export default function Awards() {
+interface AwardsProps {
+  awards?: {
+    id: string;
+    number?: string;
+    award: string;
+    project: string;
+    organization: string;
+    category: string;
+    year: string;
+    curated?: boolean;
+    type?: string;
+  }[];
+}
+
+export default function Awards({ awards }: AwardsProps) {
   const [modalOpen, setModalOpen] = useState(false);
+
+  let curatedList = CURATED_AWARDS;
+  if (awards && awards.length > 0) {
+    const fromDb = awards.filter((a) => a.curated);
+    const selected = fromDb.length >= 6 ? fromDb.slice(0, 6) : awards.slice(0, 6);
+    curatedList = selected.map((item, idx) => ({
+      number: item.number || `0${idx + 1}`,
+      award: item.award,
+      project: item.project,
+      organization: item.organization,
+      category: item.category,
+      year: item.year,
+    }));
+  }
 
   return (
     <section className={styles.awardsSection} id="awards" aria-labelledby="awards-title">
@@ -171,7 +199,7 @@ export default function Awards() {
 
         {/* 3x2 Editorial Grid */}
         <div className={styles.grid}>
-          {CURATED_AWARDS.map((item) => (
+          {curatedList.map((item) => (
             <article key={item.number} className={styles.awardItem}>
               <div>
                 <div className={styles.itemTop}>

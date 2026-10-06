@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getAllArticles } from "./data";
+import { getJournalArticles } from "@/lib/db/service";
 import JournalGrid from "../components/JournalGrid";
 import styles from "./journal.module.css";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Journal — Zero Studio Architectures",
   description: "Thoughts, observations and stories from our practice.",
 };
 
-export default function JournalPage() {
-  const articles = getAllArticles();
+export default async function JournalPage() {
+  const articles = await getJournalArticles(true);
 
   return (
     <main id="main">
@@ -43,7 +45,7 @@ export default function JournalPage() {
 
         <div className={styles.separator} aria-hidden="true" />
 
-        <JournalGrid articles={articles} />
+        <JournalGrid articles={articles as any} />
       </div>
     </main>
   );

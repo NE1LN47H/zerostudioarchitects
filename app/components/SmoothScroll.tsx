@@ -15,7 +15,7 @@ export default function SmoothScroll() {
     gsap.registerPlugin(ScrollTrigger);
 
     // On homepage ("/"), sections are handled as full-screen page sheets with native scrolling
-    if (pathname === "/") return;
+    if (pathname === "/" || pathname?.startsWith("/admin")) return;
 
     // Initialize Lenis smooth scroll on subpages
     const lenis = new Lenis({

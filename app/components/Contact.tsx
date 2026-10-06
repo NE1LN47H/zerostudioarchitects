@@ -1,9 +1,24 @@
 "use client";
 import { useState } from 'react';
 import styles from './Contact.module.css';
+import { ContactInfo } from '@/lib/types';
 
-export default function Contact() {
+interface ContactProps {
+  contact?: Partial<ContactInfo>;
+}
+
+export default function Contact({ contact }: ContactProps) {
   const [status, setStatus] = useState('');
+
+  const emailGeneral = contact?.emailGeneral || "mail@zerostudio.org";
+  const emailJobs = contact?.emailJobs || "jobs@zerostudio.org";
+  const phone = contact?.phone || "+91 9447751826 · +91 8129355855";
+  const address = contact?.address || "#1/3793, East hill Road, Chakkorathukulam,\nEranhippalam P.O, Nadakkave, Kozhikode, Kerala 673006";
+  const mapLink = contact?.mapLink || "https://maps.app.goo.gl/poxkV6PNkGL9cJsSA";
+  const heading = contact?.heading || "Start a project";
+  const lead = contact?.lead || "We'd love to hear about your project.";
+  const instagramUrl = contact?.instagramUrl || "https://www.instagram.com/zerostudioofficial";
+  const facebookUrl = contact?.facebookUrl || "https://www.facebook.com/zerostudioofficial/";
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -31,26 +46,26 @@ export default function Contact() {
         <div className={styles.contactPanel}>
           <div>
             <h2 id="contact-title" className={styles.title}>
-              Start a project
+              {heading}
             </h2>
             <p className={styles.lead}>
-              We&apos;d love to hear about your project.
+              {lead}
             </p>
             <dl className="details" style={{ margin: 0 }}>
               <div>
                 <dt>Email</dt>
-                <dd><a href="mailto:mail@zerostudio.org">mail@zerostudio.org</a> (Project enquiries)</dd>
-                <dd><a href="mailto:jobs@zerostudio.org">jobs@zerostudio.org</a> (Job/internship)</dd>
+                <dd><a href={`mailto:${emailGeneral}`}>{emailGeneral}</a> (Project enquiries)</dd>
+                <dd><a href={`mailto:${emailJobs}`}>{emailJobs}</a> (Job/internship)</dd>
               </div>
               <div>
                 <dt>Phone</dt>
-                <dd>+91 9447751826 · +91 8129355855</dd>
+                <dd>{phone}</dd>
               </div>
               <div>
                 <dt>Address</dt>
-                <dd>#1/3793, East hill Road, Chakkorathukulam,<br />Eranhippalam P.O, Nadakkave, Kozhikode, Kerala 673006</dd>
+                <dd style={{ whiteSpace: "pre-line" }}>{address}</dd>
                 <dd style={{ marginTop: '6px' }}>
-                  <a href="https://maps.app.goo.gl/poxkV6PNkGL9cJsSA" target="_blank" rel="noopener noreferrer">
+                  <a href={mapLink} target="_blank" rel="noopener noreferrer">
                     View Location on Map →
                   </a>
                 </dd>
@@ -80,8 +95,8 @@ export default function Contact() {
         <div className={styles.footerCredits}>
           <span>&copy; {new Date().getFullYear()} Zero Studio Architectures</span>
           <div className={styles.socialLinks}>
-            <a href="https://www.instagram.com/zerostudioofficial" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Instagram</a>
-            <a href="https://www.facebook.com/zerostudioofficial/" target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Facebook</a>
+            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Instagram</a>
+            <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className={styles.socialLink}>Facebook</a>
           </div>
         </div>
       </div>

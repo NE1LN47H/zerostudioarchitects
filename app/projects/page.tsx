@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PROJECTS_DATA } from "./data";
+import { getProjects } from "@/lib/db/service";
 import ProjectCard from "../components/ProjectCard";
 import styles from "./projects.module.css";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Projects — Zero Studio Architectures",
   description: "Selected architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects(true);
+
   return (
     <main id="main">
       <div className={styles.container}>
@@ -28,10 +32,10 @@ export default function ProjectsPage() {
         <div className={styles.separator} aria-hidden="true" />
 
         <div className={styles.grid}>
-          {PROJECTS_DATA.map((project, idx) => (
+          {projects.map((project, idx) => (
             <ProjectCard
               key={project.slug}
-              project={project}
+              project={project as any}
               priority={idx < 3}
             />
           ))}

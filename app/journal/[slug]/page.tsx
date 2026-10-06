@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllArticles, getArticleBySlug, getRelatedArticles } from "../data";
+import { getArticleBySlug, getJournalArticles } from "@/lib/db/service";
 import JournalGrid from "../../components/JournalGrid";
 import styles from "./article.module.css";
+
+export const dynamic = "force-dynamic";
 
 interface PageProps {
   params: Promise<{
@@ -12,16 +14,9 @@ interface PageProps {
   }>;
 }
 
-export async function generateStaticParams() {
-  const articles = getAllArticles();
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     return {
@@ -37,13 +32,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
+  const article = await getArticleBySlug(slug);
 
   if (!article) {
     notFound();
   }
 
-  const relatedArticles = getRelatedArticles(article.slug, 3);
+  const allArticles = await getJournalArticles(true);
+  const relatedArticles = allArticles
+    .filter((a) => a.slug !== article.slug)
+    .slice(0, 3);
 
   return (
     <main id="main">
@@ -113,7 +111,7 @@ export default async function ArticlePage({ params }: PageProps) {
             <h2 id="related-heading" className={styles.relatedHeading}>
               Related Journal
             </h2>
-            <JournalGrid articles={relatedArticles} />
+            <JournalGrid articles={relatedArticles as any} />
           </section>
         )}
       </div>

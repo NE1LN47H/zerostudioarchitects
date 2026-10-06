@@ -34,7 +34,19 @@ function RevealParagraph({ text }: { text: string }) {
   );
 }
 
-export default function About() {
+interface AboutProps {
+  content?: {
+    heading?: string;
+    paragraph1?: string;
+    paragraph2?: string;
+  };
+}
+
+export default function About({ content }: AboutProps) {
+  const headingText = content?.heading || "The Studio";
+  const p1 = content?.paragraph1 || PARAGRAPH_1;
+  const p2 = content?.paragraph2 || PARAGRAPH_2;
+
   const sectionRef = useRef<HTMLElement>(null);
   const headingFillRef = useRef<HTMLSpanElement>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -110,19 +122,19 @@ export default function About() {
       <div className={styles.wrap}>
         <div style={{ marginBottom: "24px" }}>
           <h2 id="studio-title" className={styles.headingWrap}>
-            <span className={styles.headingBase}>The Studio</span>
+            <span className={styles.headingBase}>{headingText}</span>
             <span
               ref={headingFillRef}
               className={styles.headingFill}
               aria-hidden="true"
             >
-              The Studio
+              {headingText}
             </span>
           </h2>
         </div>
 
         <div className={styles.content}>
-          <RevealParagraph text={PARAGRAPH_1} />
+          <RevealParagraph text={p1} />
         </div>
 
         <div className={styles.readMoreRow}>
@@ -155,7 +167,7 @@ export default function About() {
           >
             <div className={styles.modalHeader}>
               <h2 id="modal-studio-title" className={styles.modalTitle}>
-                The Studio
+                {headingText}
               </h2>
               <button
                 type="button"
@@ -168,8 +180,8 @@ export default function About() {
             </div>
 
             <div className={styles.modalBody}>
-              <p>{PARAGRAPH_1}</p>
-              <p>{PARAGRAPH_2}</p>
+              <p>{p1}</p>
+              <p>{p2}</p>
             </div>
           </div>
         </div>

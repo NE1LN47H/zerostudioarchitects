@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { getAwards } from "@/lib/db/service";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Awards & Recognitions — Zero Studio Architectures",
@@ -108,7 +111,41 @@ const OTHER_RECOGNITIONS = [
   "2016: i-GEN Design Forum-2016: Listing for the most promising top 50 gen-next architects by 'Architect and Interiors India' magazine"
 ];
 
-export default function AwardsPage() {
+export default async function AwardsPage() {
+  const dynamicAwards = await getAwards(true);
+
+  // Group dynamic awards if available
+  let projectHonors = ALL_RECOGNITIONS;
+  let studioCitations = OTHER_RECOGNITIONS;
+
+  if (dynamicAwards && dynamicAwards.length > 0) {
+    const projectItems = dynamicAwards.filter((a) => a.type === "project" || a.type === "curated");
+    const honorItems = dynamicAwards.filter((a) => a.type === "honor");
+
+    if (projectItems.length > 0) {
+      // Group by project name
+      const groupedMap = new Map<string, { project: string; year: string; awards: string[] }>();
+      for (const item of projectItems) {
+        const existing = groupedMap.get(item.project);
+        const citation = `${item.organization} - ${item.award}${item.category ? ` (${item.category})` : ""}`;
+        if (existing) {
+          existing.awards.push(citation);
+        } else {
+          groupedMap.set(item.project, {
+            project: item.project,
+            year: item.year,
+            awards: [citation],
+          });
+        }
+      }
+      projectHonors = Array.from(groupedMap.values());
+    }
+
+    if (honorItems.length > 0) {
+      studioCitations = honorItems.map((h) => `${h.year}: ${h.award} - ${h.organization}`);
+    }
+  }
+
   return (
     <main id="main" style={{ paddingTop: '80px', minHeight: '100vh', background: 'var(--bg, #ffffff)' }}>
       <div className="wrap" style={{ maxWidth: '1000px', margin: '0 auto', padding: '48px 40px 100px' }}>
@@ -129,7 +166,7 @@ export default function AwardsPage() {
             Project Honors
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-            {ALL_RECOGNITIONS.map((item, idx) => (
+            {projectHonors.map((item, idx) => (
               <article key={idx} style={{ paddingBottom: '24px', borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
                   <h3 style={{ fontSize: '1.1875rem', fontWeight: 500, margin: 0, lineHeight: 1.35, color: '#1a1a1a' }}>
@@ -156,7 +193,7 @@ export default function AwardsPage() {
             Studio Citations & Recognitions
           </h2>
           <ul style={{ listStyle: 'disc', paddingLeft: '20px', margin: 0, color: 'var(--ink-2, #555555)', fontSize: '0.9375rem', lineHeight: 1.8 }}>
-            {OTHER_RECOGNITIONS.map((rec, i) => (
+            {studioCitations.map((rec, i) => (
               <li key={i} style={{ marginBottom: '8px' }}>
                 {rec}
               </li>
