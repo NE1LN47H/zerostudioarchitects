@@ -11,41 +11,13 @@ interface JournalCardData {
   featured?: boolean;
 }
 
-const DEFAULT_ARTICLES: JournalCardData[] = [
-  {
-    slug: "the-architecture-of-quiet-spaces",
-    title: "The Architecture of Quiet Spaces",
-    category: "Architecture & Context",
-    date: "05 Oct 2026",
-    image: "/projects/HAVEN/1-opt.jpg",
-  },
-  {
-    slug: "tactility-of-laterite-and-exposed-concrete",
-    title: "Tactility of Laterite & Concrete",
-    category: "Material & Craft",
-    date: "18 Sep 2026",
-    image: "/projects/RESIDENCE_AT_EDAVANNA/Q16-opt.jpg",
-  },
-  {
-    slug: "breathing-walls-and-tropical-microclimates",
-    title: "Breathing Walls in the Tropics",
-    category: "Climate Responsive",
-    date: "28 Aug 2026",
-    image: "/projects/MAUSAM_THE_HOUSE_OF_SEASONS/1_18-opt.jpg",
-  },
-];
-
 interface JournalProps {
   articles?: JournalCardData[];
 }
 
-export default function Journal({ articles }: JournalProps) {
-  let displayArticles = DEFAULT_ARTICLES;
-
-  if (articles && articles.length > 0) {
-    const featuredOnly = articles.filter((a) => a.featured);
-    displayArticles = featuredOnly.length >= 3 ? featuredOnly.slice(0, 3) : articles.slice(0, 3);
-  }
+export default function Journal({ articles = [] }: JournalProps) {
+  const featuredOnly = articles.filter((a) => a.featured);
+  const displayArticles = featuredOnly.length >= 3 ? featuredOnly.slice(0, 3) : articles.slice(0, 3);
 
   return (
     <section id="journal" aria-labelledby="journal-title" className={styles.section}>

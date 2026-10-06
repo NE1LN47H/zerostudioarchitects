@@ -1,6 +1,6 @@
 import { MongoClient, Db } from "mongodb";
 
-const uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
+const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
 const dbName = process.env.MONGODB_DB || "zero_studio_test";
 
 let client: MongoClient | null = null;
@@ -12,7 +12,8 @@ declare global {
 }
 
 export async function getMongoClient(): Promise<MongoClient> {
-  if (!uri) {
+  const currentUri = process.env.MONGODB_URI || uri;
+  if (!currentUri) {
     throw new Error("MONGODB_URI environment variable is not defined");
   }
 
@@ -20,22 +21,28 @@ export async function getMongoClient(): Promise<MongoClient> {
     // In development mode, use a global variable to preserve the MongoClient
     // across module reloads caused by HMR (Hot Module Replacement).
     if (!global._mongoClientPromise) {
-      client = new MongoClient(uri, {
-        serverSelectionTimeoutMS: 2000,
-        connectTimeoutMS: 2000,
+      client = new MongoClient(currentUri, {
+        serverSelectionTimeoutMS: 3000,
+        connectTimeoutMS: 3000,
       });
-      global._mongoClientPromise = client.connect();
+      global._mongoClientPromise = client.connect().catch((err) => {
+        global._mongoClientPromise = undefined;
+        throw err;
+      });
     }
     clientPromise = global._mongoClientPromise;
   } else {
     // In production mode, it's best to not use a global variable.
     if (!clientPromise) {
-      client = new MongoClient(uri, {
-        serverSelectionTimeoutMS: 3000,
-        connectTimeoutMS: 3000,
+      client = new MongoClient(currentUri, {
+        serverSelectionTimeoutMS: 5000,
+        connectTimeoutMS: 5000,
         maxPoolSize: 10,
       });
-      clientPromise = client.connect();
+      clientPromise = client.connect().catch((err) => {
+        clientPromise = null;
+        throw err;
+      });
     }
   }
 

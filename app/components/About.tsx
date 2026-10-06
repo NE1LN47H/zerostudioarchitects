@@ -5,13 +5,8 @@ import gsap from "gsap";
 import { useSection } from "../context/SectionContext";
 import styles from "./About.module.css";
 
-const PARAGRAPH_1 =
-  "Zero studio is a creative design studio driving itself forward with a perception to experiment with architecture under the varying contexts of need and, most importantly, the user. Founded in 2013 by the visionary duo Ar.Hamid MM & Ar.Hafeef PK, the studio is now led by Ar.Shabna & Ar.Nidhinraj KJ.";
-
-const PARAGRAPH_2 =
-  "We approach every project as a unique opportunity to converse with nature, finding an adaptive balance between functionality, aesthetics, context, climate, and materials. We love to call our practice an art studio, where the character of our designs varies vibrantly, never restricted by a single ideology, allowing architecture to remain a subtle, evolving blend of ideas.";
-
 function RevealParagraph({ text }: { text: string }) {
+  if (!text) return null;
   const words = text.split(" ");
   return (
     <p className={styles.paragraph}>
@@ -44,8 +39,8 @@ interface AboutProps {
 
 export default function About({ content }: AboutProps) {
   const headingText = content?.heading || "The Studio";
-  const p1 = content?.paragraph1 || PARAGRAPH_1;
-  const p2 = content?.paragraph2 || PARAGRAPH_2;
+  const p1 = content?.paragraph1 || "";
+  const p2 = content?.paragraph2 || "";
 
   const sectionRef = useRef<HTMLElement>(null);
   const headingFillRef = useRef<HTMLSpanElement>(null);

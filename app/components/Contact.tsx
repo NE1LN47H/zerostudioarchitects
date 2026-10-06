@@ -10,15 +10,15 @@ interface ContactProps {
 export default function Contact({ contact }: ContactProps) {
   const [status, setStatus] = useState('');
 
-  const emailGeneral = contact?.emailGeneral || "mail@zerostudio.org";
-  const emailJobs = contact?.emailJobs || "jobs@zerostudio.org";
-  const phone = contact?.phone || "+91 9447751826 · +91 8129355855";
-  const address = contact?.address || "#1/3793, East hill Road, Chakkorathukulam,\nEranhippalam P.O, Nadakkave, Kozhikode, Kerala 673006";
-  const mapLink = contact?.mapLink || "https://maps.app.goo.gl/poxkV6PNkGL9cJsSA";
-  const heading = contact?.heading || "Start a project";
-  const lead = contact?.lead || "We'd love to hear about your project.";
-  const instagramUrl = contact?.instagramUrl || "https://www.instagram.com/zerostudioofficial";
-  const facebookUrl = contact?.facebookUrl || "https://www.facebook.com/zerostudioofficial/";
+  const emailGeneral = contact?.emailGeneral || "";
+  const emailJobs = contact?.emailJobs || "";
+  const phone = contact?.phone || "";
+  const address = contact?.address || "";
+  const mapLink = contact?.mapLink || "#";
+  const heading = contact?.heading || "";
+  const lead = contact?.lead || "";
+  const instagramUrl = contact?.instagramUrl || "#";
+  const facebookUrl = contact?.facebookUrl || "#";
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

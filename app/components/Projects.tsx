@@ -11,41 +11,13 @@ interface ProjectCardData {
   featured?: boolean;
 }
 
-const DEFAULT_PROJECTS: ProjectCardData[] = [
-  {
-    slug: "HAVEN",
-    title: "HAVEN",
-    category: "Architecture & Interiors",
-    year: "2025",
-    heroImage: "/projects/HAVEN/1-opt.jpg",
-  },
-  {
-    slug: "MAUSAM_THE_HOUSE_OF_SEASONS",
-    title: "Mausam - The House of Seasons",
-    category: "Architecture",
-    year: "2024",
-    heroImage: "/projects/MAUSAM_THE_HOUSE_OF_SEASONS/1_15-opt.jpg",
-  },
-  {
-    slug: "RESIDENCE_AT_EDAVANNA",
-    title: "Residence at Edavanna",
-    category: "Architecture",
-    year: "2024",
-    heroImage: "/projects/RESIDENCE_AT_EDAVANNA/Q14-opt.jpg",
-  },
-];
-
 interface ProjectsProps {
   projects?: ProjectCardData[];
 }
 
-export default function Projects({ projects }: ProjectsProps) {
-  let displayProjects = DEFAULT_PROJECTS;
-
-  if (projects && projects.length > 0) {
-    const featuredOnly = projects.filter((p) => p.featured);
-    displayProjects = featuredOnly.length >= 3 ? featuredOnly.slice(0, 3) : projects.slice(0, 3);
-  }
+export default function Projects({ projects = [] }: ProjectsProps) {
+  const featuredOnly = projects.filter((p) => p.featured);
+  const displayProjects = featuredOnly.length >= 3 ? featuredOnly.slice(0, 3) : projects.slice(0, 3);
 
   return (
     <section id="projects" aria-labelledby="projects-title" className={styles.section}>
