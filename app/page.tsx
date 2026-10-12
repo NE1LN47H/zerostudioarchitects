@@ -6,7 +6,7 @@ import {
   getAwards,
   getJournalArticles,
   getContactInfo,
-} from "@/lib/db/service";
+} from "@/services";
 
 export const dynamic = "force-dynamic";
 

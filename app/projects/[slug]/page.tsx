@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, getProjects } from "@/lib/db/service";
+import { getProjectBySlug, getProjects } from "@/services";
 import ProjectDetailView from "@/app/components/ProjectDetailView";
+import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getProjectJsonLd } from "@/lib/seo/structuredData";
 
 export const dynamic = "force-dynamic";
 
@@ -16,15 +18,19 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const project = await getProjectBySlug(slug);
 
   if (!project) {
-    return {
-      title: "Project Not Found — Zero Studio Architectures",
-    };
+    return constructMetadata({
+      title: "Project Not Found",
+      path: `/projects/${slug}`,
+      noIndex: true,
+    });
   }
 
-  return {
-    title: `${project.title} — Projects — Zero Studio Architectures`,
+  return constructMetadata({
+    title: `${project.title} — Projects`,
     description: project.subtitle || project.summary,
-  };
+    path: `/projects/${project.slug}`,
+    image: project.heroImage,
+  });
 }
 
 export default async function DynamicProjectPage({ params }: ProjectPageProps) {
@@ -53,10 +59,13 @@ export default async function DynamicProjectPage({ params }: ProjectPageProps) {
       : undefined;
 
   return (
-    <ProjectDetailView
-      project={project as any}
-      prevProject={prevProject}
-      nextProject={nextProject}
-    />
+    <>
+      <JsonLd data={getProjectJsonLd(project)} />
+      <ProjectDetailView
+        project={project as any}
+        prevProject={prevProject}
+        nextProject={nextProject}
+      />
+    </>
   );
 }

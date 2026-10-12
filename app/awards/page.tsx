@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
-import { getAwards } from "@/lib/db/service";
+import { getAwards } from "@/services";
+import { constructMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Awards & Recognitions — Zero Studio Architectures",
-  description: "National and state architectural awards, citations and honors received by Zero Studio Architectures since 2013.",
-};
+export const metadata: Metadata = constructMetadata({
+  title: "Awards & Recognitions",
+  description:
+    "National and state architectural awards, citations and honors received by Zero Studio Architectures since 2013.",
+  path: "/awards",
+});
 
 export default async function AwardsPage() {
   const dynamicAwards = await getAwards(true);

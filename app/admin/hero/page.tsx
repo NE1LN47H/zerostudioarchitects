@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
 import { HeroItem } from "@/lib/types";
 
 export default function AdminHeroPage() {
   const [items, setItems] = useState<HeroItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
   const [modalItem, setModalItem] = useState<HeroItem | null>(null);
   const [isNew, setIsNew] = useState(false);
@@ -20,7 +20,7 @@ export default function AdminHeroPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const loadHeroItems = async () => {
+  const loadHeroItems = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/hero");
       if (res.ok) {
@@ -32,11 +32,11 @@ export default function AdminHeroPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadHeroItems();
-  }, []);
+  }, [loadHeroItems]);
 
   const handleMove = async (index: number, direction: "up" | "down") => {
     const targetIndex = direction === "up" ? index - 1 : index + 1;

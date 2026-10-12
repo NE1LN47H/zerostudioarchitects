@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
 import { JournalArticle } from "@/lib/types";
 
 export default function AdminJournalPage() {
   const [articles, setArticles] = useState<JournalArticle[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [toast, setToast] = useState<string | null>(null);
 
@@ -22,7 +22,7 @@ export default function AdminJournalPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const loadArticles = async () => {
+  const loadArticles = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/journal");
       if (res.ok) {
@@ -34,11 +34,11 @@ export default function AdminJournalPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadArticles();
-  }, []);
+  }, [loadArticles]);
 
   const filteredArticles = articles.filter(
     (a) =>

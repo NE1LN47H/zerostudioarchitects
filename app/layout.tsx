@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 import { SectionProvider } from "./context/SectionContext";
+import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getOrganizationJsonLd, getWebSiteJsonLd } from "@/lib/seo/structuredData";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,21 +21,22 @@ const instrumentSerif = Instrument_Serif({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Zero Studio Architectures",
-  description: "Zero Studio Architectures designs homes, cultural spaces and workplaces with clear plans and honest materials.",
-};
+export const metadata: Metadata = constructMetadata();
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable}`}
     >
+      <head>
+        <JsonLd data={getOrganizationJsonLd()} />
+        <JsonLd data={getWebSiteJsonLd()} />
+      </head>
       <body>
         <SectionProvider>
           <SmoothScroll />

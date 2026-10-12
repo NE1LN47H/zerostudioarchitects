@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProjectDetail.module.css";
-import type { ProjectDetail, ProjectGalleryImage } from "../projects/data";
+import type { ProjectDetail } from "../projects/data";
 
 interface ProjectDetailViewProps {
   project: ProjectDetail;
@@ -24,7 +24,6 @@ export default function ProjectDetailView({
   // - Image 3: Split row paired with Recognitions (Row 3)
   // - Remaining middle images: Pairs or wide
   // - Final image: Closing spacious photograph
-  const hasManyImages = gallery.length >= 4;
   const pair1 = gallery.slice(0, 2);
   const wideImg = gallery.length > 2 ? gallery[2] : null;
   const splitImg = gallery.length > 3 ? gallery[3] : null;

@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
 import { TeamMember } from "@/lib/types";
 
 export default function AdminTeamPage() {
   const [team, setTeam] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [toast, setToast] = useState<string | null>(null);
 
   const [modalItem, setModalItem] = useState<TeamMember | null>(null);
@@ -20,7 +20,7 @@ export default function AdminTeamPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const loadTeam = async () => {
+  const loadTeam = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/team");
       if (res.ok) {
@@ -32,11 +32,11 @@ export default function AdminTeamPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadTeam();
-  }, []);
+  }, [loadTeam]);
 
   const handleMove = async (index: number, direction: "up" | "down") => {
     const targetIndex = direction === "up" ? index - 1 : index + 1;

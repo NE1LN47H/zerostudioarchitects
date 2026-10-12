@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getProjects } from "@/lib/db/service";
+import { getProjects } from "@/services";
 import ProjectCard from "../components/ProjectCard";
 import styles from "./projects.module.css";
+import { constructMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Projects — Zero Studio Architectures",
-  description: "Selected architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
-};
+export const metadata: Metadata = constructMetadata({
+  title: "Projects",
+  description:
+    "Selected architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
+  path: "/projects",
+});
 
 export default async function ProjectsPage() {
   const projects = await getProjects(true);

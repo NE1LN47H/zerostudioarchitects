@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
 import { Project, ProjectGalleryItem, ProjectNarrativeSection } from "@/lib/types";
@@ -26,7 +25,7 @@ export default function AdminProjectsPage() {
     setTimeout(() => setToast(null), 3200);
   };
 
-  const loadProjects = async () => {
+  const loadProjects = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/projects");
       if (res.ok) {
@@ -38,11 +37,11 @@ export default function AdminProjectsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadProjects();
-  }, []);
+  }, [loadProjects]);
 
   const filteredProjects = projects.filter((p) => {
     const matchesSearch =
@@ -339,8 +338,13 @@ export default function AdminProjectsPage() {
           </span>
         </div>
 
-        <div className={styles.tableWrap}>
-          <table className={styles.table}>
+        {loading ? (
+          <div style={{ padding: "40px", textAlign: "center", color: "#888", fontSize: "0.875rem" }}>
+            Loading projects directory...
+          </div>
+        ) : (
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
             <thead>
               <tr>
                 <th style={{ width: "60px" }}>Order</th>
@@ -451,7 +455,8 @@ export default function AdminProjectsPage() {
             </tbody>
           </table>
         </div>
-      </div>
+      )}
+    </div>
 
       {/* Project Editor Modal */}
       {editorOpen && editingProject && (

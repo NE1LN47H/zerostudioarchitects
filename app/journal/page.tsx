@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getJournalArticles } from "@/lib/db/service";
+import { getJournalArticles } from "@/services";
 import JournalGrid from "../components/JournalGrid";
 import styles from "./journal.module.css";
+import { constructMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Journal — Zero Studio Architectures",
+export const metadata: Metadata = constructMetadata({
+  title: "Journal",
   description: "Thoughts, observations and stories from our practice.",
-};
+  path: "/journal",
+});
 
 export default async function JournalPage() {
   const articles = await getJournalArticles(true);

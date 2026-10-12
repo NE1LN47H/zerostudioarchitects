@@ -7,7 +7,6 @@ import Projects from "./Projects";
 import Awards from "./Awards";
 import Journal from "./Journal";
 import Contact from "./Contact";
-import Footer from "./Footer";
 import { useSection, SECTIONS } from "../context/SectionContext";
 import styles from "./PageBook.module.css";
 
@@ -109,8 +108,6 @@ export default function PageBook({ initialData }: PageBookProps) {
       }
     }
   };
-
-  const currentSection = SECTIONS[currentIndex] || SECTIONS[0];
 
   // Render components for each section
   const sectionContent = useMemo(

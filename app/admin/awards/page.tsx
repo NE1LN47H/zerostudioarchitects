@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import styles from "../admin.module.css";
 import { AwardItem } from "@/lib/types";
 
 export default function AdminAwardsPage() {
   const [awards, setAwards] = useState<AwardItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [filterType, setFilterType] = useState<"all" | "curated" | "project" | "honor">("all");
   const [toast, setToast] = useState<string | null>(null);
 
@@ -20,7 +20,7 @@ export default function AdminAwardsPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const loadAwards = async () => {
+  const loadAwards = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/awards");
       if (res.ok) {
@@ -32,11 +32,11 @@ export default function AdminAwardsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadAwards();
-  }, []);
+  }, [loadAwards]);
 
   const filteredAwards = awards.filter((a) => {
     if (filterType === "curated") return a.curated;

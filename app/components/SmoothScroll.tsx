@@ -72,7 +72,7 @@ export default function SmoothScroll() {
       gsap.ticker.remove(updateTicker);
       lenis.destroy();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
