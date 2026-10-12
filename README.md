@@ -2,7 +2,21 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### 1. Start the Local Database
+This project includes an embedded local MongoDB instance (backed by `.mongodb-data/`):
+
+```bash
+npm run db:start
+```
+
+To seed the initial data (Hero items, projects, admin user, etc.):
+
+```bash
+npm run seed
+```
+
+### 2. Start the Development Server
+In a second terminal window, run:
 
 ```bash
 npm run dev

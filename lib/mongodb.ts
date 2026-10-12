@@ -1,8 +1,5 @@
 import { MongoClient, Db } from "mongodb";
 
-const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017";
-const dbName = process.env.MONGODB_DB || "zero_studio_test";
-
 let client: MongoClient | null = null;
 let clientPromise: Promise<MongoClient> | null = null;
 
@@ -11,8 +8,16 @@ declare global {
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 
+export function sanitizeMongoUri(uri: string): string {
+  try {
+    return uri.replace(/\/\/([^:]+):([^@]+)@/, "//$1:****@");
+  } catch {
+    return "[REDACTED_URI]";
+  }
+}
+
 export async function getMongoClient(): Promise<MongoClient> {
-  const currentUri = process.env.MONGODB_URI || uri;
+  const currentUri = process.env.MONGODB_URI;
   if (!currentUri) {
     throw new Error("MONGODB_URI environment variable is not defined");
   }
@@ -22,26 +27,29 @@ export async function getMongoClient(): Promise<MongoClient> {
     // across module reloads caused by HMR (Hot Module Replacement).
     if (!global._mongoClientPromise) {
       client = new MongoClient(currentUri, {
-        serverSelectionTimeoutMS: 3000,
-        connectTimeoutMS: 3000,
+        serverSelectionTimeoutMS: 10000,
+        connectTimeoutMS: 10000,
+        maxPoolSize: 10,
       });
       global._mongoClientPromise = client.connect().catch((err) => {
         global._mongoClientPromise = undefined;
-        throw err;
+        console.error("MongoDB Atlas connection error:", err.message);
+        throw new Error("Failed to connect to MongoDB. Please check database connectivity.");
       });
     }
     clientPromise = global._mongoClientPromise;
   } else {
-    // In production mode, it's best to not use a global variable.
+    // In production / serverless mode
     if (!clientPromise) {
       client = new MongoClient(currentUri, {
-        serverSelectionTimeoutMS: 5000,
-        connectTimeoutMS: 5000,
+        serverSelectionTimeoutMS: 10000,
+        connectTimeoutMS: 10000,
         maxPoolSize: 10,
       });
       clientPromise = client.connect().catch((err) => {
         clientPromise = null;
-        throw err;
+        console.error("MongoDB Atlas connection error:", err.message);
+        throw new Error("Failed to connect to MongoDB. Please check database connectivity.");
       });
     }
   }
@@ -51,6 +59,7 @@ export async function getMongoClient(): Promise<MongoClient> {
 
 export async function getDb(): Promise<Db> {
   const client = await getMongoClient();
+  const dbName = process.env.MONGODB_DB || "zero_studio";
   return client.db(dbName);
 }
 
@@ -70,6 +79,7 @@ export async function ensureDatabaseIndexes(db: Db): Promise<void> {
       db.collection("journal").createIndex({ slug: 1 }, { unique: true }),
       db.collection("journal").createIndex({ order: 1 }),
       db.collection("journal").createIndex({ featured: 1, visible: 1 }),
+      db.collection("journal").createIndex({ date: -1 }),
       db.collection("team").createIndex({ order: 1 }),
       db.collection("media").createIndex({ publicId: 1 }, { unique: true }),
       db.collection("admin_users").createIndex({ email: 1 }, { unique: true }),

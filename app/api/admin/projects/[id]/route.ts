@@ -42,6 +42,8 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 }
 
+export const PUT = PATCH;
+
 export async function DELETE(req: NextRequest, { params }: RouteParams) {
   const authErr = await requireApiAuth(req);
   if (authErr) return authErr;

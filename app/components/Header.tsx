@@ -27,8 +27,6 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const { currentIndex, goToSection, isHome } = useSection();
 
-  if (pathname?.startsWith("/admin")) return null;
-
   // Close on Escape, and when the viewport grows past the mobile breakpoint
   useEffect(() => {
     if (!open) return;
@@ -48,6 +46,8 @@ export default function Header() {
       mq.removeEventListener("change", onChange);
     };
   }, [open]);
+
+  if (pathname?.startsWith("/admin")) return null;
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, link: NavLinkItem) => {
     if (isHome) {
