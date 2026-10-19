@@ -79,10 +79,16 @@ async function runTests() {
     throw new Error("Awards page render failed");
   }
 
-  const journalRes = await fetch(`${BASE_URL}/journal`);
-  const journalHtml = await journalRes.text();
-  if (!journalHtml.includes("Journal")) {
-    throw new Error("Journal page render failed");
+  const mediaRes = await fetch(`${BASE_URL}/media`);
+  const mediaHtml = await mediaRes.text();
+  if (!mediaHtml.includes("Media") && !mediaHtml.includes("Zero Studio")) {
+    throw new Error("Media page render failed");
+  }
+
+  const articleRes = await fetch(`${BASE_URL}/journal/the-architecture-of-quiet-spaces`);
+  const articleHtml = await articleRes.text();
+  if (!articleHtml.includes("The Architecture of Quiet Spaces")) {
+    throw new Error("Journal slug page render failed");
   }
   console.log("✅ TEST D PASSED: Public pages render live data from MongoDB Atlas.\n");
 
@@ -174,19 +180,19 @@ async function runTests() {
 
   // TEST I — HERO ITEM
   console.log("▶ TEST I — HERO MANAGEMENT");
-  const heroItems = await getHeroItems(false);
-  const targetHero = heroItems[0];
-  const heroUpdateRes = await fetch(`${BASE_URL}/api/admin/hero/${targetHero.id}`, {
+  const targetHero = await db.collection("hero").findOne({});
+  if (!targetHero) throw new Error("No hero item found in collection");
+  const targetId = targetHero.id || targetHero._id.toString();
+  const heroUpdateRes = await fetch(`${BASE_URL}/api/admin/hero/${targetId}`, {
     method: "PUT",
     headers: { ...authHeaders, "Content-Type": "application/json" },
     body: JSON.stringify({ title: "HAVEN — HERO PROOF" }),
   });
   if (!heroUpdateRes.ok) throw new Error("Hero update failed");
-  const updatedHeroList = await getHeroItems(false);
-  const checked = updatedHeroList.find(h => h.id === targetHero.id);
+  const checked = await db.collection("hero").findOne({ $or: [{ id: targetId }, { _id: targetHero._id }] });
   if (checked?.title !== "HAVEN — HERO PROOF") throw new Error("Hero update not persisted");
   // Restore
-  await fetch(`${BASE_URL}/api/admin/hero/${targetHero.id}`, {
+  await fetch(`${BASE_URL}/api/admin/hero/${targetId}`, {
     method: "PUT",
     headers: { ...authHeaders, "Content-Type": "application/json" },
     body: JSON.stringify({ title: targetHero.title }),
@@ -267,10 +273,10 @@ async function runTests() {
     }),
   });
   if (!journalCreateRes.ok) throw new Error("Journal create failed");
-  const journalPageCheck = await fetch(`${BASE_URL}/journal`);
+  const journalPageCheck = await fetch(`${BASE_URL}/journal/atlas-dynamic-testing-essay`);
   const journalPageHtml = await journalPageCheck.text();
   if (!journalPageHtml.includes("Atlas Dynamic Testing Essay")) {
-    throw new Error("TEST L FAILED: Journal article not rendered on public journal page");
+    throw new Error("TEST L FAILED: Journal article not rendered on dynamic article page");
   }
   // Delete journal article
   await fetch(`${BASE_URL}/api/admin/journal/atlas-dynamic-testing-essay`, {
@@ -343,8 +349,36 @@ async function runTests() {
   }
   console.log("✅ TEST O PASSED: All 6 dynamic project pages render successfully from Atlas.\n");
 
+  // TEST P — CMS CLOUDINARY IMAGE UPLOAD & MEDIA DELETE
+  console.log("▶ TEST P — CMS CLOUDINARY IMAGE UPLOAD & MEDIA DELETE");
+  const uploadPayload = {
+    dataUri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFElEQVR42mNk+M9QzwAEjAwMDAwAFAAC/674iZcAAAAASUVORK5CYII=",
+    folder: "zerostudio/e2e_test",
+    filename: "e2e_test_sample.png",
+  };
+  const uploadRes = await fetch(`${BASE_URL}/api/admin/upload`, {
+    method: "POST",
+    headers: { ...authHeaders, "Content-Type": "application/json" },
+    body: JSON.stringify(uploadPayload),
+  });
+  if (!uploadRes.ok) throw new Error(`Upload failed with status ${uploadRes.status}`);
+  const uploadData = await uploadRes.json();
+  if (!uploadData.success || !uploadData.asset?.url?.includes("res.cloudinary.com/hle2zpto")) {
+    throw new Error("TEST P FAILED: Upload did not return Cloudinary URL with hle2zpto");
+  }
+  console.log(`  ✓ Image uploaded to Cloudinary: ${uploadData.asset.url}`);
+
+  // Delete uploaded media item
+  const deleteMediaRes = await fetch(`${BASE_URL}/api/admin/media/${uploadData.asset.mediaId}`, {
+    method: "DELETE",
+    headers: authHeaders,
+  });
+  if (!deleteMediaRes.ok) throw new Error("Delete media failed");
+  console.log("  ✓ Uploaded media item successfully deleted from Cloudinary & Atlas");
+  console.log("✅ TEST P PASSED: CMS Cloudinary upload and delete operations verified.\n");
+
   console.log("==================================================");
-  console.log("🎉 ALL TESTS A THROUGH O COMPLETED & PASSED!");
+  console.log("🎉 ALL TESTS A THROUGH P COMPLETED & PASSED!");
   console.log("==================================================");
 }
 

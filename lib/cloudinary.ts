@@ -1,25 +1,46 @@
 import { v2 as cloudinary } from "cloudinary";
 
-// Initialize Cloudinary with server-side environment variables
-const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "";
-const apiKey = process.env.CLOUDINARY_API_KEY || "";
-const apiSecret = process.env.CLOUDINARY_API_SECRET || "";
+// Initialize Cloudinary dynamically from server-side environment variables
+export function getCloudinaryClient() {
+  const cloudinaryUrl = process.env.CLOUDINARY_URL || "";
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "";
+  const apiKey = process.env.CLOUDINARY_API_KEY || "";
+  const apiSecret = process.env.CLOUDINARY_API_SECRET || "";
 
-const isCloudinaryConfigured =
-  cloudName &&
-  apiKey &&
-  apiSecret &&
-  cloudName !== "TEST_CLOUD_NAME" &&
-  cloudName !== "test_zero_studio";
+  if (cloudinaryUrl && !cloudinaryUrl.includes("test_zero_studio")) {
+    const match = cloudinaryUrl.match(/^cloudinary:\/\/([^:]+):([^@]+)@(.+)$/);
+    if (match) {
+      cloudinary.config({
+        cloud_name: match[3],
+        api_key: match[1],
+        api_secret: match[2],
+        secure: true,
+      });
+      return cloudinary;
+    }
+  }
 
-if (isCloudinaryConfigured) {
-  cloudinary.config({
-    cloud_name: cloudName,
-    api_key: apiKey,
-    api_secret: apiSecret,
-    secure: true,
-  });
+  if (
+    cloudName &&
+    apiKey &&
+    apiSecret &&
+    cloudName !== "TEST_CLOUD_NAME" &&
+    cloudName !== "test_zero_studio"
+  ) {
+    cloudinary.config({
+      cloud_name: cloudName,
+      api_key: apiKey,
+      api_secret: apiSecret,
+      secure: true,
+    });
+    return cloudinary;
+  }
+
+  return null;
 }
+
+// Initial configuration attempt at module load
+getCloudinaryClient();
 
 export interface UploadResult {
   url: string;
@@ -38,9 +59,10 @@ export async function uploadImage(
   dataUriOrPath: string,
   folder = "zerostudio"
 ): Promise<UploadResult> {
-  if (isCloudinaryConfigured) {
+  const client = getCloudinaryClient();
+  if (client) {
     try {
-      const res = await cloudinary.uploader.upload(dataUriOrPath, {
+      const res = await client.uploader.upload(dataUriOrPath, {
         folder,
         resource_type: "image",
         transformation: [{ quality: "auto", fetch_format: "auto" }],
@@ -86,9 +108,10 @@ export async function deleteImage(publicId: string): Promise<boolean> {
     return true;
   }
 
-  if (isCloudinaryConfigured) {
+  const client = getCloudinaryClient();
+  if (client) {
     try {
-      const res = await cloudinary.uploader.destroy(publicId);
+      const res = await client.uploader.destroy(publicId);
       return res.result === "ok";
     } catch (err) {
       console.warn("Cloudinary delete failed:", err);
