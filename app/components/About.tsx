@@ -1,33 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { useSection } from "../context/SectionContext";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./About.module.css";
-
-function RevealParagraph({ text }: { text: string }) {
-  if (!text) return null;
-  const words = text.split(" ");
-  return (
-    <p className={styles.paragraph}>
-      {words.map((word, i) => (
-        <span key={i} className={styles.wordWrap}>
-          <span className={styles.wordBase}>
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </span>
-          <span
-            className={`${styles.wordFill} about-reveal-word`}
-            aria-hidden="true"
-          >
-            {word}
-            {i < words.length - 1 ? " " : ""}
-          </span>
-        </span>
-      ))}
-    </p>
-  );
-}
+import { TeamMember } from "@/types";
+import { INITIAL_TEAM } from "@/lib/data/initialTeam";
 
 interface AboutProps {
   content?: {
@@ -35,152 +12,71 @@ interface AboutProps {
     paragraph1?: string;
     paragraph2?: string;
   };
+  team?: TeamMember[];
 }
 
-export default function About({ content }: AboutProps) {
+export default function About({ content, team = [] }: AboutProps) {
   const headingText = content?.heading || "The Studio";
-  const p1 = content?.paragraph1 || "";
-  const p2 = content?.paragraph2 || "";
+  const p1 =
+    content?.paragraph1 ||
+    "Zero studio is a creative design studio driving itself forward with a perception to experiment with architecture under the varying contexts of need and, most importantly, the user. Founded in 2013 by the visionary duo Ar.Hamid MM & Ar.Hafeef PK, the studio is now led by Ar.Shabna & Ar.Nidhinraj KJ.";
 
-  const sectionRef = useRef<HTMLElement>(null);
-  const headingFillRef = useRef<HTMLSpanElement>(null);
-  const [modalOpen, setModalOpen] = useState(false);
-
-  let currentIndex = 1;
-  try {
-    const sectionCtx = useSection();
-    currentIndex = sectionCtx.currentIndex;
-  } catch {
-    currentIndex = 1;
-  }
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const words = section.querySelectorAll(".about-reveal-word");
-    const heading = headingFillRef.current;
-
-    // Only run animation when Section 02 (About) is active
-    if (currentIndex !== 1) {
-      if (heading) gsap.set(heading, { clipPath: "inset(0 100% 0 0)" });
-      gsap.set(words, { clipPath: "inset(0 100% 0 0)" });
-      return;
-    }
-
-    // Reset initial state before playing
-    if (heading) gsap.set(heading, { clipPath: "inset(0 100% 0 0)" });
-    gsap.set(words, { clipPath: "inset(0 100% 0 0)" });
-
-    const ctx = gsap.context(() => {
-      // Exact sequential horizontal reveal timeline
-      const tl = gsap.timeline({
-        delay: 0.28,
-      });
-
-      // 1. Horizontally reveal "The Studio" heading
-      if (heading) {
-        tl.to(
-          heading,
-          {
-            clipPath: "inset(0 0% 0 0)",
-            ease: "none",
-            duration: 0.28,
-          },
-          0
-        );
-      }
-
-      // 2. Horizontally reveal each word sequentially
-      tl.to(
-        words,
-        {
-          clipPath: "inset(0 0% 0 0)",
-          ease: "none",
-          stagger: 0.016,
-          duration: 0.08,
-        },
-        0.12
-      );
-    }, section);
-
-    return () => ctx.revert();
-  }, [currentIndex]);
+  const displayTeam = team && team.length > 0 ? team : INITIAL_TEAM;
 
   return (
     <section
-      ref={sectionRef}
       className={styles.aboutSection}
       id="about"
       aria-label="Introduction"
     >
       <div className={styles.wrap}>
-        <div style={{ marginBottom: "24px" }}>
-          <h2 id="studio-title" className={styles.headingWrap}>
-            <span className={styles.headingBase}>{headingText}</span>
-            <span
-              ref={headingFillRef}
-              className={styles.headingFill}
-              aria-hidden="true"
-            >
-              {headingText}
-            </span>
-          </h2>
-        </div>
+        <h2 id="studio-title" className={styles.heading}>
+          {headingText}
+        </h2>
 
         <div className={styles.content}>
-          <RevealParagraph text={p1} />
+          <p className={styles.paragraph}>{p1}</p>
         </div>
 
+        {/* Team Preview on Section 02 */}
+        <div className={styles.teamPreviewWrap}>
+          <span className={styles.teamPreviewLabel}>Lead Principal Architects</span>
+          <div className={styles.teamGridPreview}>
+            {displayTeam.map((member) => (
+              <Link
+                key={member.id}
+                href="/about#team-heading"
+                className={styles.teamCardLink}
+                title={`View ${member.name} profile on dedicated About page`}
+              >
+                <div className={styles.teamThumb}>
+                  <Image
+                    src={member.image || "/team/hamid.jpg"}
+                    alt={member.name}
+                    fill
+                    sizes="46px"
+                    className={styles.teamImg}
+                  />
+                </div>
+                <div className={styles.teamInfo}>
+                  <span className={styles.teamName}>{member.name}</span>
+                  <span className={styles.teamRole}>{member.role}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* Link to Dedicated Page */}
         <div className={styles.readMoreRow}>
-          <button
-            type="button"
-            className={styles.readMoreBtn}
-            onClick={() => setModalOpen(true)}
-            aria-haspopup="dialog"
-          >
-            <span>READ MORE</span>
+          <Link href="/about" className={styles.readMoreBtn}>
+            <span>Explore Studio Story &amp; Team</span>
             <span className={styles.arrowIcon} aria-hidden="true">
               →
             </span>
-          </button>
+          </Link>
         </div>
       </div>
-
-      {/* Complete Studio Philosophy Modal */}
-      {modalOpen && (
-        <div
-          className={styles.modalOverlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-studio-title"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.modalHeader}>
-              <h2 id="modal-studio-title" className={styles.modalTitle}>
-                {headingText}
-              </h2>
-              <button
-                type="button"
-                className={styles.modalCloseBtn}
-                onClick={() => setModalOpen(false)}
-                aria-label="Close studio description"
-              >
-                CLOSE ✕
-              </button>
-            </div>
-
-            <div className={styles.modalBody}>
-              <p>{p1}</p>
-              <p>{p2}</p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

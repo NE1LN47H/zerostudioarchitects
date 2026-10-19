@@ -41,7 +41,7 @@ export default function ErrorBoundary({
         </span>
         <h1
           style={{
-            fontFamily: "var(--serif, serif)",
+            fontFamily: "var(--serif, Arial, Helvetica, sans-serif)",
             fontSize: "clamp(2rem, 4vw, 3rem)",
             fontWeight: 400,
             lineHeight: 1.15,

@@ -5,13 +5,30 @@
   padding: 60px var(--gutter, 24px) 120px;
 }
 
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #767676;
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #000;
+}
+
 .header {
   margin-bottom: 64px;
   max-width: 720px;
 }
 
 .heading {
-  font-family: var(--serif);
+  font-family: Arial, Helvetica, sans-serif;
   font-size: clamp(2.75rem, 5vw, 4.5rem);
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -36,6 +53,141 @@
   margin: 40px 0 64px;
 }
 
+/* --- Platforms List --- */
+
+.platformsList {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.platformGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.platformName {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #111;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #111;
+  text-transform: none;
+}
+
+.linksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.linkItem {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.linkItem:last-child {
+  border-bottom: none;
+}
+
+.publicationLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 8px;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  border-radius: 4px;
+}
+
+.publicationLink:hover {
+  background-color: rgba(0, 0, 0, 0.025);
+}
+
+.publicationLink:hover .linkUrl {
+  color: #000;
+  text-decoration: underline;
+}
+
+.publicationLink:hover .linkIcon {
+  color: #000;
+  transform: translate(2px, -2px);
+}
+
+.publicationPrint {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 8px;
+}
+
+.linkIcon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: #999;
+  margin-top: 2px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.printIcon {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.linkContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.linkTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #222;
+  line-height: 1.4;
+}
+
+.linkNote {
+  font-size: 0.8125rem;
+  color: #666;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.linkUrl {
+  font-size: 0.8125rem;
+  color: #555;
+  line-height: 1.5;
+  word-break: break-all;
+  transition: color 0.15s ease;
+}
+
+.printLabel {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #999;
+  margin-top: 4px;
+  padding: 2px 8px;
+  background: #f5f5f5;
+  border-radius: 3px;
+  width: fit-content;
+}
+
+/* --- Responsive --- */
+
 @media (max-width: 768px) {
   .container {
     padding: 40px var(--gutter, 20px) 80px;
@@ -47,5 +199,22 @@
 
   .separator {
     margin: 32px 0 48px;
+  }
+
+  .platformsList {
+    gap: 40px;
+  }
+
+  .platformName {
+    font-size: 1.125rem;
+  }
+
+  .publicationLink,
+  .publicationPrint {
+    padding: 12px 4px;
+  }
+
+  .linkUrl {
+    font-size: 0.75rem;
   }
 }

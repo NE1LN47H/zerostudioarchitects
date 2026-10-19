@@ -17,6 +17,8 @@ interface PageBookProps {
     projects?: any[];
     awards?: any[];
     journal?: any[];
+    publications?: any[];
+    team?: any[];
     contact?: any;
   };
 }
@@ -35,11 +37,10 @@ export default function PageBook({ initialData }: PageBookProps) {
     canPrev,
   } = useSection();
 
-  // Active sheets tracking for smooth 3D page turn
+  // Active sheets tracking for smooth slow fade-in transition
   const [animatingState, setAnimatingState] = useState<{
     fromIndex: number;
     toIndex: number;
-    dir: "next" | "prev";
   } | null>(null);
 
   // Sync animation state with SectionContext
@@ -48,19 +49,18 @@ export default function PageBook({ initialData }: PageBookProps) {
       setAnimatingState({
         fromIndex: previousIndex,
         toIndex: currentIndex,
-        dir: direction,
       });
 
       const timer = setTimeout(() => {
         setIsAnimating(false);
         setAnimatingState(null);
-      }, 760);
+      }, 800);
 
       return () => clearTimeout(timer);
     } else {
       setAnimatingState(null);
     }
-  }, [currentIndex, previousIndex, direction, isAnimating, setIsAnimating]);
+  }, [currentIndex, previousIndex, isAnimating, setIsAnimating]);
 
   // Reset scroll position to top when entering a section
   useEffect(() => {
@@ -113,10 +113,10 @@ export default function PageBook({ initialData }: PageBookProps) {
   const sectionContent = useMemo(
     () => [
       <Hero key="sec-0" hideBar items={initialData?.heroItems} />,
-      <About key="sec-1" content={initialData?.about} />,
+      <About key="sec-1" content={initialData?.about} team={initialData?.team} />,
       <Projects key="sec-2" projects={initialData?.projects} />,
       <Awards key="sec-3" awards={initialData?.awards} />,
-      <Journal key="sec-4" articles={initialData?.journal} />,
+      <Journal key="sec-4" articles={initialData?.journal} publications={initialData?.publications} />,
       <Contact key="sec-5" contact={initialData?.contact} />,
     ],
     [initialData]
@@ -185,7 +185,7 @@ export default function PageBook({ initialData }: PageBookProps) {
         </div>
       </div>
 
-      {/* 3D Physical Page Turn Stage */}
+      {/* Viewport Stage with Slow Fade Transition */}
       <div className={styles.bookStage}>
         {sectionContent.map((content, idx) => {
           let sheetClass = styles.sheet;
@@ -194,18 +194,12 @@ export default function PageBook({ initialData }: PageBookProps) {
           }
 
           if (animatingState) {
-            if (idx === animatingState.fromIndex) {
-              // Outgoing page turns
-              sheetClass +=
-                animatingState.dir === "next"
-                  ? ` ${styles.turnNextOutgoing}`
-                  : ` ${styles.turnPrevOutgoing}`;
-            } else if (idx === animatingState.toIndex) {
-              // Incoming page revealed underneath
-              sheetClass +=
-                animatingState.dir === "next"
-                  ? ` ${styles.turnNextIncoming}`
-                  : ` ${styles.turnPrevIncoming}`;
+            if (idx === animatingState.toIndex) {
+              // Incoming section slowly fades in
+              sheetClass += ` ${styles.fadeIn}`;
+            } else if (idx === animatingState.fromIndex) {
+              // Outgoing section slowly fades out
+              sheetClass += ` ${styles.fadeOut}`;
             } else {
               sheetClass += ` ${styles.sheetHidden}`;
             }

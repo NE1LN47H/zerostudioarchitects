@@ -10,6 +10,25 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/journal",
+        destination: "/media",
+        permanent: true,
+      },
+      {
+        source: "/in-the-media",
+        destination: "/media",
+        permanent: true,
+      },
+      {
+        source: "/admin/journal",
+        destination: "/admin/media",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

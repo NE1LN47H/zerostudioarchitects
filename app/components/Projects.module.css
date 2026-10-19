@@ -28,7 +28,7 @@
 }
 
 .title {
-  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-family: var(--serif, Arial, Helvetica, sans-serif);
   font-size: clamp(2.2rem, 3.2vw, 3rem);
   font-weight: 400;
   margin: 0 0 6px 0;
@@ -118,6 +118,17 @@
   transition: color 0.2s ease;
 }
 
+.cardDescription {
+  font-size: 0.84375rem;
+  line-height: 1.45;
+  color: #555555;
+  margin: 0 0 6px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .cardLink:hover .cardTitle {
   color: #000000;
   text-decoration: underline;
@@ -129,7 +140,7 @@
   font-size: 0.8125rem;
   color: #767676;
   margin: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
 }
 
 .footRow {

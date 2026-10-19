@@ -22,12 +22,9 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
             className={styles.image}
           />
         </div>
-        <div className={styles.category}>{project.category}</div>
         <h2 className={styles.title}>{project.title}</h2>
         <p className={styles.excerpt}>{project.subtitle || project.summary}</p>
-        <div className={styles.meta}>
-          {project.year} · {project.location} · {project.area}
-        </div>
+        <div className={styles.meta}>{project.year}</div>
       </Link>
     </article>
   );

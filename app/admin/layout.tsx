@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { href: "/admin/projects", label: "Projects", icon: "◫" },
   { href: "/admin/about", label: "About Studio", icon: "◉" },
   { href: "/admin/awards", label: "Awards & Honors", icon: "◈" },
-  { href: "/admin/journal", label: "Journal", icon: "▤" },
+  { href: "/admin/media", label: "In the Media", icon: "▤" },
   { href: "/admin/team", label: "Studio Team", icon: "◬" },
   { href: "/admin/contact", label: "Contact Info", icon: "✉" },
   { href: "/admin/settings", label: "Site Settings", icon: "⚙" },

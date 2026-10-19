@@ -60,7 +60,7 @@ export default function Awards({ awards = [] }: AwardsProps) {
         <div className={styles.headerRow}>
           <div className={styles.titleGroup}>
             <h2 id="awards-title" className={styles.heading}>
-              Awards
+              Recognition
             </h2>
             <span className={styles.subheading}>ZERO STUDIO (ESTD 2013)</span>
           </div>
@@ -99,7 +99,7 @@ export default function Awards({ awards = [] }: AwardsProps) {
             onClick={() => setModalOpen(true)}
             aria-haspopup="dialog"
           >
-            <span>VIEW ALL AWARDS</span>
+            <span>VIEW ALL RECOGNITION</span>
             <span className={styles.arrowIcon} aria-hidden="true">
               →
             </span>
@@ -122,13 +122,13 @@ export default function Awards({ awards = [] }: AwardsProps) {
           >
             <div className={styles.modalHeader}>
               <h2 id="modal-awards-title" className={styles.modalTitle}>
-                All Awards & Recognitions
+                All Recognitions
               </h2>
               <button
                 type="button"
                 className={styles.modalCloseBtn}
                 onClick={() => setModalOpen(false)}
-                aria-label="Close awards archive"
+                aria-label="Close recognition archive"
               >
                 CLOSE ✕
               </button>

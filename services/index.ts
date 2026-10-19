@@ -8,3 +8,4 @@ export * from "./contact.service";
 export * from "./settings.service";
 export * from "./media.service";
 export * from "./auth.service";
+export * from "./publications.service";

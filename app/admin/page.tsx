@@ -61,8 +61,8 @@ export default function AdminDashboardPage() {
           <Link href="/admin/hero" className={`${styles.btn} ${styles.btnSecondary}`}>
             <span>+</span> Add Hero Image
           </Link>
-          <Link href="/admin/journal" className={`${styles.btn} ${styles.btnSecondary}`}>
-            <span>+</span> Write Journal
+          <Link href="/admin/media" className={`${styles.btn} ${styles.btnSecondary}`}>
+            <span>+</span> Add Media Feature
           </Link>
         </div>
       </div>
@@ -114,13 +114,13 @@ export default function AdminDashboardPage() {
 
         <div className={styles.card} style={{ padding: "20px" }}>
           <div style={{ fontSize: "0.72rem", color: "#888", fontWeight: 600, letterSpacing: "0.08em" }}>
-            JOURNAL
+            IN THE MEDIA
           </div>
           <div style={{ fontSize: "2rem", fontWeight: 700, margin: "6px 0 2px", color: "#111" }}>
-            {loading ? "..." : stats?.counts.journal ?? 6}
+            {loading ? "..." : stats?.counts.journal ?? 21}
           </div>
           <div style={{ fontSize: "0.75rem", color: "#666" }}>
-            Published articles
+            National & intl features
           </div>
         </div>
 
@@ -137,7 +137,7 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Grid: Recent Projects & Recent Journal */}
+      {/* Grid: Recent Projects & In the Media */}
       <div
         style={{
           display: "grid",
@@ -182,11 +182,11 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Recent Journal Articles */}
+        {/* In the Media Features */}
         <div className={styles.card}>
           <div className={styles.cardHeader}>
-            <h2 className={styles.cardTitle}>Journal Articles</h2>
-            <Link href="/admin/journal" style={{ fontSize: "0.78rem", color: "#111", fontWeight: 500 }}>
+            <h2 className={styles.cardTitle}>In the Media</h2>
+            <Link href="/admin/media" style={{ fontSize: "0.78rem", color: "#111", fontWeight: 500 }}>
               Manage all →
             </Link>
           </div>

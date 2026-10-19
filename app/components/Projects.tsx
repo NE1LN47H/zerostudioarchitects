@@ -5,10 +5,12 @@ import styles from "./Projects.module.css";
 interface ProjectCardData {
   slug: string;
   title: string;
-  category: string;
+  category?: string;
   year: string;
   heroImage: string;
   featured?: boolean;
+  subtitle?: string;
+  summary?: string;
 }
 
 interface ProjectsProps {
@@ -25,7 +27,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
         <div className={styles.headerRow}>
           <div className={styles.titleGroup}>
             <h2 id="projects-title" className={styles.title}>
-              Selected Projects
+              Projects
             </h2>
             <p className={styles.subtitle}>
               Homes, workplaces and public buildings.
@@ -39,25 +41,29 @@ export default function Projects({ projects = [] }: ProjectsProps) {
         </div>
 
         <div className={styles.grid}>
-          {displayProjects.map((project) => (
-            <article key={project.slug} className={styles.card}>
-              <Link href={`/projects/${project.slug}`} className={styles.cardLink}>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={project.heroImage}
-                    alt={project.title}
-                    fill
-                    sizes="(max-width: 860px) 100vw, 33vw"
-                    className={styles.image}
-                  />
-                </div>
-                <h3 className={styles.cardTitle}>{project.title}</h3>
-                <p className={styles.cardMeta}>
-                  {project.category} · {project.year}
-                </p>
-              </Link>
-            </article>
-          ))}
+          {displayProjects.map((project) => {
+            const description = project.subtitle || project.summary;
+            return (
+              <article key={project.slug} className={styles.card}>
+                <Link href={`/projects/${project.slug}`} className={styles.cardLink}>
+                  <div className={styles.imageWrapper}>
+                    <Image
+                      src={project.heroImage}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 860px) 100vw, 33vw"
+                      className={styles.image}
+                    />
+                  </div>
+                  <h3 className={styles.cardTitle}>{project.title}</h3>
+                  {description && (
+                    <p className={styles.cardDescription}>{description}</p>
+                  )}
+                  <p className={styles.cardMeta}>{project.year}</p>
+                </Link>
+              </article>
+            );
+          })}
         </div>
 
         <div className={styles.footRow}>

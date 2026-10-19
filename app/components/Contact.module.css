@@ -31,7 +31,7 @@
 }
 
 .title {
-  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-family: var(--serif, Arial, Helvetica, sans-serif);
   font-size: clamp(2rem, 3.2vw, 2.75rem);
   font-weight: 400;
   margin: 0 0 6px 0;

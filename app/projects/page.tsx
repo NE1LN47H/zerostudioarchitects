@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = constructMetadata({
   title: "Projects",
   description:
-    "Selected architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
+    "Architectural, residential, commercial and cultural projects by Zero Studio Architectures.",
   path: "/projects",
 });
 

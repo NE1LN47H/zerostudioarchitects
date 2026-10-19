@@ -14,9 +14,9 @@ export const SECTIONS: SectionMeta[] = [
   { id: "home", number: "01", name: "HOME", label: "Home" },
   { id: "about", number: "02", name: "ABOUT", label: "About" },
   { id: "projects", number: "03", name: "PROJECTS", label: "Projects" },
-  { id: "awards", number: "04", name: "AWARDS", label: "Awards" },
-  { id: "journal", number: "05", name: "JOURNAL", label: "Journal" },
-  { id: "contact", number: "06", name: "CONTACT", label: "Contact" },
+  { id: "awards", number: "04", name: "RECOGNITION", label: "Recognition" },
+  { id: "media", number: "05", name: "IN THE MEDIA", label: "In the Media" },
+  { id: "contact", number: "06", name: "REACH US", label: "Reach Us" },
 ];
 
 interface SectionContextType {
@@ -83,8 +83,11 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!isHome || typeof window === "undefined") return;
     const hash = window.location.hash.replace("#", "").toLowerCase();
-    const querySection = new URLSearchParams(window.location.search).get("section");
-    const target = querySection || hash;
+    const querySection = new URLSearchParams(window.location.search).get("section")?.toLowerCase();
+    let target = querySection || hash;
+    if (target === "recognition") target = "awards";
+    if (target === "journal" || target === "in-the-media" || target === "inthemedia") target = "media";
+    if (target === "reach-us" || target === "reachus" || target === "reach") target = "contact";
     if (target) {
       const foundIdx = SECTIONS.findIndex((s) => s.id === target);
       if (foundIdx > 0) {

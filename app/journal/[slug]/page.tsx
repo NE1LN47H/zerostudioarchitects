@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return constructMetadata({
-    title: `${article.title} — Journal`,
+    title: `${article.title} — In the Media`,
     description: article.excerpt,
     path: `/journal/${article.slug}`,
     image: article.image,
@@ -56,7 +56,7 @@ export default async function ArticlePage({ params }: PageProps) {
         <div className={styles.container}>
           <nav aria-label="Breadcrumb">
             <Link href="/journal" className={styles.backLinkTop}>
-              ← Back to Journal
+              ← Back to In the Media
             </Link>
           </nav>
 
@@ -109,7 +109,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
             <footer className={styles.articleFooter}>
               <Link href="/journal" className={styles.backLinkBottom}>
-                ← Back to Journal
+                ← Back to In the Media
               </Link>
             </footer>
           </article>
@@ -117,7 +117,7 @@ export default async function ArticlePage({ params }: PageProps) {
           {relatedArticles.length > 0 && (
             <section className={styles.relatedSection} aria-labelledby="related-heading">
               <h2 id="related-heading" className={styles.relatedHeading}>
-                Related Journal
+                More in Media
               </h2>
               <JournalGrid articles={relatedArticles as any} />
             </section>

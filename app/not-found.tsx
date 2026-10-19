@@ -28,7 +28,7 @@ export default function NotFound() {
         </span>
         <h1
           style={{
-            fontFamily: "var(--serif, serif)",
+            fontFamily: "var(--serif, Arial, Helvetica, sans-serif)",
             fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
             fontWeight: 400,
             lineHeight: 1.15,

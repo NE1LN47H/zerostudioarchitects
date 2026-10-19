@@ -16,10 +16,10 @@ export default function Footer({ forceShow }: { forceShow?: boolean }) {
           <nav aria-label="Footer">
             <ul>
               <li><Link href="/#projects">Projects</Link></li>
-              <li><Link href="/#about">About</Link></li>
-              <li><Link href="/awards">Awards</Link></li>
-              <li><Link href="/#journal">Journal</Link></li>
-              <li><Link href="/#contact">Contact</Link></li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/awards">Recognition</Link></li>
+              <li><Link href="/media">In the Media</Link></li>
+              <li><Link href="/#contact">Reach Us</Link></li>
             </ul>
           </nav>
           <div className="right">

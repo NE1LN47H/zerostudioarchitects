@@ -1,21 +1,33 @@
 import { getDb } from "@/lib/mongodb";
 import { TeamMember } from "@/types";
+import { INITIAL_TEAM } from "@/lib/data/initialTeam";
+
+export { INITIAL_TEAM };
 
 export async function getTeamMembers(onlyVisible = false): Promise<TeamMember[]> {
-  const db = await getDb();
-  const query = onlyVisible ? { visible: true } : {};
-  const items = await db.collection("team").find(query).sort({ order: 1 }).toArray();
+  try {
+    const db = await getDb();
+    const query = onlyVisible ? { visible: true } : {};
+    const items = await db.collection("team").find(query).sort({ order: 1 }).toArray();
 
-  return items.map((doc: any) => ({
-    id: doc.id || doc._id?.toString(),
-    name: doc.name,
-    role: doc.role,
-    image: doc.image,
-    imagePublicId: doc.imagePublicId,
-    bio: doc.bio,
-    order: doc.order ?? 1,
-    visible: doc.visible ?? true,
-  }));
+    if (!items || items.length === 0) {
+      await db.collection("team").insertMany(INITIAL_TEAM);
+      return onlyVisible ? INITIAL_TEAM.filter((t) => t.visible) : INITIAL_TEAM;
+    }
+
+    return items.map((doc: any) => ({
+      id: doc.id || doc._id?.toString(),
+      name: doc.name,
+      role: doc.role,
+      image: doc.image || INITIAL_TEAM.find((t) => t.name === doc.name)?.image || "/team/hamid.jpg",
+      imagePublicId: doc.imagePublicId,
+      bio: doc.bio,
+      order: doc.order ?? 1,
+      visible: doc.visible ?? true,
+    }));
+  } catch {
+    return onlyVisible ? INITIAL_TEAM.filter((t) => t.visible) : INITIAL_TEAM;
+  }
 }
 
 export async function createTeamMember(data: Omit<TeamMember, "id">): Promise<TeamMember> {

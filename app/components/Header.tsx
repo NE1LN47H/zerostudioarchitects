@@ -17,9 +17,9 @@ const LINKS: NavLinkItem[] = [
   { href: "/", label: "Home", id: "home" },
   { href: "/#about", label: "About", id: "about" },
   { href: "/#projects", label: "Projects", id: "projects" },
-  { href: "/awards", label: "Awards", id: "awards" },
-  { href: "/journal", label: "Journal", id: "journal" },
-  { href: "/#contact", label: "Contact", id: "contact" },
+  { href: "/awards", label: "Recognition", id: "awards" },
+  { href: "/media", label: "In the Media", id: "media" },
+  { href: "/#contact", label: "Reach Us", id: "contact" },
 ];
 
 export default function Header() {
@@ -71,13 +71,19 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.bar}>
         <Link
-          href="/"
+          href="/#about"
           className={styles.logo}
-          aria-label="Zero Studio Architectures, home"
+          aria-label="Zero Studio Architectures, about"
           onClick={(e) => {
             if (isHome) {
               e.preventDefault();
-              goToSection(0);
+              const targetIdx = SECTIONS.findIndex((s) => s.id === "about");
+              if (targetIdx !== -1) {
+                goToSection(targetIdx);
+              }
+              setOpen(false);
+            } else {
+              setOpen(false);
             }
           }}
         >

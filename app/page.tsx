@@ -4,19 +4,21 @@ import {
   getProjects,
   getAboutContent,
   getAwards,
-  getJournalArticles,
+  getPublications,
+  getTeamMembers,
   getContactInfo,
 } from "@/services";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [heroItems, projects, about, awards, journal, contact] = await Promise.all([
+  const [heroItems, projects, about, awards, publications, team, contact] = await Promise.all([
     getHeroItems(true),
     getProjects(true),
     getAboutContent(),
     getAwards(true),
-    getJournalArticles(true),
+    getPublications(true),
+    getTeamMembers(true),
     getContactInfo(),
   ]);
 
@@ -28,7 +30,8 @@ export default async function Home() {
           projects,
           about,
           awards,
-          journal,
+          publications,
+          team,
           contact,
         }}
       />

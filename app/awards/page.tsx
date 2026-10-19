@@ -5,7 +5,7 @@ import { constructMetadata } from "@/lib/seo";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = constructMetadata({
-  title: "Awards & Recognitions",
+  title: "Recognition",
   description:
     "National and state architectural awards, citations and honors received by Zero Studio Architectures since 2013.",
   path: "/awards",
@@ -44,7 +44,7 @@ export default async function AwardsPage() {
             Zero Studio (Estd 2013)
           </span>
           <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--serif)', fontWeight: 400, margin: '0 0 16px 0', lineHeight: 1.1 }}>
-            Awards & Recognitions
+            Recognition
           </h1>
           <p style={{ fontSize: '1.125rem', color: 'var(--ink-2, #555555)', maxWidth: '640px', margin: 0, lineHeight: 1.6 }}>
             A chronological archive of national and state recognitions, design citations, and architectural honors.
