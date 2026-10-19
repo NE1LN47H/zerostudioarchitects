@@ -7,8 +7,8 @@ import styles from "../admin.module.css";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@zerostudio.org");
-  const [password, setPassword] = useState("admin123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -105,6 +105,7 @@ export default function AdminLoginPage() {
               className={styles.input}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="admin@zerostudio.org"
               required
               autoComplete="username"
             />
@@ -120,6 +121,7 @@ export default function AdminLoginPage() {
               className={styles.input}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••••••"
               required
               autoComplete="current-password"
             />
@@ -134,19 +136,6 @@ export default function AdminLoginPage() {
             {loading ? "Authenticating..." : "Sign in to Dashboard →"}
           </button>
         </form>
-
-        <div
-          style={{
-            marginTop: "24px",
-            paddingTop: "16px",
-            borderTop: "1px solid #f0f0f0",
-            fontSize: "0.75rem",
-            color: "#888888",
-            textAlign: "center",
-          }}
-        >
-          Initial test credentials pre-filled. You can configure custom credentials in <code>.env.local</code>.
-        </div>
       </div>
     </div>
   );
