@@ -58,9 +58,6 @@ export default function AdminDashboardPage() {
           <Link href="/admin/projects" className={`${styles.btn} ${styles.btnPrimary}`}>
             <span>+</span> Add Project
           </Link>
-          <Link href="/admin/hero" className={`${styles.btn} ${styles.btnSecondary}`}>
-            <span>+</span> Add Hero Image
-          </Link>
           <Link href="/admin/media" className={`${styles.btn} ${styles.btnSecondary}`}>
             <span>+</span> Add Media Feature
           </Link>

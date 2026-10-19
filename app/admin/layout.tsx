@@ -8,7 +8,6 @@ import styles from "./admin.module.css";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: "⊞" },
-  { href: "/admin/hero", label: "Hero Wall", icon: "▦" },
   { href: "/admin/projects", label: "Projects", icon: "◫" },
   { href: "/admin/about", label: "About Studio", icon: "◉" },
   { href: "/admin/awards", label: "Awards & Honors", icon: "◈" },
