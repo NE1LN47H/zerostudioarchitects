@@ -54,7 +54,7 @@ export default function PageBook({ initialData }: PageBookProps) {
       const timer = setTimeout(() => {
         setIsAnimating(false);
         setAnimatingState(null);
-      }, 800);
+      }, 600);
 
       return () => clearTimeout(timer);
     } else {

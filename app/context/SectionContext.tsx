@@ -40,8 +40,22 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const isHome = pathname === "/";
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [previousIndex, setPreviousIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(() => {
+    if (typeof window !== "undefined") {
+      const hash = window.location.hash.replace("#", "").toLowerCase();
+      const querySection = new URLSearchParams(window.location.search).get("section")?.toLowerCase();
+      let target = querySection || hash;
+      if (target === "recognition") target = "awards";
+      if (target === "journal" || target === "in-the-media" || target === "inthemedia") target = "media";
+      if (target === "reach-us" || target === "reachus" || target === "reach") target = "contact";
+      if (target) {
+        const found = SECTIONS.findIndex((s) => s.id === target);
+        if (found !== -1) return found;
+      }
+    }
+    return 0;
+  });
+  const [previousIndex, setPreviousIndex] = useState(currentIndex);
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [isAnimating, setIsAnimating] = useState(false);
 

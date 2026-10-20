@@ -21,7 +21,7 @@ export default function About({ content, team = [] }: AboutProps) {
     content?.paragraph1 ||
     "Zero studio is a creative design studio driving itself forward with a perception to experiment with architecture under the varying contexts of need and, most importantly, the user. Founded in 2013 by the visionary duo Ar.Hamid MM & Ar.Hafeef PK, the studio is now led by Ar.Shabna & Ar.Nidhinraj KJ.";
 
-  const displayTeam = team && team.length > 0 ? team : INITIAL_TEAM;
+  const displayTeam = INITIAL_TEAM;
 
   return (
     <section
@@ -40,7 +40,7 @@ export default function About({ content, team = [] }: AboutProps) {
 
         {/* Team Preview on Section 02 */}
         <div className={styles.teamPreviewWrap}>
-          <span className={styles.teamPreviewLabel}>Lead Principal Architects</span>
+          <span className={styles.teamPreviewLabel}>Studio Team</span>
           <div className={styles.teamGridPreview}>
             {displayTeam.map((member) => (
               <Link
@@ -51,7 +51,7 @@ export default function About({ content, team = [] }: AboutProps) {
               >
                 <div className={styles.teamThumb}>
                   <Image
-                    src={member.image || "/team/hamid.jpg"}
+                    src={member.image || "/team/01-founders.jpg"}
                     alt={member.name}
                     fill
                     sizes="46px"
@@ -60,6 +60,7 @@ export default function About({ content, team = [] }: AboutProps) {
                 </div>
                 <div className={styles.teamInfo}>
                   <span className={styles.teamName}>{member.name}</span>
+                  {member.bio && <span className={styles.teamYears}>{member.bio}</span>}
                   <span className={styles.teamRole}>{member.role}</span>
                 </div>
               </Link>

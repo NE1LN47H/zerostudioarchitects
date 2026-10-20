@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getAboutContent, getTeamMembers } from "@/services";
+import { getAboutContent } from "@/services";
 import styles from "./about.module.css";
 import { constructMetadata } from "@/lib/seo";
 import { INITIAL_TEAM } from "@/lib/data/initialTeam";
@@ -16,13 +16,12 @@ export const metadata: Metadata = constructMetadata({
 });
 
 export default async function DedicatedAboutPage() {
-  const [about, teamMembers] = await Promise.all([
+  const [about] = await Promise.all([
     getAboutContent(),
-    getTeamMembers(true),
   ]);
 
-  // Fallback to static seed team if database returned empty
-  const team = teamMembers && teamMembers.length > 0 ? teamMembers : INITIAL_TEAM;
+  // Static ordered team
+  const team = INITIAL_TEAM;
 
   const headingText = about?.heading || "The Studio";
   const p1 =
@@ -70,29 +69,39 @@ export default async function DedicatedAboutPage() {
               Team
             </h2>
             <p className={styles.sectionSubtitle}>
-              The principal architects guiding design discourse, vernacular exploration, and tactile craft at Zero Studio.
+              The team guiding design discourse, vernacular exploration, and tactile craft at Zero Studio.
             </p>
           </div>
 
-          <div className={styles.teamGrid}>
-            {team.map((member) => (
-              <article key={member.id} className={styles.teamCard}>
-                <div className={styles.imageWrap}>
-                  <Image
-                    src={member.image || "/team/hamid.jpg"}
-                    alt={member.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1100px) 50vw, 25vw"
-                    className={styles.teamImage}
-                  />
-                </div>
+          <div className={styles.teamList}>
+            {team.map((member, idx) => {
+              const isLandscape = (member.width || 0) > (member.height || 0);
+              return (
+                <article key={member.id} className={styles.teamCard}>
+                  <div
+                    className={`${styles.imageWrap} ${
+                      isLandscape ? styles.landscapeWrap : styles.portraitWrap
+                    }`}
+                  >
+                    <Image
+                      src={member.image || "/team/01-founders.jpg"}
+                      alt={member.name}
+                      width={member.width || 3072}
+                      height={member.height || 4608}
+                      sizes="(max-width: 600px) 100vw, 480px"
+                      className={styles.teamImage}
+                      priority={idx === 0}
+                    />
+                  </div>
 
-                <h3 className={styles.memberName}>{member.name}</h3>
-                <p className={styles.memberRole}>{member.role}</p>
-
-                {member.bio && <p className={styles.memberBio}>{member.bio}</p>}
-              </article>
-            ))}
+                  <div className={styles.cardInfo}>
+                    <h3 className={styles.memberName}>{member.name}</h3>
+                    {member.bio && <span className={styles.memberYears}>{member.bio}</span>}
+                    <p className={styles.memberRole}>{member.role}</p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </section>
       </div>

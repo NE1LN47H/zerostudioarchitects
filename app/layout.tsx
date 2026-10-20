@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Preloader from "./components/Preloader";
 import SmoothScroll from "./components/SmoothScroll";
 import { SectionProvider } from "./context/SectionContext";
 import { constructMetadata } from "@/lib/seo";
@@ -21,6 +22,7 @@ export default function RootLayout({
         <JsonLd data={getWebSiteJsonLd()} />
       </head>
       <body>
+        <Preloader />
         <SectionProvider>
           <SmoothScroll />
           <a className="skip" href="#main">Skip to content</a>

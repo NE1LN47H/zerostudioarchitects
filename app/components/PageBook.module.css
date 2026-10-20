@@ -167,13 +167,14 @@
 }
 
 /* ==================================================
-   NORMAL SLOW FADE-IN ANIMATION TRANSITION (800ms)
+   CLEAN BLANK WHITE FADE-IN TRANSITION (600ms)
    ================================================== */
 
 .fadeIn {
   z-index: 3;
   pointer-events: auto;
-  animation: slowFadeIn 800ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  background-color: var(--bg, #ffffff);
+  animation: slowFadeIn 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes slowFadeIn {
@@ -186,18 +187,7 @@
 }
 
 .fadeOut {
-  z-index: 1;
-  pointer-events: none;
-  animation: slowFadeOut 800ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@keyframes slowFadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+  display: none !important;
 }
 
 

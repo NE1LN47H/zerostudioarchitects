@@ -7,5 +7,7 @@ export interface TeamMember {
   bio?: string;
   order: number;
   visible: boolean;
+  width?: number;
+  height?: number;
   updatedAt?: string;
 }
