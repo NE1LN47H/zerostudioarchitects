@@ -21,7 +21,7 @@ export default function About({ content, team = [] }: AboutProps) {
     content?.paragraph1 ||
     "Zero studio is a creative design studio driving itself forward with a perception to experiment with architecture under the varying contexts of need and, most importantly, the user. Founded in 2013 by the visionary duo Ar.Hamid MM & Ar.Hafeef PK, the studio is now led by Ar.Shabna & Ar.Nidhinraj KJ.";
 
-  const displayTeam = INITIAL_TEAM;
+  const displayTeam = team && team.length > 0 ? team : INITIAL_TEAM;
 
   return (
     <section

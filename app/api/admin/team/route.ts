@@ -34,6 +34,8 @@ export async function POST(req: NextRequest) {
       bio: body.bio || "",
       order: body.order ?? 99,
       visible: body.visible ?? true,
+      width: body.width,
+      height: body.height,
     });
 
     return NextResponse.json({ success: true, member }, { status: 201 });
