@@ -17,7 +17,7 @@ export async function getAboutContent(): Promise<AboutContent> {
   return {
     heading: "We design spaces rooted in their context, climate and material truth.",
     paragraph1:
-      "Zero Studio Architectures is an architecture practice based in Calicut, Kerala. Founded in 2013 by Hafeez & Arjun, the studio explores architecture that belongs quietly to its geography, climate, and culture.",
+      "Zero Studio is an architecture practice based in Calicut, Kerala. Founded in 2013 by Hafeez & Arjun, the studio explores architecture that belongs quietly to its geography, climate, and culture.",
     paragraph2:
       "Our work spans residences, hospitality, offices, and cultural spaces across South India, guided by careful spatial planning, honest material palettes, and passive environmental responsiveness.",
     leadArchitects: "Hafeez & Arjun",

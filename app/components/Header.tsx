@@ -25,7 +25,12 @@ const LINKS: NavLinkItem[] = [
 export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { currentIndex, goToSection, isHome } = useSection();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on Escape, and when the viewport grows past the mobile breakpoint
   useEffect(() => {
@@ -63,7 +68,7 @@ export default function Header() {
   };
 
   const isCurrentActive = (linkId: string) => {
-    if (!isHome) return false;
+    if (!mounted || !isHome) return false;
     return SECTIONS[currentIndex]?.id === linkId;
   };
 
@@ -73,7 +78,7 @@ export default function Header() {
         <Link
           href="/#about"
           className={styles.logo}
-          aria-label="Zero Studio Architectures, about"
+          aria-label="Zero Studio"
           onClick={(e) => {
             if (isHome) {
               e.preventDefault();

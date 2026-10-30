@@ -22,6 +22,9 @@ export default async function DedicatedAboutPage() {
 
   // Static ordered team
   const team = INITIAL_TEAM;
+  const founders = team.find((m) => m.id === "team-1") || team[0];
+  const principals = team.find((m) => m.id === "team-2") || team[1];
+  const linearTeam = team.filter((m) => m.id !== "team-1" && m.id !== "team-2");
 
   const headingText = about?.heading || "The Studio";
   const p1 =
@@ -41,7 +44,6 @@ export default async function DedicatedAboutPage() {
 
         {/* Studio Philosophy & Narrative */}
         <header className={styles.studioHeader}>
-          <span className={styles.studioBadge}>ZERO STUDIO (ESTD 2013)</span>
           <h1 className={styles.heading}>{headingText}</h1>
 
           <div className={styles.narrativeWrap}>
@@ -62,7 +64,7 @@ export default async function DedicatedAboutPage() {
           </div>
         )}
 
-        {/* Team Section with Portrait Images */}
+        {/* Team Section with 3 Linear Tiers */}
         <section className={styles.teamSection} aria-labelledby="team-heading">
           <div className={styles.sectionHeader}>
             <h2 id="team-heading" className={styles.sectionTitle}>
@@ -73,35 +75,83 @@ export default async function DedicatedAboutPage() {
             </p>
           </div>
 
-          <div className={styles.teamList}>
-            {team.map((member, idx) => {
-              const isLandscape = (member.width || 0) > (member.height || 0);
-              return (
-                <article key={member.id} className={styles.teamCard}>
-                  <div
-                    className={`${styles.imageWrap} ${
-                      isLandscape ? styles.landscapeWrap : styles.portraitWrap
-                    }`}
-                  >
+          <div className={styles.teamStructure}>
+            {/* Line 1: Founding Partners */}
+            {founders && (
+              <div className={styles.teamTier}>
+                <span className={styles.tierLabel}>Line 1 — Founding Partners</span>
+                <article className={styles.founderCard}>
+                  <div className={`${styles.imageWrap} ${styles.landscapeWrap}`}>
                     <Image
-                      src={member.image || "/team/01-founders.jpg"}
-                      alt={member.name}
-                      width={member.width || 3072}
-                      height={member.height || 4608}
-                      sizes="(max-width: 600px) 100vw, 480px"
+                      src={founders.image || "/team/01-founders.jpg"}
+                      alt={founders.name}
+                      width={founders.width || 8192}
+                      height={founders.height || 5301}
+                      sizes="(max-width: 768px) 100vw, 560px"
                       className={styles.teamImage}
-                      priority={idx === 0}
+                      priority
                     />
                   </div>
-
                   <div className={styles.cardInfo}>
-                    <h3 className={styles.memberName}>{member.name}</h3>
-                    {member.bio && <span className={styles.memberYears}>{member.bio}</span>}
-                    <p className={styles.memberRole}>{member.role}</p>
+                    <h3 className={styles.memberName}>{founders.name}</h3>
+                    {founders.bio && <span className={styles.memberYears}>{founders.bio}</span>}
+                    <p className={styles.memberRole}>{founders.role}</p>
                   </div>
                 </article>
-              );
-            })}
+              </div>
+            )}
+
+            {/* Line 2: Principal Architects */}
+            {principals && (
+              <div className={styles.teamTier}>
+                <span className={styles.tierLabel}>Line 2 — Principal Architects</span>
+                <article className={styles.principalCard}>
+                  <div className={`${styles.imageWrap} ${styles.portraitWrap}`}>
+                    <Image
+                      src={principals.image || "/team/02-principals.jpg"}
+                      alt={principals.name}
+                      width={principals.width || 3072}
+                      height={principals.height || 4608}
+                      sizes="(max-width: 768px) 100vw, 400px"
+                      className={styles.teamImage}
+                    />
+                  </div>
+                  <div className={styles.cardInfo}>
+                    <h3 className={styles.memberName}>{principals.name}</h3>
+                    <p className={styles.memberRole}>{principals.role}</p>
+                  </div>
+                </article>
+              </div>
+            )}
+
+            {/* Line 3: Project Architects, Studio Coordinator, Site Supervisor, Senior Draftsperson (linearly) */}
+            {linearTeam.length > 0 && (
+              <div className={styles.teamTier}>
+                <span className={styles.tierLabel}>
+                  Line 3 — Project Architects, Studio Coordinator, Site Supervisor, Senior Draftsperson
+                </span>
+                <div className={styles.linearGrid}>
+                  {linearTeam.map((member) => (
+                    <article key={member.id} className={styles.linearMemberCard}>
+                      <div className={styles.linearImageWrap}>
+                        <Image
+                          src={member.image || "/team/01-founders.jpg"}
+                          alt={member.name}
+                          width={member.width || 3072}
+                          height={member.height || 4608}
+                          sizes="(max-width: 600px) 50vw, (max-width: 1024px) 33vw, 180px"
+                          className={styles.linearTeamImage}
+                        />
+                      </div>
+                      <div className={styles.linearCardInfo}>
+                        <h4 className={styles.linearMemberName}>{member.name}</h4>
+                        <p className={styles.linearMemberRole}>{member.role}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>

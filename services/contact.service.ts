@@ -24,8 +24,8 @@ export async function getContactInfo(): Promise<ContactInfo> {
     emailGeneral: "mail@zerostudio.org",
     emailJobs: "jobs@zerostudio.org",
     phone: "+91 808 678 0008",
-    address: "Zero Studio Architectures\nEranhippalam P.O, Nadakkave\nKozhikode, Kerala 673006\nIndia",
-    mapLink: "https://maps.google.com/?q=Zero+Studio+Architectures+Calicut",
+    address: "Zero Studio\nEranhippalam P.O, Nadakkave\nKozhikode, Kerala 673006\nIndia",
+    mapLink: "https://maps.google.com/?q=Zero+Studio+Calicut",
     instagramUrl: "https://www.instagram.com/zerostudioofficial",
     facebookUrl: "https://www.facebook.com/zerostudioofficial/",
   };

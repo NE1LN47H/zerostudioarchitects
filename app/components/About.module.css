@@ -17,23 +17,23 @@
 
 .heading {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
-  font-weight: 400;
+  font-size: clamp(1.125rem, 1.4vw, 1.35rem);
+  font-weight: 500;
   color: var(--ink, #1a1a1a);
-  margin: 0 0 20px 0;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .content {
-  max-width: 48em;
-  margin: 0 0 28px 0;
-  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  max-width: 52em;
+  margin: 0 0 24px 0;
+  font-size: clamp(0.8125rem, 0.95vw, 0.875rem);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  line-height: 1.75;
+  gap: 12px;
+  line-height: 1.65;
 }
 
 .paragraph {
@@ -195,13 +195,14 @@
   }
 
   .heading {
-    font-size: 1.85rem;
+    font-size: 1.125rem;
+    margin-bottom: 12px;
   }
 
   .content {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    margin-bottom: 20px;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
   }
 
   .teamGridPreview {

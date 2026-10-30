@@ -1,6 +1,7 @@
 import { TeamMember } from "@/types";
 
 export const INITIAL_TEAM: TeamMember[] = [
+  // Line 1: Founding Partners
   {
     id: "team-1",
     name: "HAMID MM & HAFEEF PK",
@@ -12,6 +13,7 @@ export const INITIAL_TEAM: TeamMember[] = [
     order: 1,
     visible: true,
   },
+  // Line 2: Principal Architects
   {
     id: "team-2",
     name: "SHABNA K & NIDHINRAJ KJ",
@@ -22,11 +24,12 @@ export const INITIAL_TEAM: TeamMember[] = [
     order: 2,
     visible: true,
   },
+  // Line 3: Project Architects, Studio Coordinator, Site Supervisor, Senior Draftsperson (linearly)
   {
     id: "team-3",
-    name: "SHAFEEQ AHAMMED",
-    role: "STUDIO COORDINATOR",
-    image: "/team/shafeeq.jpg",
+    name: "FADHAL . C",
+    role: "PROJECT ARCHITECT",
+    image: "/team/FADHAL.JPG",
     width: 3072,
     height: 4608,
     order: 3,
@@ -34,19 +37,19 @@ export const INITIAL_TEAM: TeamMember[] = [
   },
   {
     id: "team-4",
-    name: "SHAMEER PK",
-    role: "SITE COORDINATOR",
-    image: "/team/shameer.jpg",
-    width: 3072,
-    height: 4608,
+    name: "MEHAJIBA",
+    role: "PROJECT ARCHITECT",
+    image: "/team/MEHAJIBA.JPG",
+    width: 3018,
+    height: 4527,
     order: 4,
     visible: true,
   },
   {
     id: "team-5",
-    name: "FADHAL . C",
-    role: "PROJECT ARCHITECT",
-    image: "/team/fadhal.jpg",
+    name: "SHAFEEQ AHAMMED",
+    role: "STUDIO COORDINATOR",
+    image: "/team/SHAFEEQ.JPG",
     width: 3072,
     height: 4608,
     order: 5,
@@ -54,11 +57,11 @@ export const INITIAL_TEAM: TeamMember[] = [
   },
   {
     id: "team-6",
-    name: "MEHAJIBA",
-    role: "PROJECT ARCHITECT",
-    image: "/team/mehajiba.jpg",
-    width: 3018,
-    height: 4527,
+    name: "SHAMEER PK",
+    role: "SITE SUPERVISOR",
+    image: "/team/SHAMEER.JPG",
+    width: 3072,
+    height: 4608,
     order: 6,
     visible: true,
   },
@@ -66,7 +69,7 @@ export const INITIAL_TEAM: TeamMember[] = [
     id: "team-7",
     name: "FAIZAL BABU",
     role: "SENIOR DRAFTSPERSON",
-    image: "/team/faizal.jpg",
+    image: "/team/FAIZAL.JPG",
     width: 3072,
     height: 4608,
     order: 7,
@@ -76,10 +79,11 @@ export const INITIAL_TEAM: TeamMember[] = [
     id: "team-8",
     name: "NIHAD M.T",
     role: "DRAFTSPERSON",
-    image: "/team/nihad.jpg",
+    image: "/team/NIHAD.JPG",
     width: 3072,
     height: 4608,
     order: 8,
     visible: true,
   },
 ];
+

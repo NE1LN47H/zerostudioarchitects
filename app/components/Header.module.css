@@ -13,7 +13,7 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    min-height: 80px;
+    min-height: 92px;
     padding: 12px 40px;
     max-width: 1440px;
     margin: 0 auto;
@@ -29,7 +29,7 @@
 }
 
 .logoImg {
-    height: 52px;
+    height: clamp(64px, 5vw, 74px);
     width: auto;
     display: block;
 }
@@ -83,8 +83,8 @@
 /* ---------- Menu Icon (Two Lines as shown in reference) ---------- */
 
 .menuBtn {
+    display: none; /* Hidden on desktop */
     justify-self: end;
-    display: flex;
     align-items: center;
     justify-content: center;
     width: 36px;
@@ -132,18 +132,22 @@
 
 @media (max-width: 768px) {
     :root {
-        --mobile-header-height: 68px;
+        --mobile-header-height: 76px;
     }
 
     .bar {
         display: flex;
         justify-content: space-between;
-        min-height: var(--mobile-header-height, 68px);
+        min-height: var(--mobile-header-height, 76px);
         padding: 10px 20px;
     }
 
     .logoImg {
-        height: 44px;
+        height: 56px;
+    }
+
+    .menuBtn {
+        display: flex;
     }
 
     .nav {

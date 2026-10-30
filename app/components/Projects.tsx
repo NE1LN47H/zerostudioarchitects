@@ -56,9 +56,6 @@ export default function Projects({ projects = [] }: ProjectsProps) {
                     />
                   </div>
                   <h3 className={styles.cardTitle}>{project.title}</h3>
-                  {description && (
-                    <p className={styles.cardDescription}>{description}</p>
-                  )}
                   <p className={styles.cardMeta}>{project.year}</p>
                 </Link>
               </article>

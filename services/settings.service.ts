@@ -17,7 +17,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   }
 
   return {
-    siteTitle: "Zero Studio Architectures",
+    siteTitle: "Zero Studio",
     siteDescription: "Architecture studio based in Calicut, Kerala. Rooted in context, climate and material truth.",
     logoUrl: "/ZERO-LOGO.png",
     defaultOgImage: "/ZERO-LOGO-ORIGINAL.png",

@@ -168,14 +168,6 @@ export default function ProjectDetailView({
                           className={styles.photo}
                         />
                       </div>
-                      {img.caption && (
-                        <figcaption className={styles.caption}>
-                          <span className={styles.captionNum}>
-                            {String(idx + 1).padStart(2, "0")}
-                          </span>
-                          <span className={styles.captionText}>{img.caption}</span>
-                        </figcaption>
-                      )}
                     </figure>
                   ))}
                 </div>
@@ -194,12 +186,6 @@ export default function ProjectDetailView({
                         className={styles.photo}
                       />
                     </div>
-                    {wideImg.caption && (
-                      <figcaption className={styles.caption}>
-                        <span className={styles.captionNum}>03</span>
-                        <span className={styles.captionText}>{wideImg.caption}</span>
-                      </figcaption>
-                    )}
                   </figure>
                 </div>
               )}
@@ -218,12 +204,6 @@ export default function ProjectDetailView({
                           className={styles.photo}
                         />
                       </div>
-                      {splitImg.caption && (
-                        <figcaption className={styles.caption}>
-                          <span className={styles.captionNum}>04</span>
-                          <span className={styles.captionText}>{splitImg.caption}</span>
-                        </figcaption>
-                      )}
                     </figure>
 
                     {/* Architectural Recognitions & Citations Block */}
@@ -257,12 +237,6 @@ export default function ProjectDetailView({
                           className={styles.photo}
                         />
                       </div>
-                      {splitImg.caption && (
-                        <figcaption className={styles.caption}>
-                          <span className={styles.captionNum}>04</span>
-                          <span className={styles.captionText}>{splitImg.caption}</span>
-                        </figcaption>
-                      )}
                     </figure>
                   </div>
                 )
@@ -284,14 +258,6 @@ export default function ProjectDetailView({
                           className={styles.photo}
                         />
                       </div>
-                      {img.caption && (
-                        <figcaption className={styles.caption}>
-                          <span className={styles.captionNum}>
-                            {String(globalIndex).padStart(2, "0")}
-                          </span>
-                          <span className={styles.captionText}>{img.caption}</span>
-                        </figcaption>
-                      )}
                     </figure>
                   </div>
                 );
@@ -334,14 +300,6 @@ export default function ProjectDetailView({
                   className={styles.photo}
                 />
               </div>
-              {finalImage.caption && (
-                <figcaption className={styles.caption}>
-                  <span className={styles.captionNum}>
-                    {String(gallery.length).padStart(2, "0")}
-                  </span>
-                  <span className={styles.captionText}>{finalImage.caption}</span>
-                </figcaption>
-              )}
             </figure>
           </section>
         )}

@@ -23,7 +23,6 @@ export default function ProjectCard({ project, priority = false }: ProjectCardPr
           />
         </div>
         <h2 className={styles.title}>{project.title}</h2>
-        <p className={styles.excerpt}>{project.subtitle || project.summary}</p>
         <div className={styles.meta}>{project.year}</div>
       </Link>
     </article>

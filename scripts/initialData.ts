@@ -1152,16 +1152,16 @@ export const INITIAL_CONTACT: ContactInfo = {
   emailJobs: "jobs@zerostudio.org",
   phone: "+91 9447751826 · +91 8129355855",
   address:
-    "#1/3793, East hill Road, Chakkorathukulam,\nEranhippalam P.O, Nadakkave, Kozhikode, Kerala 673006",
+    "#1/3793, East hill Road,\nNadakkave, Kozhikode, Kerala 673006",
   mapLink: "https://maps.app.goo.gl/poxkV6PNkGL9cJsSA",
   instagramUrl: "https://www.instagram.com/zerostudioofficial",
   facebookUrl: "https://www.facebook.com/zerostudioofficial/",
 };
 
 export const INITIAL_SETTINGS: SiteSettings = {
-  siteTitle: "Zero Studio Architectures",
+  siteTitle: "Zero Studio",
   siteDescription:
-    "Zero Studio Architectures designs homes, cultural spaces and workplaces with clear plans and honest materials.",
+    "Zero Studio designs homes, cultural spaces and workplaces with clear plans and honest materials.",
   logoUrl: "/ZERO-LOGO.png",
   faviconUrl: "/favicon.ico",
   defaultOgImage: "/projects/HAVEN/1-opt.jpg",

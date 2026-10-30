@@ -62,7 +62,6 @@ export default function Awards({ awards = [] }: AwardsProps) {
             <h2 id="awards-title" className={styles.heading}>
               Recognition
             </h2>
-            <span className={styles.subheading}>ZERO STUDIO (ESTD 2013)</span>
           </div>
         </div>
 

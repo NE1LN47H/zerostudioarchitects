@@ -10,7 +10,7 @@ export default function Footer({ forceShow }: { forceShow?: boolean }) {
       <div className="wrap">
         <div className="foot">
           <div className="left">
-            <p className="brand">Zero Studio Architectures</p>
+            <p className="brand">Zero Studio</p>
             <p>Eranhippalam P.O, Nadakkave, Kozhikode</p>
           </div>
           <nav aria-label="Footer">
@@ -28,7 +28,7 @@ export default function Footer({ forceShow }: { forceShow?: boolean }) {
             <a href="https://www.facebook.com/zerostudioofficial/" target="_blank" rel="noopener noreferrer">Facebook</a>
           </div>
         </div>
-        <p className="legal">&copy; {new Date().getFullYear()} Zero Studio Architectures</p>
+        <p className="legal">&copy; {new Date().getFullYear()} Zero Studio</p>
       </div>
     </footer>
   );

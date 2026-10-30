@@ -50,7 +50,7 @@ export default function AdminDashboardPage() {
         <div>
           <h1 className={styles.pageTitle}>Studio Overview</h1>
           <p className={styles.pageSubtitle}>
-            Zero Studio Architectures — Dynamic CMS & Media Hub
+            Zero Studio — Dynamic CMS & Media Hub
           </p>
         </div>
 

@@ -168,7 +168,7 @@ export default function AdminTeamPage() {
 
       <div className={styles.pageHeader}>
         <div>
-          <h1 className={styles.pageTitle}>Studio Architects & Team</h1>
+          <h1 className={styles.pageTitle}>Studio Team</h1>
           <p className={styles.pageSubtitle}>
             Manage principal architects, bios, credentials, and studio leadership
           </p>

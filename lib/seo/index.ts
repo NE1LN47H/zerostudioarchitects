@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-export const DEFAULT_SITE_TITLE = "Zero Studio Architectures";
+export const DEFAULT_SITE_TITLE = "Zero Studio";
 export const DEFAULT_SITE_DESCRIPTION =
-  "Zero Studio Architectures is an architecture practice based in Calicut, Kerala. Rooted in context, climate and material truth, designing residences, cultural spaces and workplaces.";
+  "Zero Studio is an architecture practice based in Calicut, Kerala. Rooted in context, climate and material truth, designing residences, cultural spaces and workplaces.";
 
 export function getSiteUrl(): string {
   const url =

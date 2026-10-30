@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = constructMetadata({
   title: "Recognition",
   description:
-    "National and state architectural awards, citations and honors received by Zero Studio Architectures since 2013.",
+    "National and state architectural awards, citations and honors received by Zero Studio since 2013.",
   path: "/awards",
 });
 
@@ -39,14 +39,11 @@ export default async function AwardsPage() {
   return (
     <main id="main" style={{ paddingTop: '80px', minHeight: '100vh', background: 'var(--bg, #ffffff)' }}>
       <div className="wrap" style={{ maxWidth: '1000px', margin: '0 auto', padding: '48px 40px 100px' }}>
-        <header style={{ marginBottom: '56px' }}>
-          <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#767676', display: 'block', marginBottom: '12px' }}>
-            Zero Studio (Estd 2013)
-          </span>
-          <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontFamily: 'var(--serif)', fontWeight: 400, margin: '0 0 16px 0', lineHeight: 1.1 }}>
+        <header style={{ marginBottom: '40px' }}>
+          <h1 style={{ fontSize: 'clamp(1.25rem, 1.8vw, 1.5rem)', fontFamily: 'Arial, Helvetica, sans-serif', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', margin: '0 0 12px 0', lineHeight: 1.2 }}>
             Recognition
           </h1>
-          <p style={{ fontSize: '1.125rem', color: 'var(--ink-2, #555555)', maxWidth: '640px', margin: 0, lineHeight: 1.6 }}>
+          <p style={{ fontSize: '0.875rem', color: 'var(--ink-2, #555555)', maxWidth: '640px', margin: 0, lineHeight: 1.6 }}>
             A chronological archive of national and state recognitions, design citations, and architectural honors.
           </p>
         </header>

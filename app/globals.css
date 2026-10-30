@@ -54,7 +54,7 @@
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font: 400 1rem/1.6 Arial, Helvetica, sans-serif;
+    font: 400 0.875rem/1.6 Arial, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 

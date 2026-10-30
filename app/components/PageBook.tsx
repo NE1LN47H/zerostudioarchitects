@@ -129,12 +129,9 @@ export default function PageBook({ initialData }: PageBookProps) {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Top Bar: Editorial Studio Label & Minimal Navigation Arrows */}
+      {/* Top Bar: Minimal Section Navigation Arrows */}
       <div className={styles.topBar}>
-        <div className={styles.labelGroup}>
-          <span className={styles.studioLabel}>ZERO STUDIO</span>
-          <span className={styles.studioLine} aria-hidden="true" />
-        </div>
+        <div className={styles.labelGroup} />
 
         <div className={styles.arrowGroup} role="group" aria-label="Section navigation">
           <button

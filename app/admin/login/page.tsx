@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
         <div style={{ textAlign: "center", marginBottom: "28px" }}>
           <Image
             src="/ZERO-LOGO.png"
-            alt="Zero Studio Architectures"
+            alt="Zero Studio"
             width={140}
             height={55}
             priority

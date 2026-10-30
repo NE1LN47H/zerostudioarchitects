@@ -8,13 +8,12 @@ export function getOrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "ArchitecturalService",
     "@id": `${siteUrl}/#organization`,
-    name: "Zero Studio Architectures",
-    alternateName: "Zero Studio",
+    name: "Zero Studio",
     url: siteUrl,
     logo: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,
     image: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,
     description:
-      "Zero Studio Architectures designs homes, cultural spaces and workplaces with clear plans and honest materials.",
+      "Zero Studio designs homes, cultural spaces and workplaces with clear plans and honest materials.",
     founder: [
       {
         "@type": "Person",
@@ -54,7 +53,7 @@ export function getWebSiteJsonLd() {
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
-    name: "Zero Studio Architectures",
+    name: "Zero Studio",
     publisher: {
       "@id": `${siteUrl}/#organization`,
     },
@@ -79,7 +78,7 @@ export function getProjectJsonLd(project: Project) {
     image: imageUrl,
     creator: {
       "@type": "Organization",
-      name: "Zero Studio Architectures",
+      name: "Zero Studio",
       url: siteUrl,
     },
     artMedium: "Architecture",
@@ -111,12 +110,12 @@ export function getArticleJsonLd(article: JournalArticle) {
     dateModified: article.updatedAt || article.createdAt || article.date,
     author: {
       "@type": "Organization",
-      name: article.author || "Zero Studio Architectures",
+      name: article.author || "Zero Studio",
       url: siteUrl,
     },
     publisher: {
       "@type": "Organization",
-      name: "Zero Studio Architectures",
+      name: "Zero Studio",
       logo: {
         "@type": "ImageObject",
         url: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,

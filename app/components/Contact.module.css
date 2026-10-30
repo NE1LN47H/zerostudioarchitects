@@ -31,18 +31,64 @@
 }
 
 .title {
-  font-family: var(--serif, Arial, Helvetica, sans-serif);
-  font-size: clamp(2rem, 3.2vw, 2.75rem);
-  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1.125rem, 1.4vw, 1.35rem);
+  font-weight: 500;
   margin: 0 0 6px 0;
-  line-height: 1;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--ink, #1a1a1a);
 }
 
 .lead {
-  margin: 0 0 20px 0;
-  font-size: 0.9375rem;
+  margin: 0 0 16px 0;
+  font-size: 0.8125rem;
   color: #666666;
+  line-height: 1.5;
+}
+
+.addressSocials {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px !important;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.socialFavicon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 3px;
+  background-color: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  transition: all 0.2s ease;
+}
+
+.socialFavicon svg {
+  flex-shrink: 0;
+  color: #333333;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.socialFavicon:hover {
+  background-color: #111111;
+  color: #ffffff;
+  border-color: #111111;
+  transform: translateY(-1px);
+}
+
+.socialFavicon:hover svg {
+  color: #ffffff;
+  transform: scale(1.08);
 }
 
 .footerCredits {
@@ -92,7 +138,7 @@
   }
 
   .title {
-    font-size: 2rem !important;
+    font-size: 1.125rem !important;
   }
 
   .footerCredits {
