@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getAboutContent } from "@/services";
+import { getAboutContent, getTeamMembers } from "@/services";
 import styles from "./about.module.css";
 import { constructMetadata } from "@/lib/seo";
 import { INITIAL_TEAM } from "@/lib/data/initialTeam";
@@ -16,12 +16,12 @@ export const metadata: Metadata = constructMetadata({
 });
 
 export default async function DedicatedAboutPage() {
-  const [about] = await Promise.all([
+  const [about, teamData] = await Promise.all([
     getAboutContent(),
+    getTeamMembers(true),
   ]);
 
-  // Static ordered team
-  const team = INITIAL_TEAM;
+  const team = teamData && teamData.length > 0 ? teamData : INITIAL_TEAM;
   const founders = team.find((m) => m.id === "team-1") || team[0];
   const principals = team.find((m) => m.id === "team-2") || team[1];
   const linearTeam = team.filter((m) => m.id !== "team-1" && m.id !== "team-2");

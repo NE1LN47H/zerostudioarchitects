@@ -15,16 +15,21 @@ export async function getTeamMembers(onlyVisible = false): Promise<TeamMember[]>
       return onlyVisible ? INITIAL_TEAM.filter((t) => t.visible) : INITIAL_TEAM;
     }
 
-    return items.map((doc: any) => ({
-      id: doc.id || doc._id?.toString(),
-      name: doc.name,
-      role: doc.role,
-      image: doc.image || INITIAL_TEAM.find((t) => t.name === doc.name)?.image || "/team/hamid.jpg",
-      imagePublicId: doc.imagePublicId,
-      bio: doc.bio,
-      order: doc.order ?? 1,
-      visible: doc.visible ?? true,
-    }));
+    return items.map((doc: any) => {
+      const initial = INITIAL_TEAM.find((t) => t.id === doc.id || t.name === doc.name);
+      return {
+        id: doc.id || doc._id?.toString(),
+        name: doc.name,
+        role: doc.role,
+        image: doc.image || initial?.image || "/team/01-founders.jpg",
+        imagePublicId: doc.imagePublicId,
+        bio: doc.bio !== undefined ? doc.bio : initial?.bio,
+        order: doc.order ?? initial?.order ?? 1,
+        visible: doc.visible ?? true,
+        width: doc.width || initial?.width || 3072,
+        height: doc.height || initial?.height || 4608,
+      };
+    });
   } catch {
     return onlyVisible ? INITIAL_TEAM.filter((t) => t.visible) : INITIAL_TEAM;
   }
@@ -52,15 +57,19 @@ export async function updateTeamMember(id: string, updates: Partial<TeamMember>)
   const updated = await db.collection("team").findOne({ $or: [{ id }, { _id: id as any }] });
   if (!updated) return null;
 
+  const initial = INITIAL_TEAM.find((t) => t.id === updated.id || t.name === updated.name);
+
   return {
     id: updated.id || updated._id?.toString(),
     name: updated.name,
     role: updated.role,
-    image: updated.image,
+    image: updated.image || initial?.image || "/team/01-founders.jpg",
     imagePublicId: updated.imagePublicId,
-    bio: updated.bio,
+    bio: updated.bio !== undefined ? updated.bio : initial?.bio,
     order: updated.order ?? 1,
     visible: updated.visible ?? true,
+    width: updated.width || initial?.width,
+    height: updated.height || initial?.height,
   };
 }
 

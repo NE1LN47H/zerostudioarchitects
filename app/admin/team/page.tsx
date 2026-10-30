@@ -115,6 +115,8 @@ export default function AdminTeamPage() {
           ...modalItem,
           image: data.asset.url,
           imagePublicId: data.asset.publicId,
+          width: data.asset.width,
+          height: data.asset.height,
         });
         showToast("Portrait uploaded");
       }
