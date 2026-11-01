@@ -42,7 +42,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
 
         <div className={styles.grid}>
           {displayProjects.map((project) => {
-            const description = project.subtitle || project.summary;
+
             return (
               <article key={project.slug} className={styles.card}>
                 <Link href={`/projects/${project.slug}`} className={styles.cardLink}>

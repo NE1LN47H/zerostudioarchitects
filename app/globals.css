@@ -26,6 +26,7 @@
     --sans: Arial, Helvetica, sans-serif;
     --gutter: 24px;
     --max: 1200px;
+    --header-height: 100px;
 
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
@@ -663,6 +664,9 @@ form .btn {
 
 /* Mobile navigation and stacked layouts */
 @media (max-width: 820px) {
+  :root {
+    --header-height: 80px;
+  }
   .bar {
     grid-template-columns: 44px 1fr 44px;
   }

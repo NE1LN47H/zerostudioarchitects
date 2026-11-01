@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProjectCard.module.css";
-import type { ProjectDetail } from "../projects/data";
+import type { ProjectDetail } from "@/types";
 
 interface ProjectCardProps {
   project: ProjectDetail;

@@ -9,18 +9,18 @@ import {
   INITIAL_PROJECTS,
   INITIAL_ABOUT,
   INITIAL_AWARDS,
-  INITIAL_JOURNAL,
   INITIAL_TEAM,
   INITIAL_CONTACT,
   INITIAL_SETTINGS,
 } from "./initialData";
+import { INITIAL_PUBLICATIONS } from "../lib/data/initialPublications";
 
 export interface MigrationSummary {
   heroCount: number;
   projectsCount: number;
   aboutCount: number;
   awardsCount: number;
-  journalCount: number;
+  publicationsCount: number;
   teamCount: number;
   contactCount: number;
   settingsCount: number;
@@ -79,15 +79,15 @@ export async function runMigration(): Promise<MigrationSummary> {
     awardsCount++;
   }
 
-  // 5. Journal (Upsert by unique slug)
-  let journalCount = 0;
-  for (const article of INITIAL_JOURNAL) {
-    await db.collection("journal").updateOne(
-      { slug: article.slug },
-      { $set: article },
+  // 5. In the Media (Publications - Upsert by stable id)
+  let publicationsCount = 0;
+  for (const pub of INITIAL_PUBLICATIONS) {
+    await db.collection("publications").updateOne(
+      { id: pub.id },
+      { $set: pub },
       { upsert: true }
     );
-    journalCount++;
+    publicationsCount++;
   }
 
   // 6. Team (Upsert by stable id)
@@ -144,7 +144,7 @@ export async function runMigration(): Promise<MigrationSummary> {
   console.log(`Projects migrated:        ${projectsCount}`);
   console.log(`Hero items migrated:      ${heroCount}`);
   console.log(`Awards migrated:          ${awardsCount}`);
-  console.log(`Journal articles migrated: ${journalCount}`);
+  console.log(`Publications migrated:    ${publicationsCount}`);
   console.log(`Team members migrated:    ${teamCount}`);
   console.log(`About content migrated:   ${aboutCount}`);
   console.log(`Contact details migrated: ${contactCount}`);
@@ -157,7 +157,7 @@ export async function runMigration(): Promise<MigrationSummary> {
     projectsCount,
     aboutCount,
     awardsCount,
-    journalCount,
+    publicationsCount,
     teamCount,
     contactCount,
     settingsCount,

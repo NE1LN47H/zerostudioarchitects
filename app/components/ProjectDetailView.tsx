@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProjectDetail.module.css";
-import type { ProjectDetail } from "../projects/data";
+import type { ProjectDetail } from "@/types";
 
 interface ProjectDetailViewProps {
   project: ProjectDetail;

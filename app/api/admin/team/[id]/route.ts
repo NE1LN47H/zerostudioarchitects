@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/auth";
-import { updateTeamMember, deleteTeamMember, getTeamMembers } from "@/lib/db/service";
+import { updateTeamMember, deleteTeamMember, getTeamMembers } from "@/services";
 import { deleteImage } from "@/lib/cloudinary";
 
 interface RouteParams {

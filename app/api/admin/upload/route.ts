@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/auth";
 import { uploadImage } from "@/lib/cloudinary";
-import { createMediaItem } from "@/lib/db/service";
+import { createMediaItem } from "@/services";
 
 export async function POST(req: NextRequest) {
   const authErr = await requireApiAuth(req);

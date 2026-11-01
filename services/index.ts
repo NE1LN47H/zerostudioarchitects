@@ -2,7 +2,6 @@ export * from "./hero.service";
 export * from "./project.service";
 export * from "./about.service";
 export * from "./award.service";
-export * from "./journal.service";
 export * from "./team.service";
 export * from "./contact.service";
 export * from "./settings.service";

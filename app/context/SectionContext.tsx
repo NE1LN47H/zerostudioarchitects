@@ -51,7 +51,7 @@ export function SectionProvider({ children }: { children: React.ReactNode }) {
       if (targetIndex < 0 || targetIndex >= SECTIONS.length) return;
 
       if (!isHome) {
-        // If on a subpage (e.g. /journal/[slug]), navigate to home
+        // If on a subpage (e.g. /projects/[slug] or /about), navigate to home
         router.push(`/?section=${SECTIONS[targetIndex].id}`);
         return;
       }

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/auth";
-import { getTeamMembers, createTeamMember } from "@/lib/db/service";
+import { getTeamMembers, createTeamMember } from "@/services";
 
 export async function GET(req: NextRequest) {
   const authErr = await requireApiAuth(req);

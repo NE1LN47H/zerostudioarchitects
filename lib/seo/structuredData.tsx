@@ -1,6 +1,6 @@
 import React from "react";
 import { getSiteUrl } from "./index";
-import { Project, JournalArticle } from "@/types";
+import { Project } from "@/types";
 
 export function getOrganizationJsonLd() {
   const siteUrl = getSiteUrl();
@@ -17,17 +17,17 @@ export function getOrganizationJsonLd() {
     founder: [
       {
         "@type": "Person",
-        name: "Hafeez",
+        name: "Hamid MM",
       },
       {
         "@type": "Person",
-        name: "Arjun",
+        name: "Hafeef PK",
       },
     ],
     foundingDate: "2013",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Eranhippalam P.O, Nadakkave",
+      streetAddress: "#1/3793, East hill Road, Nadakkave",
       addressLocality: "Kozhikode",
       addressRegion: "Kerala",
       postalCode: "673006",
@@ -35,7 +35,7 @@ export function getOrganizationJsonLd() {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+91-808-678-0008",
+      telephone: "+91-9447751826",
       contactType: "customer service",
       email: "mail@zerostudio.org",
     },
@@ -88,40 +88,6 @@ export function getProjectJsonLd(project: Project) {
       "@type": "Place",
       name: project.location,
     },
-  };
-}
-
-export function getArticleJsonLd(article: JournalArticle) {
-  const siteUrl = getSiteUrl();
-  const canonicalUrl = `${siteUrl}/journal/${article.slug}`;
-  const imageUrl = article.image.startsWith("http")
-    ? article.image
-    : `${siteUrl}${article.image.startsWith("/") ? article.image : `/${article.image}`}`;
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": canonicalUrl,
-    headline: article.title,
-    description: article.excerpt,
-    url: canonicalUrl,
-    image: imageUrl,
-    datePublished: article.createdAt || article.date,
-    dateModified: article.updatedAt || article.createdAt || article.date,
-    author: {
-      "@type": "Organization",
-      name: article.author || "Zero Studio",
-      url: siteUrl,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Zero Studio",
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,
-      },
-    },
-    articleSection: article.category,
   };
 }
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Hero.module.css";
-import type { HeroItem } from "@/lib/types";
+import type { HeroItem } from "@/types";
 
 interface HeroProps {
   hideBar?: boolean;

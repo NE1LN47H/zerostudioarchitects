@@ -5,7 +5,7 @@ import Hero from "./Hero";
 import About from "./About";
 import Projects from "./Projects";
 import Awards from "./Awards";
-import Journal from "./Journal";
+import Media from "./Media";
 import Contact from "./Contact";
 import { useSection, SECTIONS } from "../context/SectionContext";
 import styles from "./PageBook.module.css";
@@ -16,7 +16,7 @@ interface PageBookProps {
     about?: any;
     projects?: any[];
     awards?: any[];
-    journal?: any[];
+
     publications?: any[];
     team?: any[];
     contact?: any;
@@ -27,7 +27,7 @@ export default function PageBook({ initialData }: PageBookProps) {
   const {
     currentIndex,
     previousIndex,
-    direction,
+
     isAnimating,
     setIsAnimating,
     goToSection,
@@ -116,7 +116,7 @@ export default function PageBook({ initialData }: PageBookProps) {
       <About key="sec-1" content={initialData?.about} team={initialData?.team} />,
       <Projects key="sec-2" projects={initialData?.projects} />,
       <Awards key="sec-3" awards={initialData?.awards} />,
-      <Journal key="sec-4" articles={initialData?.journal} publications={initialData?.publications} />,
+      <Media key="sec-4" publications={initialData?.publications} />,
       <Contact key="sec-5" contact={initialData?.contact} />,
     ],
     [initialData]

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "../admin.module.css";
-import { ContactInfo } from "@/lib/types";
+import { ContactInfo } from "@/types";
 
 export default function AdminContactPage() {
   const [contact, setContact] = useState<ContactInfo | null>(null);

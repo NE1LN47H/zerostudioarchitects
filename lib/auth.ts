@@ -1,7 +1,7 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import { getAdminByEmail } from "./db/service";
+import { getAdminByEmail } from "@/services";
 import bcrypt from "bcryptjs";
 
 const AUTH_SECRET = process.env.AUTH_SECRET || "zerostudio_auth_secret_key_change_in_production_min_32_chars";

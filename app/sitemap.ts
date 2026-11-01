@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getProjects, getJournalArticles } from "@/services";
+import { getProjects } from "@/services";
 import { getSiteUrl } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -7,11 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
 
-  const [projects, articles] = await Promise.all([
-    getProjects(true).catch(() => []),
-    getJournalArticles(true).catch(() => []),
-  ]);
-
+  const projects = await getProjects(true).catch(() => []);
   const now = new Date();
 
   // Core static public pages
@@ -35,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/journal`,
+      url: `${siteUrl}/media`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.8,
@@ -62,13 +58,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  // Dynamic published journal articles from MongoDB
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${siteUrl}/journal/${article.slug}`,
-    lastModified: article.updatedAt ? new Date(article.updatedAt) : now,
-    changeFrequency: "monthly",
-    priority: 0.75,
-  }));
-
-  return [...staticRoutes, ...projectRoutes, ...articleRoutes];
+  return [...staticRoutes, ...projectRoutes];
 }

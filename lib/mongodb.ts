@@ -68,17 +68,14 @@ export async function getDb(): Promise<Db> {
 export async function ensureDatabaseIndexes(db: Db): Promise<void> {
   try {
     await Promise.allSettled([
-      db.collection("hero").createIndex({ order: 1 }),
-      db.collection("hero").createIndex({ visible: 1 }),
       db.collection("projects").createIndex({ slug: 1 }, { unique: true }),
       db.collection("projects").createIndex({ order: 1 }),
       db.collection("projects").createIndex({ featured: 1, visible: 1 }),
       db.collection("awards").createIndex({ order: 1 }),
       db.collection("awards").createIndex({ curated: 1, visible: 1 }),
-      db.collection("journal").createIndex({ slug: 1 }, { unique: true }),
-      db.collection("journal").createIndex({ order: 1 }),
-      db.collection("journal").createIndex({ featured: 1, visible: 1 }),
-      db.collection("journal").createIndex({ date: -1 }),
+      db.collection("publications").createIndex({ order: 1 }),
+      db.collection("publications").createIndex({ platform: 1 }),
+      db.collection("publications").createIndex({ curated: 1, visible: 1 }),
       db.collection("team").createIndex({ order: 1 }),
       db.collection("media").createIndex({ publicId: 1 }, { unique: true }),
       db.collection("admin_users").createIndex({ email: 1 }, { unique: true }),

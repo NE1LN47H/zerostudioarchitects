@@ -47,7 +47,7 @@ export default function About({ content, team = [] }: AboutProps) {
                 key={member.id}
                 href="/about#team-heading"
                 className={styles.teamCardLink}
-                title={`View ${member.name} profile on dedicated About page`}
+                title={`View ${member.name} profile on About page`}
               >
                 <div className={styles.teamThumb}>
                   <Image
@@ -68,7 +68,7 @@ export default function About({ content, team = [] }: AboutProps) {
           </div>
         </div>
 
-        {/* Link to Dedicated Page */}
+        {/* Link to Full About Page */}
         <div className={styles.readMoreRow}>
           <Link href="/about" className={styles.readMoreBtn}>
             <span>Explore Studio Story &amp; Team</span>

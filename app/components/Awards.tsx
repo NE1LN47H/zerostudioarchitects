@@ -1,17 +1,15 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import styles from "./AwardsPreview.module.css";
-import type { AwardItem } from "@/lib/types";
+import type { AwardItem } from "@/types";
 
 interface AwardsProps {
   awards?: AwardItem[];
 }
 
 export default function Awards({ awards = [] }: AwardsProps) {
-  const [modalOpen, setModalOpen] = useState(false);
-
   // 6 curated awards dynamically sourced from MongoDB
   const curatedList = useMemo(() => {
     const curatedOnly = awards.filter((a) => a.curated);
@@ -25,32 +23,6 @@ export default function Awards({ awards = [] }: AwardsProps) {
       category: item.category,
       year: item.year,
     }));
-  }, [awards]);
-
-  // Group project recognitions dynamically from MongoDB for modal
-  const projectRecognitions = useMemo(() => {
-    const projectItems = awards.filter((a) => a.type === "project" || a.type === "curated" || !a.type);
-    const map = new Map<string, { project: string; awards: string[] }>();
-    for (const item of projectItems) {
-      const existing = map.get(item.project);
-      const citation = `${item.organization} - ${item.award}${item.category ? ` (${item.category})` : ""}`;
-      if (existing) {
-        existing.awards.push(citation);
-      } else {
-        map.set(item.project, {
-          project: item.project,
-          awards: [citation],
-        });
-      }
-    }
-    return Array.from(map.values());
-  }, [awards]);
-
-  // Dynamic studio honors from MongoDB for modal
-  const studioHonors = useMemo(() => {
-    return awards
-      .filter((a) => a.type === "honor")
-      .map((h) => `${h.year}: ${h.award}${h.organization ? ` - ${h.organization}` : ""}`);
   }, [awards]);
 
   return (
@@ -90,95 +62,16 @@ export default function Awards({ awards = [] }: AwardsProps) {
         {/* Bottom Horizontal Thin Divider */}
         <div className={styles.divider} aria-hidden="true" />
 
-        {/* Bottom Right: Minimal Action Link */}
+        {/* Bottom Right: Direct Link to Recognition Page (No Modals) */}
         <div className={styles.footerRow}>
-          <button
-            type="button"
-            className={styles.viewAllLink}
-            onClick={() => setModalOpen(true)}
-            aria-haspopup="dialog"
-          >
+          <Link href="/awards" className={styles.viewAllLink}>
             <span>VIEW ALL RECOGNITION</span>
             <span className={styles.arrowIcon} aria-hidden="true">
               →
             </span>
-          </button>
+          </Link>
         </div>
       </div>
-
-      {/* Complete Archive Modal */}
-      {modalOpen && (
-        <div
-          className={styles.modalOverlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-awards-title"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className={styles.modalContent}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className={styles.modalHeader}>
-              <h2 id="modal-awards-title" className={styles.modalTitle}>
-                All Recognitions
-              </h2>
-              <button
-                type="button"
-                className={styles.modalCloseBtn}
-                onClick={() => setModalOpen(false)}
-                aria-label="Close recognition archive"
-              >
-                CLOSE ✕
-              </button>
-            </div>
-
-            <div>
-              <h3 className={styles.modalSectionTitle}>Project Recognitions</h3>
-              <ul className={styles.modalList}>
-                {projectRecognitions.map((rec, idx) => (
-                  <li key={idx} className={styles.modalItem}>
-                    <h4 className={styles.modalProjectTitle}>{rec.project}</h4>
-                    <ul className={styles.modalAwardSublist}>
-                      {rec.awards.map((award, i) => (
-                        <li key={i}>{award}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-
-              {studioHonors.length > 0 && (
-                <>
-                  <h3 className={styles.modalSectionTitle}>Studio Honors</h3>
-                  <ul className={styles.modalAwardSublist} style={{ marginBottom: "32px" }}>
-                    {studioHonors.map((rec, i) => (
-                      <li key={i} style={{ marginBottom: "8px" }}>
-                        {rec}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-
-              <div style={{ textAlign: "right" }}>
-                <Link
-                  href="/awards"
-                  style={{
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: "#1a1a1a",
-                    fontWeight: 500,
-                  }}
-                >
-                  OPEN AS DEDICATED PAGE →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

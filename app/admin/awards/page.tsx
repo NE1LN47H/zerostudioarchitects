@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import styles from "../admin.module.css";
-import { AwardItem } from "@/lib/types";
+import { AwardItem } from "@/types";
 
 export default function AdminAwardsPage() {
   const [awards, setAwards] = useState<AwardItem[]>([]);

@@ -15,7 +15,7 @@ export const metadata: Metadata = constructMetadata({
   path: "/about",
 });
 
-export default async function DedicatedAboutPage() {
+export default async function AboutPage() {
   const [about, teamData] = await Promise.all([
     getAboutContent(),
     getTeamMembers(true),

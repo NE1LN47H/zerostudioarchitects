@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
-import { Project, ProjectGalleryItem, ProjectNarrativeSection } from "@/lib/types";
+import { Project, ProjectGalleryItem, ProjectNarrativeSection } from "@/types";
 
 export default function AdminProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);

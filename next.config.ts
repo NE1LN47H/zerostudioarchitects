@@ -18,13 +18,28 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/journal/:path*",
+        destination: "/media",
+        permanent: true,
+      },
+      {
         source: "/in-the-media",
+        destination: "/media",
+        permanent: true,
+      },
+      {
+        source: "/in-the-media/:path*",
         destination: "/media",
         permanent: true,
       },
       {
         source: "/admin/journal",
         destination: "/admin/media",
+        permanent: true,
+      },
+      {
+        source: "/admin/hero",
+        destination: "/admin/projects",
         permanent: true,
       },
     ];

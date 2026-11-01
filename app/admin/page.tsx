@@ -9,7 +9,7 @@ interface StatsData {
     projects: number;
     hero: number;
     awards: number;
-    journal: number;
+    publications: number;
     team: number;
     media: number;
   };
@@ -20,7 +20,7 @@ interface StatsData {
     heroHidden: number;
   };
   recentProjects: any[];
-  recentJournal: any[];
+  recentPublications: any[];
 }
 
 export default function AdminDashboardPage() {
@@ -114,7 +114,7 @@ export default function AdminDashboardPage() {
             IN THE MEDIA
           </div>
           <div style={{ fontSize: "2rem", fontWeight: 700, margin: "6px 0 2px", color: "#111" }}>
-            {loading ? "..." : stats?.counts.journal ?? 21}
+            {loading ? "..." : stats?.counts.publications ?? 21}
           </div>
           <div style={{ fontSize: "0.75rem", color: "#666" }}>
             National & intl features
@@ -193,16 +193,16 @@ export default function AdminDashboardPage() {
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>Category</th>
-                  <th>Date</th>
+                  <th>Platform</th>
+                  <th>Year</th>
                 </tr>
               </thead>
               <tbody>
-                {stats?.recentJournal.map((j) => (
-                  <tr key={j.slug}>
-                    <td style={{ fontWeight: 500 }}>{j.title}</td>
-                    <td>{j.category}</td>
-                    <td>{j.date}</td>
+                {stats?.recentPublications?.map((item: any) => (
+                  <tr key={item.id || item.title}>
+                    <td style={{ fontWeight: 500 }}>{item.title}</td>
+                    <td>{item.platform}</td>
+                    <td>{item.year || "—"}</td>
                   </tr>
                 ))}
               </tbody>

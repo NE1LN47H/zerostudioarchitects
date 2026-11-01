@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/auth";
-import { getContactInfo, updateContactInfo } from "@/lib/db/service";
+import { getContactInfo, updateContactInfo } from "@/services";
 
 export async function GET(req: NextRequest) {
   const authErr = await requireApiAuth(req);

@@ -9,11 +9,11 @@ import {
   INITIAL_PROJECTS,
   INITIAL_ABOUT,
   INITIAL_AWARDS,
-  INITIAL_JOURNAL,
   INITIAL_TEAM,
   INITIAL_CONTACT,
   INITIAL_SETTINGS,
 } from "./initialData";
+import { INITIAL_PUBLICATIONS } from "../lib/data/initialPublications";
 
 async function seed() {
   console.log("==========================================");
@@ -65,15 +65,15 @@ async function seed() {
     awardsCount++;
   }
 
-  // 5. Journal
-  let journalCount = 0;
-  for (const article of INITIAL_JOURNAL) {
-    await db.collection("journal").updateOne(
-      { slug: article.slug },
-      { $setOnInsert: article },
+  // 5. In the Media (Publications)
+  let pubCount = 0;
+  for (const pub of INITIAL_PUBLICATIONS) {
+    await db.collection("publications").updateOne(
+      { id: pub.id },
+      { $setOnInsert: pub },
       { upsert: true }
     );
-    journalCount++;
+    pubCount++;
   }
 
   // 6. Team
@@ -126,7 +126,7 @@ async function seed() {
   console.log(`- Projects:          ${projectsCount}`);
   console.log(`- About content:     Created/Verified`);
   console.log(`- Awards:            ${awardsCount}`);
-  console.log(`- Journal articles:  ${journalCount}`);
+  console.log(`- Publications:      ${pubCount}`);
   console.log(`- Team members:      ${teamCount}`);
   console.log(`- Contact details:   Created/Verified`);
   console.log(`- Site settings:     Created/Verified`);

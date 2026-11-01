@@ -2,21 +2,11 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import styles from "./Journal.module.css";
+import styles from "./Media.module.css";
 import { MediaPublication } from "@/types";
 import { INITIAL_PUBLICATIONS } from "@/lib/data/initialPublications";
 
-interface JournalCardData {
-  slug: string;
-  title: string;
-  category: string;
-  date: string;
-  image: string;
-  featured?: boolean;
-}
-
 interface MediaSectionProps {
-  articles?: JournalCardData[];
   publications?: MediaPublication[];
 }
 
@@ -63,7 +53,7 @@ export default function MediaSection({
           </div>
 
           <Link href="/media" className={styles.headerLink}>
-            <span>Dedicated Page</span>
+            <span>View All</span>
             <span className={styles.linkArrow} aria-hidden="true">→</span>
           </Link>
         </div>
@@ -164,8 +154,8 @@ export default function MediaSection({
             Showing {filteredItems.length} of {allPublications.length} Published Features
           </span>
 
-          <Link href="/media" className={styles.viewAllDedicated}>
-            <span>Open Dedicated Page</span>
+          <Link href="/media" className={styles.viewAllLink}>
+            <span>View All Features</span>
             <span aria-hidden="true">→</span>
           </Link>
         </div>
@@ -173,3 +163,4 @@ export default function MediaSection({
     </section>
   );
 }
+

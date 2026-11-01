@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "../admin.module.css";
-import { SiteSettings } from "@/lib/types";
+import { SiteSettings } from "@/types";
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);

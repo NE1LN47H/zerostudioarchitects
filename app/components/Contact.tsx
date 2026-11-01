@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import styles from './Contact.module.css';
-import { ContactInfo } from '@/lib/types';
+import { ContactInfo } from '@/types';
 
 interface ContactProps {
   contact?: Partial<ContactInfo>;
@@ -15,7 +15,7 @@ export default function Contact({ contact }: ContactProps) {
   const phone = contact?.phone || "";
   const address = contact?.address || "";
   const mapLink = contact?.mapLink || "#";
-  const heading = contact?.heading || "";
+  const heading = contact?.heading || "Reach Us";
   const lead = contact?.lead || "";
   const instagramUrl = contact?.instagramUrl || "#";
   const facebookUrl = contact?.facebookUrl || "#";
@@ -44,101 +44,119 @@ export default function Contact({ contact }: ContactProps) {
     <section id="contact" aria-labelledby="contact-title" className={styles.section}>
       <div className={styles.wrap}>
         <div className={styles.contactPanel}>
-          <div>
+          <div className={styles.infoCol}>
             <h2 id="contact-title" className={styles.title}>
               {heading}
             </h2>
-            <p className={styles.lead}>
-              {lead}
-            </p>
-            <dl className="details" style={{ margin: 0 }}>
-              <div>
-                <dt>Email</dt>
-                <dd><a href={`mailto:${emailGeneral}`}>{emailGeneral}</a> (Project enquiries)</dd>
-                <dd><a href={`mailto:${emailJobs}`}>{emailJobs}</a> (Job/internship)</dd>
-              </div>
-              <div>
-                <dt>Phone</dt>
-                <dd>{phone}</dd>
-              </div>
-              <div>
-                <dt>Address</dt>
-                <dd style={{ whiteSpace: "pre-line" }}>{address}</dd>
-                <dd style={{ marginTop: '6px' }}>
-                  <a href={mapLink} target="_blank" rel="noopener noreferrer">
-                    View Location on Map →
-                  </a>
+            {lead && (
+              <p className={styles.lead}>
+                {lead}
+              </p>
+            )}
+            <dl className={styles.detailsList}>
+              <div className={styles.detailItem}>
+                <dt className={styles.detailLabel}>Email</dt>
+                <dd className={styles.detailVal}>
+                  <a href={`mailto:${emailGeneral}`}>{emailGeneral}</a>{" "}
+                  <span className={styles.detailSub}>(Project enquiries)</span>
                 </dd>
-                {/* Instagram & Facebook Favicons below Address */}
-                <dd className={styles.addressSocials}>
-                  <a
-                    href={instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.socialFavicon}
-                    aria-label="Instagram"
-                    title="Zero Studio on Instagram"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                    </svg>
-                    <span>Instagram</span>
-                  </a>
-                  <a
-                    href={facebookUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.socialFavicon}
-                    aria-label="Facebook"
-                    title="Zero Studio on Facebook"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      aria-hidden="true"
-                    >
-                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                    </svg>
-                    <span>Facebook</span>
-                  </a>
-                </dd>
+                {emailJobs && (
+                  <dd className={styles.detailVal}>
+                    <a href={`mailto:${emailJobs}`}>{emailJobs}</a>{" "}
+                    <span className={styles.detailSub}>(Job/internship)</span>
+                  </dd>
+                )}
               </div>
+              {phone && (
+                <div className={styles.detailItem}>
+                  <dt className={styles.detailLabel}>Phone</dt>
+                  <dd className={styles.detailVal}>{phone}</dd>
+                </div>
+              )}
+              {address && (
+                <div className={styles.detailItem}>
+                  <dt className={styles.detailLabel}>Address</dt>
+                  <dd className={styles.detailVal} style={{ whiteSpace: "pre-line" }}>{address}</dd>
+                  {mapLink && mapLink !== "#" && (
+                    <dd className={styles.mapLinkWrap}>
+                      <a href={mapLink} target="_blank" rel="noopener noreferrer" className={styles.mapLink}>
+                        View Location on Map →
+                      </a>
+                    </dd>
+                  )}
+                  {/* Instagram & Facebook Favicons */}
+                  <dd className={styles.addressSocials}>
+                    <a
+                      href={instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialFavicon}
+                      aria-label="Instagram"
+                      title="Zero Studio on Instagram"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                      </svg>
+                      <span>Instagram</span>
+                    </a>
+                    <a
+                      href={facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.socialFavicon}
+                      aria-label="Facebook"
+                      title="Zero Studio on Facebook"
+                    >
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                      </svg>
+                      <span>Facebook</span>
+                    </a>
+                  </dd>
+                </div>
+              )}
             </dl>
           </div>
 
-          <form id="contact-form" noValidate onSubmit={handleSubmit}>
-            <div>
-              <label htmlFor="name">Your Name</label>
-              <input id="name" name="name" type="text" autoComplete="name" placeholder="e.g. Jane Doe" required />
+          <form id="contact-form" noValidate onSubmit={handleSubmit} className={styles.contactForm}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name" className={styles.formLabel}>Your Name</label>
+              <input id="name" name="name" type="text" autoComplete="name" placeholder="e.g. Jane Doe" required className={styles.formInput} />
             </div>
-            <div>
-              <label htmlFor="email">Email Address</label>
-              <input id="email" name="email" type="email" autoComplete="email" placeholder="e.g. jane@domain.com" required />
+            <div className={styles.formGroup}>
+              <label htmlFor="email" className={styles.formLabel}>Email Address</label>
+              <input id="email" name="email" type="email" autoComplete="email" placeholder="e.g. jane@domain.com" required className={styles.formInput} />
             </div>
-            <div>
-              <label htmlFor="message">Project details</label>
-              <textarea id="message" name="message" rows={3} placeholder="Tell us about the site, the brief and your timeline." required></textarea>
+            <div className={styles.formGroup}>
+              <label htmlFor="message" className={styles.formLabel}>Project details</label>
+              <textarea id="message" name="message" rows={3} placeholder="Tell us about the site, the brief and your timeline." required className={styles.formTextarea}></textarea>
             </div>
-            <button className="btn btn-primary" type="submit" style={{ width: '100%' }}>Send message</button>
-            <p className="status" id="status" role="status" aria-live="polite">{status}</p>
+            <button className={styles.submitBtn} type="submit">Send message</button>
+            {status && (
+              <p className={styles.formStatus} role="status" aria-live="polite">{status}</p>
+            )}
           </form>
         </div>
 

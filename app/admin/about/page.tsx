@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "../admin.module.css";
-import { AboutContent } from "@/lib/types";
+import { AboutContent } from "@/types";
 
 export default function AdminAboutPage() {
   const [about, setAbout] = useState<AboutContent | null>(null);

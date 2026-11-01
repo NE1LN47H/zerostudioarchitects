@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireApiAuth } from "@/lib/auth";
-import { getSiteSettings, updateSiteSettings } from "@/lib/db/service";
+import { getSiteSettings, updateSiteSettings } from "@/services";
 
 export async function GET(req: NextRequest) {
   const authErr = await requireApiAuth(req);

@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import styles from "../admin.module.css";
-import { TeamMember } from "@/lib/types";
+import { TeamMember } from "@/types";
 
 export default function AdminTeamPage() {
   const [team, setTeam] = useState<TeamMember[]>([]);

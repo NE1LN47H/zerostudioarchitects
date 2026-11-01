@@ -4,21 +4,21 @@ import {
   getProjects,
   getHeroItems,
   getAwards,
-  getJournalArticles,
+  getPublications,
   getTeamMembers,
   getMediaItems,
-} from "@/lib/db/service";
+} from "@/services";
 
 export async function GET(req: NextRequest) {
   const authErr = await requireApiAuth(req);
   if (authErr) return authErr;
 
   try {
-    const [projects, hero, awards, journal, team, media] = await Promise.all([
+    const [projects, hero, awards, publications, team, media] = await Promise.all([
       getProjects(),
       getHeroItems(),
       getAwards(),
-      getJournalArticles(),
+      getPublications(),
       getTeamMembers(),
       getMediaItems(),
     ]);
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
         projects: projects.length,
         hero: hero.length,
         awards: awards.length,
-        journal: journal.length,
+        publications: publications.length,
         team: team.length,
         media: media.length,
       },
@@ -39,7 +39,7 @@ export async function GET(req: NextRequest) {
         heroHidden: hero.filter((h) => !h.visible).length,
       },
       recentProjects: projects.slice(0, 4),
-      recentJournal: journal.slice(0, 4),
+      recentPublications: publications.slice(0, 4),
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });

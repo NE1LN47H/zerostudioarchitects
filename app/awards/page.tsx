@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getAwards } from "@/services";
 import { constructMetadata } from "@/lib/seo";
+import styles from "./awards.module.css";
 
 export const dynamic = "force-dynamic";
 
@@ -37,35 +39,34 @@ export default async function AwardsPage() {
   const studioCitations = honorItems.map((h) => `${h.year}: ${h.award}${h.organization ? ` - ${h.organization}` : ""}`);
 
   return (
-    <main id="main" style={{ paddingTop: '80px', minHeight: '100vh', background: 'var(--bg, #ffffff)' }}>
-      <div className="wrap" style={{ maxWidth: '1000px', margin: '0 auto', padding: '48px 40px 100px' }}>
-        <header style={{ marginBottom: '40px' }}>
-          <h1 style={{ fontSize: 'clamp(1.25rem, 1.8vw, 1.5rem)', fontFamily: 'Arial, Helvetica, sans-serif', fontWeight: 500, letterSpacing: '0.04em', textTransform: 'uppercase', margin: '0 0 12px 0', lineHeight: 1.2 }}>
-            Recognition
-          </h1>
-          <p style={{ fontSize: '0.875rem', color: 'var(--ink-2, #555555)', maxWidth: '640px', margin: 0, lineHeight: 1.6 }}>
+    <main id="main">
+      <div className={styles.container}>
+        <Link href="/" className={styles.backLink}>
+          <span aria-hidden="true">←</span>
+          <span>Back to Home</span>
+        </Link>
+
+        <header className={styles.header}>
+          <h1 className={styles.heading}>Recognition</h1>
+          <p className={styles.description}>
             A chronological archive of national and state recognitions, design citations, and architectural honors.
           </p>
         </header>
 
-        <section style={{ marginBottom: '64px' }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: '32px', paddingBottom: '12px', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-            Project Honors
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+        <div className={styles.separator} aria-hidden="true" />
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Project Honors</h2>
+          <div className={styles.projectList}>
             {projectHonors.map((item, idx) => (
-              <article key={idx} style={{ paddingBottom: '24px', borderBottom: '1px solid rgba(0, 0, 0, 0.06)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '8px' }}>
-                  <h3 style={{ fontSize: '1.1875rem', fontWeight: 500, margin: 0, lineHeight: 1.35, color: '#1a1a1a' }}>
-                    {item.project}
-                  </h3>
-                  <span style={{ fontSize: '0.75rem', color: '#888888', letterSpacing: '0.08em', whiteSpace: 'nowrap', marginLeft: '16px' }}>
-                    {item.year}
-                  </span>
+              <article key={idx} className={styles.projectCard}>
+                <div className={styles.projectHeader}>
+                  <h3 className={styles.projectName}>{item.project}</h3>
+                  <span className={styles.projectYear}>{item.year}</span>
                 </div>
-                <ul style={{ listStyle: 'disc', paddingLeft: '20px', margin: 0, color: 'var(--ink-2, #555555)', fontSize: '0.9375rem', lineHeight: 1.6 }}>
+                <ul className={styles.awardList}>
                   {item.awards.map((award, i) => (
-                    <li key={i} style={{ marginBottom: '4px' }}>
+                    <li key={i} className={styles.awardListItem}>
                       {award}
                     </li>
                   ))}
@@ -76,13 +77,11 @@ export default async function AwardsPage() {
         </section>
 
         {studioCitations.length > 0 && (
-          <section>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: '24px', paddingBottom: '12px', borderBottom: '1px solid rgba(0, 0, 0, 0.12)' }}>
-              Studio Citations & Recognitions
-            </h2>
-            <ul style={{ listStyle: 'disc', paddingLeft: '20px', margin: 0, color: 'var(--ink-2, #555555)', fontSize: '0.9375rem', lineHeight: 1.8 }}>
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Studio Citations &amp; Recognitions</h2>
+            <ul className={styles.citationList}>
               {studioCitations.map((rec, i) => (
-                <li key={i} style={{ marginBottom: '8px' }}>
+                <li key={i} className={styles.citationListItem}>
                   {rec}
                 </li>
               ))}

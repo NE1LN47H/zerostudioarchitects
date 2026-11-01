@@ -1,17 +1,17 @@
 .aboutSection {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 0;
+  justify-content: flex-start;
+  padding: 12px 0 20px;
   background-color: var(--bg, #ffffff);
 }
 
 .wrap {
   width: 100%;
   max-width: 1440px;
-  margin: 0 auto;
+  margin: auto auto;
   padding: 0 40px;
 }
 
@@ -20,7 +20,7 @@
   font-size: clamp(1.125rem, 1.4vw, 1.35rem);
   font-weight: 500;
   color: var(--ink, #1a1a1a);
-  margin: 0 0 16px 0;
+  margin: 0 0 14px 0;
   line-height: 1.2;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -28,7 +28,7 @@
 
 .content {
   max-width: 52em;
-  margin: 0 0 24px 0;
+  margin: 0 0 20px 0;
   font-size: clamp(0.8125rem, 0.95vw, 0.875rem);
   display: flex;
   flex-direction: column;
@@ -44,8 +44,8 @@
 /* --- Team Preview Strip on Section 02 --- */
 
 .teamPreviewWrap {
-  margin-top: 24px;
-  padding-top: 20px;
+  margin-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -55,14 +55,14 @@
   text-transform: uppercase;
   color: #888888;
   font-weight: 600;
-  margin: 0 0 14px 0;
+  margin: 0 0 12px 0;
   display: block;
 }
 
 .teamGridPreview {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 14px;
   max-width: 900px;
 }
 
@@ -87,8 +87,8 @@
 
 .teamThumb {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
@@ -112,7 +112,7 @@
 }
 
 .teamName {
-  font-size: 0.84375rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: #111111;
   white-space: nowrap;
@@ -139,29 +139,34 @@
   text-overflow: ellipsis;
 }
 
-/* --- Action Link to Dedicated Page --- */
+/* --- Action Link to Full About Page --- */
 
 .readMoreRow {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .readMoreBtn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  min-height: 42px;
+  padding: 10px 24px;
   font-size: 0.75rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   color: #111111;
+  background-color: transparent;
+  border: 1px solid #111111;
+  border-radius: 0;
   text-decoration: none;
-  border-bottom: 1px solid #111111;
-  padding-bottom: 2px;
-  transition: opacity 0.2s ease;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
 .readMoreBtn:hover {
-  opacity: 0.65;
+  background-color: #111111;
+  color: #ffffff;
 }
 
 .readMoreBtn:hover .arrowIcon {
@@ -182,28 +187,28 @@
 @media (max-width: 768px) {
   .aboutSection {
     min-height: 100% !important;
-    height: 100% !important;
+    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    padding: 0 !important;
+    justify-content: flex-start !important;
+    padding: 16px 0 48px !important;
     overflow-y: auto !important;
   }
 
   .wrap {
-    padding: 0 24px;
-    margin: auto 0;
+    padding: 0 20px;
+    margin: 0 auto;
   }
 
   .heading {
-    font-size: 1.85rem;
-    margin-bottom: 16px;
+    font-size: 1.6rem;
+    margin-bottom: 14px;
   }
 
   .content {
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    margin-bottom: 24px;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
   }
 
   .teamPreviewWrap {
