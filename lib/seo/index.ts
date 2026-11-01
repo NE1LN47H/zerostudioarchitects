@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
+import {
+  SITE_NAME,
+  DEFAULT_SITE_TITLE,
+  DEFAULT_SITE_DESCRIPTION,
+  PRIMARY_KEYWORDS,
+  getSiteUrl,
+} from "./config";
 
-export const DEFAULT_SITE_TITLE = "Zero Studio";
-export const DEFAULT_SITE_DESCRIPTION =
-  "Zero Studio is an architecture practice based in Calicut, Kerala. Rooted in context, climate and material truth, designing residences, cultural spaces and workplaces.";
-
-export function getSiteUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.SITE_URL ||
-    "https://zerostudio.in";
-  return url.replace(/\/+$/, "");
-}
+export * from "./config";
+export * from "./structuredData";
 
 export interface MetadataOptions {
   title?: string;
@@ -18,6 +16,8 @@ export interface MetadataOptions {
   path?: string;
   image?: string;
   noIndex?: boolean;
+  keywords?: string[];
+  type?: "website" | "article";
 }
 
 export function constructMetadata({
@@ -26,43 +26,66 @@ export function constructMetadata({
   path = "",
   image = "/ZERO-LOGO-ORIGINAL.png",
   noIndex = false,
+  keywords = PRIMARY_KEYWORDS,
+  type = "website",
 }: MetadataOptions = {}): Metadata {
   const siteUrl = getSiteUrl();
   const canonicalUrl = `${siteUrl}${path.startsWith("/") ? path : `/${path}`}`;
-  const fullTitle = title ? `${title} — ${DEFAULT_SITE_TITLE}` : DEFAULT_SITE_TITLE;
-  const ogImageUrl = image.startsWith("http") ? image : `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`;
+  
+  // Subpages get title with template fallback; Root page gets the full targeted default
+  const pageTitle = title ? title : DEFAULT_SITE_TITLE;
+  const ogImageUrl = image.startsWith("http")
+    ? image
+    : `${siteUrl}${image.startsWith("/") ? image : `/${image}`}`;
 
   return {
-    title: fullTitle,
+    title: title
+      ? {
+          default: pageTitle,
+          template: `%s | ${SITE_NAME}`,
+        }
+      : {
+          default: DEFAULT_SITE_TITLE,
+          template: `%s | ${SITE_NAME}`,
+        },
     description,
+    keywords,
     metadataBase: new URL(siteUrl),
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: fullTitle,
+      title: pageTitle,
       description,
       url: canonicalUrl,
-      siteName: DEFAULT_SITE_TITLE,
-      locale: "en_US",
-      type: "website",
+      siteName: SITE_NAME,
+      locale: "en_IN",
+      type,
       images: [
         {
           url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: fullTitle,
+          alt: pageTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
+      title: pageTitle,
       description,
       images: [ogImageUrl],
     },
     robots: noIndex
-      ? { index: false, follow: false }
+      ? {
+          index: false,
+          follow: false,
+          nocache: true,
+          googleBot: {
+            index: false,
+            follow: false,
+          },
+        }
       : {
           index: true,
           follow: true,
@@ -74,5 +97,10 @@ export function constructMetadata({
             "max-snippet": -1,
           },
         },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
+      yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
+      yahoo: process.env.NEXT_PUBLIC_YAHOO_VERIFICATION || undefined,
+    },
   };
 }

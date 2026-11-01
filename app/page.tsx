@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PageBook from "./components/PageBook";
 import {
   getHeroItems,
@@ -8,8 +9,13 @@ import {
   getTeamMembers,
   getContactInfo,
 } from "@/services";
+import { constructMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = constructMetadata({
+  path: "/",
+});
 
 export default async function Home() {
   const [heroItems, projects, about, awards, publications, team, contact] = await Promise.all([

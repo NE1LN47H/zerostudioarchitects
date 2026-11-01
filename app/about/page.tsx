@@ -4,14 +4,15 @@ import Image from "next/image";
 import { getAboutContent, getTeamMembers } from "@/services";
 import styles from "./about.module.css";
 import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getBreadcrumbsJsonLd } from "@/lib/seo/structuredData";
 import { INITIAL_TEAM } from "@/lib/data/initialTeam";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = constructMetadata({
-  title: "About Studio & Team",
+  title: "About Studio & Principals",
   description:
-    "Zero Studio is a creative architectural design studio founded in 2013, based in Calicut, Kerala. Discover our philosophy, narrative and lead principal architects.",
+    "Zero Studio is an award-winning architectural practice founded in 2013, based in Kozhikode (Calicut), Kerala. Led by Principal Architects Shabna & Nidhinraj KJ, pioneering vernacular craft, tropical sustainability, and contextual design.",
   path: "/about",
 });
 
@@ -36,6 +37,12 @@ export default async function AboutPage() {
 
   return (
     <main id="main">
+      <JsonLd
+        data={getBreadcrumbsJsonLd([
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ])}
+      />
       <div className={styles.container}>
         <Link href="/" className={styles.backLink}>
           <span>←</span>

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getProjectBySlug, getProjects } from "@/services";
 import ProjectDetailView from "@/app/components/ProjectDetailView";
 import { constructMetadata } from "@/lib/seo";
-import { JsonLd, getProjectJsonLd } from "@/lib/seo/structuredData";
+import { JsonLd, getProjectJsonLd, getBreadcrumbsJsonLd } from "@/lib/seo/structuredData";
 
 export const dynamic = "force-dynamic";
 
@@ -26,8 +26,9 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 
   return constructMetadata({
-    title: `${project.title} — Projects`,
-    description: project.subtitle || project.summary,
+    title: project.title,
+    description: project.subtitle || project.summary || `${project.title} — Architectural design by Zero Studio Architects in ${project.location || "Kerala"}.`,
+    type: "article",
     path: `/projects/${project.slug}`,
     image: project.heroImage,
   });
@@ -61,6 +62,13 @@ export default async function DynamicProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       <JsonLd data={getProjectJsonLd(project)} />
+      <JsonLd
+        data={getBreadcrumbsJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+          { name: project.title, path: `/projects/${project.slug}` },
+        ])}
+      />
       <ProjectDetailView
         project={project as any}
         prevProject={prevProject}

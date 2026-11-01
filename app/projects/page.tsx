@@ -4,13 +4,14 @@ import { getProjects } from "@/services";
 import ProjectCard from "../components/ProjectCard";
 import styles from "./projects.module.css";
 import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getBreadcrumbsJsonLd } from "@/lib/seo/structuredData";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = constructMetadata({
-  title: "Projects",
+  title: "Architecture Projects",
   description:
-    "Architectural, residential, commercial and cultural projects by Zero Studio.",
+    "Explore residential, commercial, cultural, and hospitality architecture projects designed by Zero Studio in Kozhikode, Kerala.",
   path: "/projects",
 });
 
@@ -19,6 +20,12 @@ export default async function ProjectsPage() {
 
   return (
     <main id="main">
+      <JsonLd
+        data={getBreadcrumbsJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+        ])}
+      />
       <div className={styles.container}>
         <Link href="/" className={styles.backLink}>
           <span aria-hidden="true">←</span>

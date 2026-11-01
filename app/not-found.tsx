@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { constructMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = constructMetadata({
+  title: "Page Not Found",
+  description: "The page or architectural project you are looking for does not exist or may have been relocated.",
+  noIndex: true,
+});
 
 export default function NotFound() {
   return (

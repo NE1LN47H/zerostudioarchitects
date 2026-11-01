@@ -1,47 +1,75 @@
 import React from "react";
-import { getSiteUrl } from "./index";
+import { getSiteUrl, STUDIO_GEO, SITE_NAME } from "./config";
 import { Project } from "@/types";
 
 export function getOrganizationJsonLd() {
   const siteUrl = getSiteUrl();
   return {
     "@context": "https://schema.org",
-    "@type": "ArchitecturalService",
+    "@type": ["ArchitecturalService", "ProfessionalService", "LocalBusiness"],
     "@id": `${siteUrl}/#organization`,
-    name: "Zero Studio",
+    name: SITE_NAME,
+    alternateName: "Zero Studio Architects",
     url: siteUrl,
     logo: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,
     image: `${siteUrl}/ZERO-LOGO-ORIGINAL.png`,
     description:
-      "Zero Studio designs homes, cultural spaces and workplaces with clear plans and honest materials.",
+      "Award-winning architectural studio in Kozhikode (Calicut), Kerala. Creating context-driven residences, cultural spaces and workplaces rooted in climate and honest materials.",
+    telephone: STUDIO_GEO.telephone,
+    email: STUDIO_GEO.email,
+    priceRange: STUDIO_GEO.priceRange,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: STUDIO_GEO.streetAddress,
+      addressLocality: STUDIO_GEO.addressLocality,
+      addressRegion: STUDIO_GEO.addressRegion,
+      postalCode: STUDIO_GEO.postalCode,
+      addressCountry: STUDIO_GEO.addressCountry,
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: STUDIO_GEO.latitude,
+      longitude: STUDIO_GEO.longitude,
+    },
+    areaServed: STUDIO_GEO.areaServed.map((area) => ({
+      "@type": "AdministrativeArea",
+      name: area,
+    })),
     founder: [
       {
         "@type": "Person",
         name: "Hamid MM",
+        jobTitle: "Founding Partner",
       },
       {
         "@type": "Person",
         name: "Hafeef PK",
+        jobTitle: "Founding Partner",
       },
     ],
-    foundingDate: "2013",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "#1/3793, East hill Road, Nadakkave",
-      addressLocality: "Kozhikode",
-      addressRegion: "Kerala",
-      postalCode: "673006",
-      addressCountry: "IN",
-    },
+    employee: [
+      {
+        "@type": "Person",
+        name: "Shabna K",
+        jobTitle: "Principal Architect",
+      },
+      {
+        "@type": "Person",
+        name: "Nidhinraj KJ",
+        jobTitle: "Principal Architect",
+      },
+    ],
+    foundingDate: STUDIO_GEO.foundingDate,
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+91-9447751826",
+      telephone: STUDIO_GEO.telephone,
       contactType: "customer service",
-      email: "mail@zerostudio.org",
+      email: STUDIO_GEO.email,
+      availableLanguage: ["English", "Malayalam"],
     },
     sameAs: [
-      "https://www.instagram.com/zerostudioofficial",
-      "https://www.facebook.com/zerostudioofficial/",
+      STUDIO_GEO.instagramUrl,
+      STUDIO_GEO.facebookUrl,
     ],
   };
 }
@@ -53,10 +81,13 @@ export function getWebSiteJsonLd() {
     "@type": "WebSite",
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
-    name: "Zero Studio",
+    name: SITE_NAME,
+    description:
+      "Architecture practice based in Kozhikode (Calicut), Kerala. Vernacular craft, climate responsive residences, and cultural spaces.",
     publisher: {
       "@id": `${siteUrl}/#organization`,
     },
+    inLanguage: "en-IN",
   };
 }
 
@@ -69,7 +100,7 @@ export function getProjectJsonLd(project: Project) {
 
   return {
     "@context": "https://schema.org",
-    "@type": "VisualArtwork",
+    "@type": ["CreativeWork", "Place"],
     "@id": canonicalUrl,
     name: project.title,
     headline: project.subtitle || project.title,
@@ -77,17 +108,32 @@ export function getProjectJsonLd(project: Project) {
     url: canonicalUrl,
     image: imageUrl,
     creator: {
-      "@type": "Organization",
-      name: "Zero Studio",
+      "@type": "ArchitecturalService",
+      name: SITE_NAME,
       url: siteUrl,
+      "@id": `${siteUrl}/#organization`,
     },
-    artMedium: "Architecture",
-    artform: project.category || "Architecture",
     dateCreated: project.year,
     locationCreated: {
       "@type": "Place",
-      name: project.location,
+      name: project.location || "Kerala, India",
     },
+    genre: project.category || "Architecture",
+    inLanguage: "en-IN",
+  };
+}
+
+export function getBreadcrumbsJsonLd(items: Array<{ name: string; path: string }>) {
+  const siteUrl = getSiteUrl();
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${siteUrl}${item.path.startsWith("/") ? item.path : `/${item.path}`}`,
+    })),
   };
 }
 

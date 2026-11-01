@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAwards } from "@/services";
 import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getBreadcrumbsJsonLd } from "@/lib/seo/structuredData";
 import styles from "./awards.module.css";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = constructMetadata({
-  title: "Recognition",
+  title: "Architectural Awards & Recognition",
   description:
-    "National and state architectural awards, citations and honors received by Zero Studio since 2013.",
+    "National and state architectural awards, IIA design citations, and honors received by Zero Studio Architects since 2013.",
   path: "/awards",
 });
 
@@ -40,6 +41,12 @@ export default async function AwardsPage() {
 
   return (
     <main id="main">
+      <JsonLd
+        data={getBreadcrumbsJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Recognition", path: "/awards" },
+        ])}
+      />
       <div className={styles.container}>
         <Link href="/" className={styles.backLink}>
           <span aria-hidden="true">←</span>

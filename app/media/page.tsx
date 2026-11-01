@@ -3,14 +3,15 @@ import Link from "next/link";
 import { getPublications } from "@/services";
 import styles from "./media.module.css";
 import { constructMetadata } from "@/lib/seo";
+import { JsonLd, getBreadcrumbsJsonLd } from "@/lib/seo/structuredData";
 import { MediaPublication } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = constructMetadata({
-  title: "In the Media",
+  title: "In the Media & Publications",
   description:
-    "Selected list of works published at national & international platforms.",
+    "Selected works by Zero Studio published across national and international architectural media including ArchDaily, Designboom, Buildofy, and Architectural Digest.",
   path: "/media",
 });
 
@@ -51,6 +52,12 @@ export default async function MediaPage() {
 
   return (
     <main id="main">
+      <JsonLd
+        data={getBreadcrumbsJsonLd([
+          { name: "Home", path: "/" },
+          { name: "In the Media", path: "/media" },
+        ])}
+      />
       <div className={styles.container}>
         <Link href="/" className={styles.backLink}>
           <span>←</span>
