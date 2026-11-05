@@ -28,7 +28,7 @@
 
 .content {
   max-width: 52em;
-  margin: 0 0 20px 0;
+  margin: 0 0 24px 0;
   font-size: clamp(0.8125rem, 0.95vw, 0.875rem);
   display: flex;
   flex-direction: column;
@@ -41,108 +41,10 @@
   color: #333333;
 }
 
-/* --- Team Preview Strip on Section 02 --- */
-
-.teamPreviewWrap {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.teamPreviewLabel {
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #888888;
-  font-weight: 600;
-  margin: 0 0 12px 0;
-  display: block;
-}
-
-.teamGridPreview {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  max-width: 900px;
-}
-
-.teamCardLink {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: inherit;
-  padding: 8px;
-  border-radius: 4px;
-  background: #fafafa;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
-}
-
-.teamCardLink:hover {
-  background: #f0f0f0;
-  border-color: rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
-.teamThumb {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  background: #e5e5e5;
-}
-
-.teamImg {
-  object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
-}
-
-.teamCardLink:hover .teamImg {
-  filter: grayscale(0%);
-}
-
-.teamInfo {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.teamName {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #111111;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.teamYears {
-  font-size: 0.625rem;
-  color: #888888;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
-}
-
-.teamRole {
-  font-size: 0.6875rem;
-  color: #777777;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* --- Action Link to Full About Page --- */
 
 .readMoreRow {
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .readMoreBtn {
@@ -155,8 +57,8 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 500;
-  color: #111111;
-  background-color: transparent;
+  color: #ffffff;
+  background-color: #111111;
   border: 1px solid #111111;
   border-radius: 0;
   text-decoration: none;
@@ -165,7 +67,8 @@
 }
 
 .readMoreBtn:hover {
-  background-color: #111111;
+  background-color: #333333;
+  border-color: #333333;
   color: #ffffff;
 }
 
@@ -176,12 +79,6 @@
 .arrowIcon {
   transition: transform 0.25s ease;
   display: inline-block;
-}
-
-@media (max-width: 900px) {
-  .teamGridPreview {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 768px) {
@@ -209,10 +106,6 @@
     font-size: 0.875rem;
     line-height: 1.65;
     margin-bottom: 20px;
-  }
-
-  .teamPreviewWrap {
-    display: none;
   }
 
   .readMoreRow {
