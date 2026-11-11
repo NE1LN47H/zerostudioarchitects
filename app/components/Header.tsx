@@ -17,7 +17,7 @@ const LINKS: NavLinkItem[] = [
   { href: "/", label: "Home", id: "home" },
   { href: "/#about", label: "About", id: "about" },
   { href: "/#projects", label: "Projects", id: "projects" },
-  { href: "/awards", label: "Recognition", id: "awards" },
+  { href: "/awards", label: "Recognitions", id: "awards" },
   { href: "/media", label: "In the Media", id: "media" },
   { href: "/#contact", label: "Reach Us", id: "contact" },
 ];
