@@ -86,7 +86,7 @@ export default async function AboutPage() {
             {/* Line 1: Founding Partners */}
             {founders && (
               <div className={styles.teamTier}>
-                <span className={styles.tierLabel}>Line 1 — Founding Partners</span>
+                {/* <span className={styles.tierLabel}>Line 1 — Founding Partners</span> */}
                 <article className={styles.founderCard}>
                   <div className={`${styles.imageWrap} ${styles.landscapeWrap}`}>
                     <Image
@@ -111,7 +111,7 @@ export default async function AboutPage() {
             {/* Line 2: Principal Architects */}
             {principals && (
               <div className={styles.teamTier}>
-                <span className={styles.tierLabel}>Line 2 — Principal Architects</span>
+                {/* <span className={styles.tierLabel}>Line 2 — Principal Architects</span> */}
                 <article className={styles.principalCard}>
                   <div className={`${styles.imageWrap} ${styles.portraitWrap}`}>
                     <Image
@@ -134,9 +134,9 @@ export default async function AboutPage() {
             {/* Line 3: Project Architects, Studio Coordinator, Site Supervisor, Senior Draftsperson (linearly) */}
             {linearTeam.length > 0 && (
               <div className={styles.teamTier}>
-                <span className={styles.tierLabel}>
+                {/* <span className={styles.tierLabel}>
                   Line 3 — Project Architects, Studio Coordinator, Site Supervisor, Senior Draftsperson
-                </span>
+                </span> */}
                 <div className={styles.linearGrid}>
                   {linearTeam.map((member) => (
                     <article key={member.id} className={styles.linearMemberCard}>
