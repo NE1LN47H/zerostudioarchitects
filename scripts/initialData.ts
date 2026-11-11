@@ -638,7 +638,7 @@ export const INITIAL_ABOUT: AboutContent = {
   stats: [
     { label: "Founded", value: "2013" },
     { label: "National & State Citations", value: "25+" },
-    { label: "Completed Works", value: "200+" },
+    { label: "Completed projects", value: "200+" },
   ],
 };
 
