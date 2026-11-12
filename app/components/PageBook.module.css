@@ -5,9 +5,9 @@
 .bookWrapper {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--header-height, 100px));
-  height: calc(100dvh - var(--header-height, 100px));
-  height: calc(100svh - var(--header-height, 100px));
+  height: calc(100vh - var(--header-height, 80px));
+  height: calc(100dvh - var(--header-height, 80px));
+  height: calc(100svh - var(--header-height, 80px));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -342,9 +342,9 @@
 
 @media (max-width: 768px) {
   .bookWrapper {
-    height: calc(100vh - var(--header-height, 80px));
-    height: calc(100dvh - var(--header-height, 80px));
-    height: calc(100svh - var(--header-height, 80px));
+    height: calc(100vh - var(--header-height, 70px));
+    height: calc(100dvh - var(--header-height, 70px));
+    height: calc(100svh - var(--header-height, 70px));
   }
 
   .sheet {

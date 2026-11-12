@@ -180,12 +180,12 @@
 
 @media (max-width: 767px) {
   .hero {
-    height: calc(100vh - var(--header-height, 80px));
-    height: calc(100dvh - var(--header-height, 80px));
-    height: calc(100svh - var(--header-height, 80px));
-    max-height: calc(100vh - var(--header-height, 80px));
-    max-height: calc(100dvh - var(--header-height, 80px));
-    max-height: calc(100svh - var(--header-height, 80px));
+    height: calc(100vh - var(--header-height, 70px));
+    height: calc(100dvh - var(--header-height, 70px));
+    height: calc(100svh - var(--header-height, 70px));
+    max-height: calc(100vh - var(--header-height, 70px));
+    max-height: calc(100dvh - var(--header-height, 70px));
+    max-height: calc(100svh - var(--header-height, 70px));
     padding: 14px 0 16px;
     overflow: hidden;
     display: flex;

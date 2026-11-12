@@ -97,7 +97,7 @@ export default function Header() {
             src="/ZERO-LOGO.png"
             alt=""
             width={600}
-            height={270}
+            height={330}
             priority
             className={styles.logoImg}
           />
